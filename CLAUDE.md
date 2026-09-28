@@ -20,7 +20,7 @@ cd <專案資料夾>
 .\restart_streamlit.ps1  # 關掉 8509 上的舊程序後以隱藏視窗重啟
 ```
 
-健康檢查：`http://127.0.0.1:8509/_stcore/health` 回 `ok`。連接埠與主題在 [.streamlit/config.toml](.streamlit/config.toml)。開機不會自動啟動。
+健康檢查：`http://127.0.0.1:8509/_stcore/health` 回 `ok`。主題在 [.streamlit/config.toml](.streamlit/config.toml)；連接埠與位址寫在 `start_streamlit.ps1` 的啟動參數（config.toml 不放 server.address/port，雲端部署時由平台決定）。開機不會自動啟動。
 
 注意：Windows PowerShell 5.1 讀含中文的 `.ps1` 需要 UTF-8 BOM；現有三個腳本都是純 ASCII，可直接跑。
 
