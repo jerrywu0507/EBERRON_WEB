@@ -1,0 +1,33 @@
+{
+  "player_tips": {
+    "intro": "艾伯倫給玩家的建角要求和一般奇幻不同：你不只是一組數值，即使一級角色也註定非凡。",
+    "tips": [
+      {"title": "先決定你和戰爭的關係", "body": "終末戰爭兩年前才結束。你打過仗嗎？站在哪一邊？最大的勝利或失敗是什麼？你的家鄉是否毀於戰火？"},
+      {"title": "決定哀傷對你的意義", "body": "如果你來自賽爾，你失去了什麼、抓著什麼不放、是否想解開哀傷之謎？即使不是賽爾人，你害怕它擴散嗎？它動搖或堅定了你的信仰？"},
+      {"title": "帶一個遺憾，或一筆債", "body": "設定書用兩張表把黑色風格塞進角色：一個無法挽回的過去（遺棄戰友、背叛信任的人、與異界實體交易），或一個急需解決的債（被勒索、欠達斯克賭債、贖回典當的傳家寶）。你冒險是為了消掉頭上的賞金，不是為了變有錢。"},
+      {"title": "選一個團隊贊助者", "body": "跟隊友一起決定小隊為誰工作：報社、大學、犯罪集團、間諜機構、龍紋家族或某位元首。它給小隊共同的目標，也給 DM 派任務的理由。"},
+      {"title": "陣營不再是種族的標籤", "body": "凡人種族是文化與環境的產物，怪物也不必然邪惡。你的獸人可能是護門者的守護者，你的紅龍可能是研究預言的學者。"},
+      {"title": "用國家而不是種族想角色", "body": "布蕾蘭矮人不一定會說矮人語。問自己：安黛爾人（機敏講究）、布蕾蘭人（務實不老實）、卡納斯人（嚴肅尚武）、瑟雷恩人（虔誠）、賽爾人（流亡），你是哪一種？"},
+      {"title": "考慮龍紋", "body": "龍紋是變體種族或亞種，等於和某個家族有血緣。你可以是家族代理人、獨立後裔、被逐出的剝皮者，或連家族都不知道的棄兒。異種龍紋是另一條危險的路。"},
+      {"title": "魔法是日常，高環魔法不是", "body": "街道有魔法燈、書信可以加魔法封印、閃電列車每哩兩枚銀幣；但復活與傳送仍是奢侈品，一個會施三環法術的角色已經是稀有人才。"}
+    ]
+  },
+  "books": {
+    "intro": "官方書目以英文原名為準，附中文譯本存在與否（中文譯本多為社群翻譯；無法確認者蓋「待查」）。",
+    "items": [
+      {"title": "Eberron: Rising from the Last War", "year": "2019", "edition": "D&D 5e", "zh": "《艾伯倫：從終末戰爭中崛起》", "note": "5e 的艾伯倫核心書：世界概覽、五國與薩恩、龍紋與四個種族、奇械師、組織與位面、怪物。本站的用語與事實依據。", "zh_available": true},
+      {"title": "Eberron: Forge of the Artificer", "year": "2025", "edition": "D&D 5e (2024 rules)", "zh": "《艾伯倫：奇械鍛爐》", "note": "2024 規則版的艾伯倫更新，含新的奇械師與數據卡。", "zh_available": true, "zh_status": "tbd"},
+      {"title": "Exploring Eberron", "year": "2020", "edition": "D&D 5e (DMs Guild)", "zh": "《探秘艾伯倫》", "note": "設定創作者 Keith Baker 的深度指南：信仰、種族的內在觀點、遠方諸地、更多職業選項。", "zh_available": true},
+      {"title": "Wayfinder's Guide to Eberron", "year": "2018", "edition": "D&D 5e (DMs Guild)", "zh": "《艾伯倫尋路者指南》", "note": "5e 的先行版，種族與魔法物品；多數內容已被 Rising 取代。", "zh_available": true, "zh_status": "tbd"},
+      {"title": "Eberron Campaign Setting", "year": "2004", "edition": "D&D 3.5", "zh": "", "note": "設定的原點。Keith Baker 在 2002 年的設定徵選中勝出，2004 年出版。", "zh_available": false},
+      {"title": "Sharn: City of Towers", "year": "2004", "edition": "D&D 3.5", "zh": "", "note": "薩恩專書，至今仍是這座城市最詳盡的資料。", "zh_available": false},
+      {"title": "Eberron Campaign Guide / Player's Guide", "year": "2009", "edition": "D&D 4e", "zh": "", "note": "4e 版本的設定書與玩家指南。", "zh_available": false}
+    ],
+    "links": [
+      {"label": "Keith Baker 的部落格", "url": "https://keith-baker.com/", "note": "設定創作者持續回答關於艾伯倫的問題，是官方書之外最權威的來源。"},
+      {"label": "Eberron Wiki", "url": "https://eberron.fandom.com/", "note": "英文社群維基。"},
+      {"label": "DND5eChm 中文譯本專案", "url": "https://github.com/DND5eChm/DND5e_chm", "note": "本站沿用其譯名；收錄《從終末戰爭中崛起》、《探秘艾伯倫》等中文譯本。"}
+    ]
+  },
+  "about": "本站是原創撰寫的繁體中文導覽，事實依據為官方設定書，譯名沿用中文社群譯本以便讀者對照官方資料。不轉載譯本全文，不使用官方地圖與插圖。Eberron 與 Dungeons & Dragons 為 Wizards of the Coast 所有。"
+}

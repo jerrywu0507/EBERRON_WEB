@@ -1,0 +1,15 @@
+# Python virtual environment and caches (recreate with setup_env.ps1)
+.venv/
+__pycache__/
+*.pyc
+
+# Streamlit local secrets (never commit)
+.streamlit/secrets.toml
+
+# Impeccable design-tool screenshots (regenerable, large)
+.impeccable/review/
+.impeccable/review$name.png
+
+# OS / editor noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,130 @@
+{
+  "title": "選擇這個網站的視覺世界",
+  "question": "擲籤指派了「王座堡卷宗」。保留它、換一個替代方案，或重擲。",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "王座堡卷宗",
+      "kicker": "THE ROLL",
+      "lineage": "1930 年代情報卷宗，走民國公文的傳統：靛藍布面封面、紅格公文用箋、印泥朱印、索引標籤、打字機碳寫副本",
+      "thesis": "整個艾伯倫被整理成一疊給新任探員翻閱的機密簡報，拒絕羊皮紙加燙金襯線的奇幻百科樣板。",
+      "palette": ["#16233f", "#f4f5f2", "#b3261e", "#2c6e49", "#d7a021"],
+      "materials": ["靛藍布面卷宗封面", "紅格公文用箋", "印泥朱印", "索引標籤紙", "打字機碳寫副本"],
+      "viewport": "首屏是闔上的靛藍卷宗封面：直排大字「艾伯倫」、檔號與「王國曆 998 年 1 月 1 日」、一枚斜落的朱紅「機密」印；往下翻是第一張公文用箋「致新任探員：該瞭解的七件事」。右緣是一排高度依內容多寡而不同的索引標籤，即整站導覽。",
+      "risk": "卷宗可能顯得冷硬、像軍情單位；紅格公文紙對部分讀者太官僚。溫度得靠文字聲音與標籤色彩撐起來，而 Streamlit 的版面要用自訂樣式才做得出真正的標籤軌。",
+      "raised": [
+        {"from": "challenger-manual-tab-board", "raise": "索引標籤軌的高度依各卷篇幅比例分配；全站只用一種內文字級與固定行寬。"},
+        {"from": "challenger-cracktro", "raise": "階層靠「哪張紙在最上面」而不是框中框；全站只有一個共享的動作時鐘：抽紙上疊與印章落下。"},
+        {"from": "challenger-daylight-section", "raise": "歷史一卷是一條連續的紅線尺規時間軸，王國曆年份以表格式數字釘在事件旁。"},
+        {"from": "challenger-curved-crease", "raise": "少數圖示（龍紋紋章、五國示意）編為「圖版一、圖版二」附說明，不當裝飾用。"}
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "薩恩探究報",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "艾伯倫世界內的小報《薩恩探究報》頭版：多欄報紙版式、日期戳、分類廣告賣龍紋家族服務",
+      "thesis": "用世界自己的報紙頭版介紹世界：頭條就是七件事，各卷是版面，龍紋家族的廣告欄告訴你魔法是怎麼賣的。",
+      "palette": ["#1b1b1b", "#eeeae0", "#8c1d18", "#3d5a80"],
+      "materials": ["新聞紙", "鉛字油墨", "木刻標題字", "分類廣告框線"],
+      "viewport": "頭版：報名橫幅、王國曆日期、五欄正文，右下角是黎蘭達家族飛艇票價廣告。",
+      "risk": "報紙頭版是帶黑色電影味的設定導覽最常落腳的形式，也是我清單的第一名；真正的多欄版面在手機上很難維持可讀。"
+    },
+    {
+      "id": "challenger-manual-tab-board",
+      "label": "盒裝軟體參考手冊",
+      "verdict": "competitive",
+      "lineage": "1980–90 年代盒裝軟體的參考手冊：彩色分隔板、打孔壓克力頁、沿書口的階梯式標籤軌",
+      "thesis": "把導覽做成一本翻開在某一節的參考手冊，每一章一種飽和分隔色，標籤軌顯示全書篇幅。",
+      "palette": ["#f5c518", "#e8590c", "#2b8a3e", "#1864ab", "#f4f1ea"],
+      "materials": ["乳白壓克力頁", "分隔板", "印刷油墨"],
+      "viewport": "翻開的手冊：左頁鉻黃分隔板，右頁一種字級的正文，書口一排階梯標籤。",
+      "case": "融合得順：D&D 讀者本來就住在規則書裡，章節標籤與單一字級讓密集內容最清楚；但它說的是「軟體手冊」，不是艾伯倫，讀者認同輸給卷宗。",
+      "risk": "少了世界感，會像任何一本產品手冊。",
+      "hero": "https://impeccable.style/worlds/cards/rw-manual-acetate-tab-board-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/rw-manual-acetate-tab-board.webp"
+    },
+    {
+      "id": "challenger-wpa-poster",
+      "label": "WPA 國家公園海報",
+      "verdict": "competitive",
+      "lineage": "1930 年代美國 WPA 網版旅遊海報：四色平塗、層疊景深、下方一句祈使句",
+      "thesis": "把五國做成一套「遊覽科瓦雷」旅遊海報：每張一國、一句祈使、閃電列車帶你進景深。",
+      "palette": ["#0e6e7a", "#1e4f3a", "#c96b2c", "#1a1c1e", "#f2e8cf"],
+      "materials": ["網版平塗油墨", "海報紙", "半色調"],
+      "viewport": "整幅一國的層疊景觀，下方粗體祈使句「造訪薩恩」。",
+      "case": "年代感與艾伯倫的閃電列車、飛艇觀光完全合拍，讀者一眼認同；但一張一句的海報載不動信仰、位面這類密集參考，產品清晰輸給卷宗。",
+      "risk": "美則美矣，翻到第三頁就沒有地方放正文。",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-wpa-park-poster-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/posters-covers-sleeves-wpa-park-poster.webp"
+    },
+    {
+      "id": "challenger-cutting-bench",
+      "label": "剪接台選片軌",
+      "verdict": "competitive",
+      "lineage": "電影剪接台：打孔片軌橫過橘色粗顆粒底，油性筆記號、摺起的膠帶旗標，剪下的片段掛在下方的釘子上",
+      "thesis": "整個世界是一條可以刷動的片軌，每一格是一個主題，你停下的地方插著旗標。",
+      "palette": ["#f05a1f", "#0a0a0a", "#ffffff", "#2e2e2e"],
+      "materials": ["粗顆粒橘底", "打孔片軌", "膠帶旗標"],
+      "viewport": "一條橫過螢幕的打孔片軌，正在看的一格放大成白色打孔窗。",
+      "case": "黑色電影的質感正是艾伯倫自己宣稱的血統，讀者認同守得住；但線性刷片軌不利於手機上查名詞，橘黑高對比也不適合長篇中文閱讀。",
+      "risk": "刷過頭就找不到剛才那一格。",
+      "hero": "https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail.webp"
+    },
+    {
+      "id": "challenger-cracktro",
+      "label": "破解片捲軸序列",
+      "verdict": "declined",
+      "lineage": "Demoscene 破解片標題畫面：黑色虛空上的點陣字，灰塵層以不同速度漂移，沒有任何框線",
+      "thesis": "以深度為階層的漂浮文字場。",
+      "palette": ["#000000", "#e8e4d8", "#f0a020"],
+      "materials": ["發光黑底", "點陣字", "灰塵層"],
+      "viewport": "一行象牙色點陣字停在黑底中央，三層灰塵在後方漂移。",
+      "case": "華語 D&D 讀者不住在 demoscene 裡，沒有框線的漂浮文字也讓密集導覽失去方向感，兩軸皆輸。",
+      "kept": "只有一個共享時鐘、階層靠深度不靠框。",
+      "risk": "讀來像復古玩具。",
+      "hero": "https://impeccable.style/worlds/cards/operate-c-cracktro-scroller-queue-hero.webp"
+    },
+    {
+      "id": "challenger-daylight-section",
+      "label": "日光剖面",
+      "verdict": "declined",
+      "lineage": "建築剖面圖，陽光隨時刻在房間裡移動，日常沿著光的邊緣聚集",
+      "thesis": "把世界讀成一棟被陽光切開的房子。",
+      "palette": ["#f6f3ea", "#2b2b2b", "#d9a441", "#5b7a99"],
+      "materials": ["石灰水牆", "剖面塗黑", "金色光帶"],
+      "viewport": "一條連續的剖面，時刻戳記釘在光的角度上。",
+      "case": "隱喻與艾伯倫無關，讀者認不出自己，也無法承載國家與家族的參考內容，兩軸皆輸。",
+      "kept": "一條連續尺規的時間軸，年份以表格式數字釘在事件旁。",
+      "risk": "太抽象。",
+      "hero": "https://impeccable.style/worlds/cards/architecture-inhabitable-space-daylight-section-hero.webp"
+    },
+    {
+      "id": "challenger-curved-crease",
+      "label": "曲摺紙殼",
+      "verdict": "declined",
+      "lineage": "沿一條弧形摺痕摺起的圓形紙殼，幾何學家的斜體標籤、編號圖版",
+      "thesis": "版面由一道弧線而不是方格統治。",
+      "palette": ["#efe9dc", "#3a3a3a", "#8a8a8a"],
+      "materials": ["棉紙", "炭筆弧線", "石墨陰影"],
+      "viewport": "一張米色圓紙沿一道炭色弧線立起。",
+      "case": "純幾何練習，與讀者和產品都無關，兩軸皆輸。",
+      "kept": "圖示編為圖版並附說明。",
+      "risk": "沒有內容可放。",
+      "hero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-curved-crease-shell-hero.webp"
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code", "toggle": false},
+  "canon": true,
+  "canonCard": {
+    "label": "奇幻設定百科（類別標準）",
+    "thesis": "這個類別一貫的做法：深色底、羊皮紙質感、燙金襯線標題、主題卡片格，做到最好。",
+    "palette": ["#1a1a1a", "#c9a227", "#efe6d0", "#7a1f1f"],
+    "materials": ["羊皮紙紋理", "燙金", "深色底"],
+    "viewport": "大標題配一句世界簡介，下方六張同尺寸主題卡片。",
+    "risk": "刻意做得和所有同類網站一樣，沒有辨識度。"
+  },
+  "steer": true
+}

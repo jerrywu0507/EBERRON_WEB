@@ -1,0 +1,32 @@
+{
+  "intro": "龍紋（dragonmark）是出現在皮膚上、任何紋身都無法比擬的鮮豔紋樣，通常呈藍紫色、微微發光，會隨著持有者的力量增長而變大變複雜。它與特定血脈綁定，一般在青春期前後顯現，家族後裔約有一半能顯現。數百年來，龍紋持有者組成的家族用這份天賦建立了壟斷：只有暴風龍紋的黎蘭達後裔能駕駛飛艇，只有醫療龍紋的喬拉斯科能經營醫療館。",
+  "marks": [
+    {"mark": "偵測", "mark_en": "Detection", "house": "梅丹尼", "house_en": "House Medani", "race": "半精靈", "business": "保鏢、調查、風險管理"},
+    {"mark": "探尋", "mark_en": "Finding", "house": "撒剌釋克", "house_en": "House Tharashk", "race": "人類、半獸人", "business": "賞金獵人、調查、探礦"},
+    {"mark": "畜牧", "mark_en": "Handling", "house": "瓦達利斯", "house_en": "House Vadalis", "race": "人類", "business": "動物馴養與魔育繁殖"},
+    {"mark": "醫療", "mark_en": "Healing", "house": "喬拉斯科", "house_en": "House Jorasco", "race": "半身人", "business": "治療、醫療館"},
+    {"mark": "招待", "mark_en": "Hospitality", "house": "伽蘭達", "house_en": "House Ghallanda", "race": "半身人", "business": "食宿、旅館認證、城市情報"},
+    {"mark": "創造", "mark_en": "Making", "house": "坎尼斯", "house_en": "House Cannith", "race": "人類", "business": "製造、奇械、戰俑（已被禁止）"},
+    {"mark": "通行", "mark_en": "Passage", "house": "歐瑞恩", "house_en": "House Orien", "race": "人類", "business": "閃電列車、陸運、郵政、傳送法陣"},
+    {"mark": "抄錄", "mark_en": "Scribing", "house": "西維斯", "house_en": "House Sivis", "race": "侏儒", "business": "通訊石網絡、翻譯、文件驗證"},
+    {"mark": "哨戒", "mark_en": "Sentinel", "house": "鄧奈斯", "house_en": "House Deneith", "race": "人類", "business": "保鏢、傭兵、王座戍衛"},
+    {"mark": "陰影", "mark_en": "Shadow", "house": "費亞蘭／蘇蘭尼", "house_en": "House Phiarlan / House Thuranni", "race": "精靈", "business": "娛樂與間諜；蘇蘭尼在戰時分裂出去，兼營刺殺"},
+    {"mark": "暴風", "mark_en": "Storm", "house": "黎蘭達", "house_en": "House Lyrandar", "race": "半精靈", "business": "飛艇、元素航船、天氣控制"},
+    {"mark": "守禦", "mark_en": "Warding", "house": "昆達拉克", "house_en": "House Kundarak", "race": "矮人", "business": "銀行、金庫、倉儲、監獄"}
+  ],
+  "aberrant": {
+    "name": "異種龍紋",
+    "en": "Aberrant Dragonmark",
+    "body": "不與任何家族綁定、任何種族都可能顯現的龍紋，力量有限但危險。歷史上曾引發龍紋戰爭（War of the Mark）；今日擁有異種龍紋者多受猜忌，薩恩的塔卡南家族就是由他們組成的犯罪「家族」。"
+  },
+  "facts": [
+    {"k": "德 d'", "v": "顯現龍紋的家族後裔在姓氏前加「德」，例如梅里克斯·德坎尼斯（Merrix d'Cannith）。"},
+    {"k": "飛地", "v": "每個家族在主要城市設有飛地，是業務樞紐與據點；掛著家徽的旅館或鐵匠鋪只表示通過家族認證。"},
+    {"k": "十二學會", "v": "The Twelve，促進家族間溝通合作的組織，也調解家族之間的爭端。"},
+    {"k": "西伯瑞斯測驗", "v": "Test of Siberys，各家族對後裔進行的試煉，把受試者放進可能讓龍紋顯現的環境。"},
+    {"k": "寇斯敕令", "v": "Korth Edicts，禁止家族擁有土地、貴族頭銜與軍隊（鄧奈斯除外）。許多家族認為它已經過時。"},
+    {"k": "剝皮者與棄兒", "v": "被逐出家族的後裔叫剝皮者（excoriate），過去真的會被剝去帶紋的皮膚；家族之外顯現龍紋的人叫棄兒（foundling）。"}
+  ],
+  "war": "家族在戰爭中表面中立、向所有參戰國出售服務與物資，實力與影響力都大漲。坎尼斯是例外：鑄造廠被毀、條約迫使拆除創生鍛爐、領導層死於哀傷，家族分裂成三個半獨立的支脈。蘇蘭尼在戰時脫離費亞蘭，因為一個間諜組織不可能同時替所有人效力。",
+  "tension": "家族的利益領域恰好重疊：黎蘭達的飛艇威脅歐瑞恩的運輸壟斷，撒剌釋克與卓姆的協議威脅鄧奈斯的傭兵生意。統一的伽利法曾有力量約束它們；戰後的新國家有沒有，還是未知數。"
+}

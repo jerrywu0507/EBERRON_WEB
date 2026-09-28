@@ -1,0 +1,860 @@
+{
+ "intro": "全站專有名詞對照，依英文原名排序。",
+ "terms": [
+  {
+   "zh": "異種龍紋",
+   "en": "Aberrant Dragonmark",
+   "src": "houses"
+  },
+  {
+   "zh": "艾倫諾",
+   "en": "Aerenal",
+   "src": "nations"
+  },
+  {
+   "zh": "飛艇",
+   "en": "Airship",
+   "src": "extra"
+  },
+  {
+   "zh": "阿拉懷",
+   "en": "Arawai",
+   "src": "faiths"
+  },
+  {
+   "zh": "阿卡尼克斯",
+   "en": "Arcanix",
+   "src": "extra"
+  },
+  {
+   "zh": "阿貢尼森",
+   "en": "Argonnessen",
+   "src": "nations"
+  },
+  {
+   "zh": "奇械師",
+   "en": "Artificer",
+   "src": "races"
+  },
+  {
+   "zh": "安黛爾",
+   "en": "Aundair",
+   "src": "nations"
+  },
+  {
+   "zh": "奧瑞恩",
+   "en": "Aureon",
+   "src": "faiths"
+  },
+  {
+   "zh": "巴利諾",
+   "en": "Balinor",
+   "src": "faiths"
+  },
+  {
+   "zh": "貝·舍盧",
+   "en": "Bel Shalor",
+   "src": "extra"
+  },
+  {
+   "zh": "博德蕾",
+   "en": "Boldrei",
+   "src": "faiths"
+  },
+  {
+   "zh": "波羅馬氏族",
+   "en": "Boromar Clan",
+   "src": "sharn"
+  },
+  {
+   "zh": "布蕾蘭",
+   "en": "Breland",
+   "src": "nations"
+  },
+  {
+   "zh": "中央高地",
+   "en": "Central Plateau",
+   "src": "sharn"
+  },
+  {
+   "zh": "幻身靈",
+   "en": "Changeling",
+   "src": "races"
+  },
+  {
+   "zh": "邊沿崖區",
+   "en": "Cliffside",
+   "src": "sharn"
+  },
+  {
+   "zh": "羽蛇",
+   "en": "Couatl",
+   "src": "extra"
+  },
+  {
+   "zh": "創生鍛爐",
+   "en": "Creation forge",
+   "src": "extra"
+  },
+  {
+   "zh": "賽爾（哀傷故地）",
+   "en": "Cyre (The Mournland)",
+   "src": "nations"
+  },
+  {
+   "zh": "達安維",
+   "en": "Daanvi, the Perfect Order",
+   "src": "planes"
+  },
+  {
+   "zh": "達斯克",
+   "en": "Daask",
+   "src": "sharn"
+  },
+  {
+   "zh": "異變魔",
+   "en": "Daelkyr",
+   "src": "extra"
+  },
+  {
+   "zh": "達庫爾",
+   "en": "Dal Quor, the Region of Dreams",
+   "src": "planes"
+  },
+  {
+   "zh": "達袞",
+   "en": "Darguun",
+   "src": "nations"
+  },
+  {
+   "zh": "黑暗燈籠",
+   "en": "Dark Lanterns",
+   "src": "extra"
+  },
+  {
+   "zh": "哀傷日",
+   "en": "Day of Mourning",
+   "src": "extra"
+  },
+  {
+   "zh": "死灰迷霧",
+   "en": "Dead-gray mist",
+   "src": "extra"
+  },
+  {
+   "zh": "惡魔荒原",
+   "en": "Demon Wastes",
+   "src": "nations"
+  },
+  {
+   "zh": "偵測",
+   "en": "Detection",
+   "src": "houses"
+  },
+  {
+   "zh": "達坎帝國",
+   "en": "Dhakaani Empire",
+   "src": "extra"
+  },
+  {
+   "zh": "杜·阿拉",
+   "en": "Dol Arrah",
+   "src": "faiths"
+  },
+  {
+   "zh": "杜·多恩",
+   "en": "Dol Dorn",
+   "src": "faiths"
+  },
+  {
+   "zh": "杜魯爾",
+   "en": "Dolurrh, the Realm of the Dead",
+   "src": "planes"
+  },
+  {
+   "zh": "巨龍預言",
+   "en": "Draconic Prophecy",
+   "src": "extra"
+  },
+  {
+   "zh": "龍晶",
+   "en": "Dragonshard",
+   "src": "extra"
+  },
+  {
+   "zh": "卓姆",
+   "en": "Droaam",
+   "src": "nations"
+  },
+  {
+   "zh": "杜拉",
+   "en": "Dura",
+   "src": "sharn"
+  },
+  {
+   "zh": "埃爾丁原野",
+   "en": "Eldeen Reaches",
+   "src": "nations"
+  },
+  {
+   "zh": "元素航船",
+   "en": "Elemental galleon",
+   "src": "extra"
+  },
+  {
+   "zh": "永明提燈",
+   "en": "Everbright lantern",
+   "src": "extra"
+  },
+  {
+   "zh": "剝皮者",
+   "en": "Excoriate",
+   "src": "extra"
+  },
+  {
+   "zh": "安淑城",
+   "en": "Fairhaven",
+   "src": "nations"
+  },
+  {
+   "zh": "費尼亞",
+   "en": "Fernia, the Sea of Fire",
+   "src": "planes"
+  },
+  {
+   "zh": "探尋",
+   "en": "Finding",
+   "src": "houses"
+  },
+  {
+   "zh": "五國",
+   "en": "Five Nations",
+   "src": "extra"
+  },
+  {
+   "zh": "銀焰堡",
+   "en": "Flamekeep",
+   "src": "nations"
+  },
+  {
+   "zh": "棄兒",
+   "en": "Foundling",
+   "src": "extra"
+  },
+  {
+   "zh": "護門者",
+   "en": "Gatekeepers",
+   "src": "extra"
+  },
+  {
+   "zh": "幻紡",
+   "en": "Glamerweave",
+   "src": "extra"
+  },
+  {
+   "zh": "團隊贊助者",
+   "en": "Group Patrons",
+   "src": "orgs"
+  },
+  {
+   "zh": "畜牧",
+   "en": "Handling",
+   "src": "houses"
+  },
+  {
+   "zh": "醫療",
+   "en": "Healing",
+   "src": "houses"
+  },
+  {
+   "zh": "招待",
+   "en": "Hospitality",
+   "src": "houses"
+  },
+  {
+   "zh": "坎尼斯",
+   "en": "House Cannith",
+   "src": "houses"
+  },
+  {
+   "zh": "鄧奈斯",
+   "en": "House Deneith",
+   "src": "houses"
+  },
+  {
+   "zh": "伽蘭達",
+   "en": "House Ghallanda",
+   "src": "houses"
+  },
+  {
+   "zh": "喬拉斯科",
+   "en": "House Jorasco",
+   "src": "houses"
+  },
+  {
+   "zh": "昆達拉克",
+   "en": "House Kundarak",
+   "src": "houses"
+  },
+  {
+   "zh": "黎蘭達",
+   "en": "House Lyrandar",
+   "src": "houses"
+  },
+  {
+   "zh": "梅丹尼",
+   "en": "House Medani",
+   "src": "houses"
+  },
+  {
+   "zh": "歐瑞恩",
+   "en": "House Orien",
+   "src": "houses"
+  },
+  {
+   "zh": "費亞蘭／蘇蘭尼",
+   "en": "House Phiarlan / House Thuranni",
+   "src": "houses"
+  },
+  {
+   "zh": "西維斯",
+   "en": "House Sivis",
+   "src": "houses"
+  },
+  {
+   "zh": "塔卡南家族",
+   "en": "House Tarkanan",
+   "src": "sharn"
+  },
+  {
+   "zh": "撒剌釋克",
+   "en": "House Tharashk",
+   "src": "houses"
+  },
+  {
+   "zh": "瓦達利斯",
+   "en": "House Vadalis",
+   "src": "houses"
+  },
+  {
+   "zh": "蒙啟者",
+   "en": "Inspired",
+   "src": "extra"
+  },
+  {
+   "zh": "伊瑞安",
+   "en": "Irian, the Eternal Dawn",
+   "src": "planes"
+  },
+  {
+   "zh": "離夢人",
+   "en": "Kalashtar",
+   "src": "races"
+  },
+  {
+   "zh": "卡納斯",
+   "en": "Karrnath",
+   "src": "nations"
+  },
+  {
+   "zh": "科瓦雷",
+   "en": "Khorvaire",
+   "src": "extra"
+  },
+  {
+   "zh": "凱伯",
+   "en": "Khyber",
+   "src": "nations"
+  },
+  {
+   "zh": "國王暗燈",
+   "en": "King's Citadel",
+   "src": "extra"
+  },
+  {
+   "zh": "伽利法王國",
+   "en": "Kingdom of Galifar",
+   "src": "extra"
+  },
+  {
+   "zh": "寇·柯蘭",
+   "en": "Kol Korran",
+   "src": "faiths"
+  },
+  {
+   "zh": "柯蘭堡紀事報",
+   "en": "Korranberg Chronicle",
+   "src": "extra"
+  },
+  {
+   "zh": "寇斯",
+   "en": "Korth",
+   "src": "nations"
+  },
+  {
+   "zh": "寇斯敕令",
+   "en": "Korth Edicts",
+   "src": "extra"
+  },
+  {
+   "zh": "奇斯瑞",
+   "en": "Kythri, the Churning Chaos",
+   "src": "planes"
+  },
+  {
+   "zh": "罪髓女士",
+   "en": "Lady Illmarrow",
+   "src": "extra"
+  },
+  {
+   "zh": "拉曼尼亞",
+   "en": "Lamannia, the Twilight Forest",
+   "src": "planes"
+  },
+  {
+   "zh": "拉扎爾公國",
+   "en": "Lhazaar Principalities",
+   "src": "nations"
+  },
+  {
+   "zh": "閃電列車",
+   "en": "Lightning rail",
+   "src": "extra"
+  },
+  {
+   "zh": "刀鋒領主",
+   "en": "Lord of Blades",
+   "src": "extra"
+  },
+  {
+   "zh": "瑪巴爾",
+   "en": "Mabar, the Endless Night",
+   "src": "planes"
+  },
+  {
+   "zh": "魔匠師",
+   "en": "Magewright",
+   "src": "extra"
+  },
+  {
+   "zh": "創造",
+   "en": "Making",
+   "src": "houses"
+  },
+  {
+   "zh": "顯能區",
+   "en": "Manifest zone",
+   "src": "extra"
+  },
+  {
+   "zh": "孟西斯高地",
+   "en": "Menthis Plateau",
+   "src": "sharn"
+  },
+  {
+   "zh": "梅綽",
+   "en": "Metrol",
+   "src": "extra"
+  },
+  {
+   "zh": "梅綽（已毀）",
+   "en": "Metrol (destroyed)",
+   "src": "nations"
+  },
+  {
+   "zh": "莫格雷夫大學",
+   "en": "Morgrave University",
+   "src": "extra"
+  },
+  {
+   "zh": "摩洛領",
+   "en": "Mror Holds",
+   "src": "nations"
+  },
+  {
+   "zh": "新賽爾",
+   "en": "New Cyre",
+   "src": "extra"
+  },
+  {
+   "zh": "北緣",
+   "en": "Northedge",
+   "src": "sharn"
+  },
+  {
+   "zh": "歐拉卓",
+   "en": "Olladra",
+   "src": "faiths"
+  },
+  {
+   "zh": "昂納塔",
+   "en": "Onatar",
+   "src": "faiths"
+  },
+  {
+   "zh": "魔君",
+   "en": "Overlord",
+   "src": "extra"
+  },
+  {
+   "zh": "通行",
+   "en": "Passage",
+   "src": "houses"
+  },
+  {
+   "zh": "光明之道",
+   "en": "Path of Light",
+   "src": "extra"
+  },
+  {
+   "zh": "誇巴拉",
+   "en": "Q'barra",
+   "src": "nations"
+  },
+  {
+   "zh": "夢靈",
+   "en": "Quori",
+   "src": "extra"
+  },
+  {
+   "zh": "羅·睹契室",
+   "en": "Rak Tulkhesh",
+   "src": "extra"
+  },
+  {
+   "zh": "羅剎",
+   "en": "Rakshasa",
+   "src": "extra"
+  },
+  {
+   "zh": "雷肯馬克學院",
+   "en": "Rekkenmark Academy",
+   "src": "extra"
+  },
+  {
+   "zh": "西伯瑞斯之環",
+   "en": "Ring of Siberys",
+   "src": "extra"
+  },
+  {
+   "zh": "瑞西亞",
+   "en": "Risia, the Plain of Ice",
+   "src": "planes"
+  },
+  {
+   "zh": "薩洛納",
+   "en": "Sarlona",
+   "src": "nations"
+  },
+  {
+   "zh": "抄錄",
+   "en": "Scribing",
+   "src": "houses"
+  },
+  {
+   "zh": "尋者",
+   "en": "Seeker (Blood of Vol)",
+   "src": "extra"
+  },
+  {
+   "zh": "哨戒",
+   "en": "Sentinel",
+   "src": "houses"
+  },
+  {
+   "zh": "陰影",
+   "en": "Shadow",
+   "src": "houses"
+  },
+  {
+   "zh": "影閣",
+   "en": "Shadow Cabinet",
+   "src": "extra"
+  },
+  {
+   "zh": "陰影邊地",
+   "en": "Shadow Marches",
+   "src": "nations"
+  },
+  {
+   "zh": "薩恩探究報",
+   "en": "Sharn Inquisitive",
+   "src": "extra"
+  },
+  {
+   "zh": "薩恩警衛",
+   "en": "Sharn Watch",
+   "src": "sharn"
+  },
+  {
+   "zh": "薩恩",
+   "en": "Sharn, the City of Towers",
+   "src": "sharn"
+  },
+  {
+   "zh": "沙瓦拉斯",
+   "en": "Shavarath, the Battleground",
+   "src": "planes"
+  },
+  {
+   "zh": "化獸者",
+   "en": "Shifter",
+   "src": "races"
+  },
+  {
+   "zh": "空中客車",
+   "en": "Skycoach",
+   "src": "extra"
+  },
+  {
+   "zh": "天城區",
+   "en": "Skyway",
+   "src": "sharn"
+  },
+  {
+   "zh": "暴風",
+   "en": "Storm",
+   "src": "houses"
+  },
+  {
+   "zh": "蘇·佉帝室",
+   "en": "Sul Khatesh",
+   "src": "extra"
+  },
+  {
+   "zh": "西拉尼亞",
+   "en": "Syrania, the Azure Sky",
+   "src": "planes"
+  },
+  {
+   "zh": "塔倫塔平原",
+   "en": "Talenta Plains",
+   "src": "nations"
+  },
+  {
+   "zh": "塔維克泊地",
+   "en": "Tavick's Landing",
+   "src": "sharn"
+  },
+  {
+   "zh": "西伯瑞斯測驗",
+   "en": "Test of Siberys",
+   "src": "extra"
+  },
+  {
+   "zh": "金權會",
+   "en": "The Aurum",
+   "src": "orgs"
+  },
+  {
+   "zh": "沃爾之血",
+   "en": "The Blood of Vol",
+   "src": "faiths"
+  },
+  {
+   "zh": "波羅馬氏族",
+   "en": "The Boromar Clan",
+   "src": "orgs"
+  },
+  {
+   "zh": "密閣",
+   "en": "The Chamber",
+   "src": "extra"
+  },
+  {
+   "zh": "銀焰教會",
+   "en": "The Church of the Silver Flame",
+   "src": "faiths"
+  },
+  {
+   "zh": "齒輪區",
+   "en": "The Cogs",
+   "src": "sharn"
+  },
+  {
+   "zh": "黃泉巨龍邪教",
+   "en": "The Cults of the Dragon Below",
+   "src": "faiths"
+  },
+  {
+   "zh": "黑暗六神",
+   "en": "The Dark Six",
+   "src": "faiths"
+  },
+  {
+   "zh": "吞噬",
+   "en": "The Devourer",
+   "src": "faiths"
+  },
+  {
+   "zh": "黑暗夢境",
+   "en": "The Dreaming Dark",
+   "src": "orgs"
+  },
+  {
+   "zh": "科瓦雷的德魯伊",
+   "en": "The Druids of Khorvaire",
+   "src": "faiths"
+  },
+  {
+   "zh": "狂怒",
+   "en": "The Fury",
+   "src": "faiths"
+  },
+  {
+   "zh": "監守",
+   "en": "The Keeper",
+   "src": "faiths"
+  },
+  {
+   "zh": "國王暗燈",
+   "en": "The King's Citadel",
+   "src": "orgs"
+  },
+  {
+   "zh": "終末戰爭",
+   "en": "The Last War",
+   "src": "extra"
+  },
+  {
+   "zh": "塵主",
+   "en": "The Lords of Dust",
+   "src": "orgs"
+  },
+  {
+   "zh": "嘲弄",
+   "en": "The Mockery",
+   "src": "faiths"
+  },
+  {
+   "zh": "哀傷故地",
+   "en": "The Mournland",
+   "src": "extra"
+  },
+  {
+   "zh": "翡翠利爪教團",
+   "en": "The Order of the Emerald Claw",
+   "src": "orgs"
+  },
+  {
+   "zh": "光明之道",
+   "en": "The Path of Light",
+   "src": "faiths"
+  },
+  {
+   "zh": "陰影",
+   "en": "The Shadow",
+   "src": "faiths"
+  },
+  {
+   "zh": "六十豪門",
+   "en": "The Sixty",
+   "src": "sharn"
+  },
+  {
+   "zh": "天命諸神",
+   "en": "The Sovereign Host",
+   "src": "faiths"
+  },
+  {
+   "zh": "先祖英靈",
+   "en": "The Spirits of the Past",
+   "src": "faiths"
+  },
+  {
+   "zh": "旅者",
+   "en": "The Traveler",
+   "src": "faiths"
+  },
+  {
+   "zh": "十二學會",
+   "en": "The Twelve",
+   "src": "extra"
+  },
+  {
+   "zh": "暴君會",
+   "en": "The Tyrants",
+   "src": "orgs"
+  },
+  {
+   "zh": "不朽議庭",
+   "en": "The Undying Court",
+   "src": "faiths"
+  },
+  {
+   "zh": "瑟蘭尼斯",
+   "en": "Thelanis, the Faerie Court",
+   "src": "planes"
+  },
+  {
+   "zh": "瑟雷恩",
+   "en": "Thrane",
+   "src": "nations"
+  },
+  {
+   "zh": "王座堡",
+   "en": "Thronehold",
+   "src": "nations"
+  },
+  {
+   "zh": "蒂拉·邁倫",
+   "en": "Tira Miron",
+   "src": "extra"
+  },
+  {
+   "zh": "王座堡條約",
+   "en": "Treaty of Thronehold",
+   "src": "extra"
+  },
+  {
+   "zh": "瓦倫納",
+   "en": "Valenar",
+   "src": "nations"
+  },
+  {
+   "zh": "龍紋戰爭",
+   "en": "War of the Mark",
+   "src": "extra"
+  },
+  {
+   "zh": "守禦",
+   "en": "Warding",
+   "src": "houses"
+  },
+  {
+   "zh": "戰俑",
+   "en": "Warforged",
+   "src": "races"
+  },
+  {
+   "zh": "戰俑泰坦",
+   "en": "Warforged titan",
+   "src": "extra"
+  },
+  {
+   "zh": "羅特",
+   "en": "Wroat",
+   "src": "nations"
+  },
+  {
+   "zh": "希恩德瑞克",
+   "en": "Xen'drik",
+   "src": "nations"
+  },
+  {
+   "zh": "宙瑞亞特",
+   "en": "Xoriat, the Realm of Madness",
+   "src": "planes"
+  },
+  {
+   "zh": "王國曆",
+   "en": "Year of the Kingdom (YK)",
+   "src": "extra"
+  },
+  {
+   "zh": "吉拉哥",
+   "en": "Zilargo",
+   "src": "nations"
+  }
+ ]
+}

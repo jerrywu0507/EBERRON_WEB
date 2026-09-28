@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-27T16:38:27Z",
+  "title": "Design System: 艾伯倫導覽",
+  "extensions": {
+    "colorMeta": {
+      "seal": { "role": "primary", "displayName": "朱印 Seal", "canonical": "#b3261e", "tonalRamp": ["#210000", "#4e0000", "#810001", "#b0221b", "#d84c3f", "#ff7363", "#ffb3a7", "#ffe9e5"] },
+      "seal-on-indigo": { "role": "primary", "displayName": "靛上朱 Seal on Indigo", "canonical": "#e34b3f", "tonalRamp": ["#210000", "#4e0000", "#810003", "#b41614", "#dd453a", "#ff7364", "#ffb3a8", "#ffe9e5"] },
+      "rule": { "role": "primary", "displayName": "朱框線 Rule（朱 55%）", "canonical": "rgba(179, 38, 30, 0.55)", "tonalRamp": ["#210000", "#4e0000", "#810001", "#b0221b", "#d84c3f", "#ff7363", "#ffb3a7", "#ffe9e5"] },
+      "rule-faint": { "role": "primary", "displayName": "淡朱格線 Rule Faint（朱 14%）", "canonical": "rgba(179, 38, 30, 0.14)", "tonalRamp": ["#210000", "#4e0000", "#810001", "#b0221b", "#d84c3f", "#ff7363", "#ffb3a7", "#ffe9e5"] },
+      "indigo": { "role": "secondary", "displayName": "靛藍封面 Indigo", "canonical": "#16233f", "tonalRamp": ["#020922", "#172440", "#334260", "#516182", "#7182a5", "#93a5c9", "#b7caef", "#e6efff"] },
+      "indigo-deep": { "role": "secondary", "displayName": "書脊靛 Indigo Deep", "canonical": "#0f182c", "tonalRamp": ["#040a1d", "#1b253a", "#374259", "#55617a", "#76829c", "#98a5c0", "#bcc9e5", "#e7efff"] },
+      "indigo-ink": { "role": "secondary", "displayName": "靛上淡墨 Indigo Ink", "canonical": "#b9c4dc", "tonalRamp": ["#050a1a", "#1d2537", "#394255", "#586176", "#788299", "#9aa5bc", "#bec9e1", "#e7efff"] },
+      "tab-green": { "role": "tertiary", "displayName": "檔案綠 Archive Green", "canonical": "#2c6e49", "tonalRamp": ["#001004", "#002e17", "#02502d", "#2e704b", "#51936b", "#74b68d", "#98dbb1", "#c4ffd9"] },
+      "tab-ochre": { "role": "tertiary", "displayName": "赭黃 Ochre", "canonical": "#d7a021", "tonalRamp": ["#130900", "#322200", "#573d00", "#7e5a00", "#a77900", "#d19b16", "#f7bf4b", "#ffecca"] },
+      "tab-violet": { "role": "tertiary", "displayName": "紫 Violet", "canonical": "#5b3a8a", "tonalRamp": ["#120029", "#310758", "#4e2c7b", "#6d4d9f", "#8f6fc4", "#b291ea", "#d2bbff", "#f1ebff"] },
+      "paper": { "role": "neutral", "displayName": "冷白桌面 Paper", "canonical": "#f4f5f2", "tonalRamp": ["#0b0b0a", "#252523", "#414240", "#61625f", "#828380", "#a4a5a3", "#c8c9c7", "#eeefec"] },
+      "paper-shade": { "role": "neutral", "displayName": "桌面陰面 Paper Shade", "canonical": "#e6e9ec", "tonalRamp": ["#090b0d", "#232527", "#404245", "#5f6164", "#808385", "#a2a5a8", "#c6c9cc", "#eceff2"] },
+      "sheet-white": { "role": "neutral", "displayName": "白紙 Sheet White", "canonical": "#ffffff", "tonalRamp": ["#0b0b0b", "#252525", "#424242", "#616161", "#828282", "#a5a5a5", "#c9c9c9", "#eeeeee"] },
+      "ink": { "role": "neutral", "displayName": "墨 Ink", "canonical": "#1d2b24", "tonalRamp": ["#030e08", "#1b2922", "#37463e", "#56665d", "#77877e", "#99aaa1", "#bdcec5", "#e2f4ea"] },
+      "ink-soft": { "role": "neutral", "displayName": "淡墨 Ink Soft", "canonical": "#4b5a52", "tonalRamp": ["#030e08", "#1b2922", "#37463e", "#56655d", "#77877e", "#99aaa1", "#bdcec5", "#e2f4ea"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display（封面直排大字）", "purpose": "封面直排的「艾伯倫」，vertical-rl、upright；手機改橫排 64px、0.04em。" },
+      "headline": { "displayName": "Headline（卷首標題）", "purpose": "各卷卷首用箋的 h2，靛藍 2px 底線；封面卷名 .dossier 用 clamp(30px, 3.6vw, 46px)／1.2。" },
+      "title": { "displayName": "Title（用箋標題）", "purpose": "一般用箋的 h2，朱 2px 底線，下距 14px。" },
+      "subtitle": { "displayName": "Subtitle（用箋內小節）", "purpose": "用箋內的 h3，上距 26px；七件事 h3 19px、年表事件名 18px 同級。" },
+      "lead": { "displayName": "Lead（開頭一句）", "purpose": "每張用箋開頭的一句話 .lead；封面導言 .lede 22px／1.7／600。" },
+      "body": { "displayName": "Body（內文）", "purpose": "全站唯一內文字級：17px／1.85、量 36em、兩端對齊（手機靠左）。" },
+      "body-sm": { "displayName": "Body small（表格與附註）", "purpose": "帳冊表 15.5px／1.6；紙條 15.5px／1.8；.meta、術語表、封面檔號 15px。" },
+      "label": { "displayName": "Label（欄頭）", "purpose": "帳冊欄頭，朱色 600、0.06em、不換行；.meta dt 朱 600 15px。" },
+      "nav-tab": { "displayName": "Nav tab（索引標籤）", "purpose": "右側索引標籤軌的直排標籤文字；封面標籤頭 12px／0.08em；手機標籤列 14px／600。" },
+      "annotation": { "displayName": "Annotation（英文原名碳寫註記）", "purpose": ".en：Courier Prime 0.78em 淡墨，緊跟中文之後、左距 0.5em；h2 內 14px、vertical-align 0.35em。" },
+      "folio": { "displayName": "Folio（折頁碼）", "purpose": "用箋腳右下角的頁碼 .ref，Courier Prime 12px 朱色 0.12em，白底墊 4px。" },
+      "numeral": { "displayName": "Numeral（表格式數字）", "purpose": "年表年份 14px／700／朱、帳冊 .num 欄；Courier Prime 加 tabular-nums。" },
+      "stamp": { "displayName": "Stamp（印文）", "purpose": "印章文字 900、0.28em 字距（text-indent 抵消）；封面 44px、用箋 15px、行內章 12px／0.16em。" }
+    },
+    "shadows": [
+      { "name": "lift", "value": "0 10px 24px -14px rgba(22, 35, 63, 0.45), 0 1px 0 rgba(22, 35, 63, 0.06)", "purpose": "--lift：用箋靜止、紙條、索引標籤懸停與選中；唯一的通用陰影。" },
+      { "name": "sheet-hover", "value": "0 18px 32px -18px rgba(22, 35, 63, 0.5), 0 1px 0 rgba(22, 35, 63, 0.06)", "purpose": "用箋懸停，配 translateY(-2px)。" },
+      { "name": "sheet-inset", "value": "inset 0 0 0 4px #fff, inset 0 0 0 5px rgba(179, 38, 30, 0.14)", "purpose": "用箋內縮 4px 的第二道淡朱框線；卷首用箋改 rgba(22, 35, 63, 0.14)。" },
+      { "name": "cover", "value": "0 24px 48px -28px rgba(15, 24, 44, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.06)", "purpose": "封面壓在桌面上的深影與一圈極淡邊光。" },
+      { "name": "open-button", "value": "0 8px 18px -10px rgba(0, 0, 0, 0.6)", "purpose": "封面「翻開卷宗」；懸停 0 14px 24px -12px rgba(0, 0, 0, 0.7) + translateY(-2px)。" },
+      { "name": "focus-input", "value": "0 0 0 2px rgba(179, 38, 30, 0.25)", "purpose": "輸入框焦點，邊改朱；其他元件用 outline: 2px solid #b3261e、offset 3px。" }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "--ease：全站唯一的緩動，指數緩出。" },
+      { "name": "duration", "value": "320ms", "purpose": "transform、box-shadow、background 的過渡時長（用箋、標籤、封面按鈕）。" },
+      { "name": "seal-land", "value": "520ms cubic-bezier(0.16, 1, 0.3, 1) 240ms both; from rotate(-12deg) scale(1.35) opacity 0; to rotate(-12deg) scale(1) opacity 0.92", "purpose": "封面「機密」印落下：全站唯一的入場動畫，之後靜止。" },
+      { "name": "reduced-motion", "value": "@media (prefers-reduced-motion: reduce) { animation: none; transition: none; transform: none }", "purpose": "關掉印落下，並取消用箋、封面按鈕與標籤的過渡與位移。" }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "900px", "purpose": "max-width 900px：標籤軌改頂端標籤列、封面單欄橫排、用箋內距 26px 18px。" }
+    ]
+  },
+  "components": [
+    {
+      "name": "索引標籤軌與手機標籤列",
+      "kind": "nav",
+      "refersTo": "nav-tab",
+      "description": "右側索引標籤軌（直排、依篇幅分高、選中滑出）與 900px 以下接手的頂端橫向標籤列；每張標籤以 --tab 帶自己的卷色。",
+      "html": "<div class='ds-desk'><nav class='ds-rail' aria-label='各卷索引'><ul><li><a href='#' style='--tab:#16233f;min-height:104px'>第一卷 歷史</a></li><li><a href='#' style='--tab:#b3261e;min-height:144px' aria-current='page'>第二卷 諸國</a></li><li><a href='#' style='--tab:#2c6e49;min-height:96px'>第四卷 龍紋家族</a></li><li><a href='#' style='--tab:#d7a021;--tab-ink:#1d2b24;min-height:144px'>第六卷 信仰與組織</a></li><li><a href='#' style='--tab:#5b3a8a;min-height:112px'>附錄</a></li></ul></nav><nav class='ds-tabstrip' aria-label='各卷（手機）'><a href='#' style='--tab:#16233f'>第一卷 歷史</a><a href='#' style='--tab:#b3261e' aria-current='page'>第二卷 諸國</a><a href='#' style='--tab:#2c6e49'>第四卷 龍紋家族</a><a href='#' style='--tab:#d7a021;--tab-ink:#1d2b24'>第六卷 信仰與組織</a><a href='#' style='--tab:#5b3a8a'>附錄</a></nav></div>",
+      "css": ".ds-desk{display:flex;flex-direction:column;gap:20px;align-items:flex-end;background:#f4f5f2;padding:16px;font-family:'Noto Serif TC','Songti TC','PMingLiU',serif}.ds-rail{width:132px;background:#e6e9ec;border-left:1px solid rgba(22,35,63,.18);padding:12px 0 12px}.ds-rail ul{list-style:none;margin:0;padding:0 12px 0 0;display:flex;flex-direction:column;gap:6px}.ds-rail li{margin:0}.ds-rail a{display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;text-orientation:mixed;min-height:64px;width:100%;box-sizing:border-box;padding:14px 8px;border-radius:6px 0 0 6px;background:color-mix(in srgb,var(--tab) 26%,#f4f5f2);border:1px solid color-mix(in srgb,var(--tab) 70%,#f4f5f2);color:#1d2b24;font-weight:600;font-size:15px;letter-spacing:.12em;text-decoration:none;transition:transform 320ms cubic-bezier(.16,1,.3,1),box-shadow 320ms cubic-bezier(.16,1,.3,1),background 320ms cubic-bezier(.16,1,.3,1)}.ds-rail a:hover{transform:translateX(-4px);box-shadow:0 10px 24px -14px rgba(22,35,63,.45),0 1px 0 rgba(22,35,63,.06)}.ds-rail a:focus-visible{outline:2px solid #b3261e;outline-offset:3px}.ds-rail a[aria-current='page']{background:var(--tab);color:var(--tab-ink,#f4f5f2);transform:translateX(-6px);box-shadow:0 10px 24px -14px rgba(22,35,63,.45),0 1px 0 rgba(22,35,63,.06)}.ds-tabstrip{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;width:100%;box-sizing:border-box;scrollbar-width:none}.ds-tabstrip::-webkit-scrollbar{display:none}.ds-tabstrip a{flex:none;white-space:nowrap;text-decoration:none;border:1px solid color-mix(in srgb,var(--tab) 55%,#f4f5f2);border-top:4px solid var(--tab);background:color-mix(in srgb,var(--tab) 12%,#fff);padding:5px 12px;color:#1d2b24;font-size:14px;font-weight:600}.ds-tabstrip a[aria-current='page']{background:var(--tab);color:var(--tab-ink,#f4f5f2);border-color:var(--tab)}.ds-tabstrip a:focus-visible{outline:2px solid #b3261e;outline-offset:3px}"
+    },
+    {
+      "name": "用箋",
+      "kind": "card",
+      "refersTo": "sheet",
+      "description": "紅格公文用箋：白紙、1px 朱邊與內縮淡朱框、31px 紅格層、標題附英文原名、開頭一句、右上角一枚章、腳的折頁碼。",
+      "html": "<svg width='0' height='0' style='position:absolute' aria-hidden='true' focusable='false'><filter id='ds-ink-seal' x='-8%' y='-16%' width='116%' height='132%' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='11' result='grain'/><feColorMatrix in='grain' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 -4.2' result='holes'/><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='2' seed='4' result='wash'/><feColorMatrix in='wash' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0.66' result='density'/><feComposite in='SourceGraphic' in2='holes' operator='in' result='a'/><feComposite in='a' in2='density' operator='in' result='b'/><feTurbulence type='turbulence' baseFrequency='0.05' numOctaves='2' seed='7' result='warp'/><feDisplacementMap in='b' in2='warp' scale='3' xChannelSelector='R' yChannelSelector='G'/></filter></svg><div class='ds-desk'><section class='ds-sheet'><div class='ds-rules' aria-hidden='true'></div><div class='ds-ref'>卷二 · 第六頁</div><div class='ds-stamp'>已消失</div><h2>賽爾<span class='ds-en'>Cyre</span></h2><div class='ds-body'><p class='ds-lead'>曾是五國中最富庶的一國，如今是一片叫哀傷故地的死區。</p><p>賽爾的宮廷藝術與工藝曾領導整片大陸；哀傷日之後，只剩流亡者與他們帶得走的記憶。</p><h3>城市與地標</h3><ul><li>梅崔爾<span class='ds-en'>Metrol</span>：舊都，如今在灰霧之中。</li><li>新賽爾<span class='ds-en'>New Cyre</span>：布蕾蘭境內的難民城。</li></ul></div></section></div>",
+      "css": ".ds-desk{position:relative;z-index:0;background:#f4f5f2;padding:24px;font-family:'Noto Serif TC','Songti TC','PMingLiU',serif;color:#1d2b24}.ds-sheet{position:relative;background:#fff;border:1px solid rgba(179,38,30,.55);box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 5px rgba(179,38,30,.14),0 10px 24px -14px rgba(22,35,63,.45),0 1px 0 rgba(22,35,63,.06);padding:34px 40px 36px;max-width:820px;transition:transform 320ms cubic-bezier(.16,1,.3,1),box-shadow 320ms cubic-bezier(.16,1,.3,1)}.ds-sheet:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 5px rgba(179,38,30,.14),0 18px 32px -18px rgba(22,35,63,.5),0 1px 0 rgba(22,35,63,.06)}.ds-rules{position:absolute;inset:34px 40px 36px;pointer-events:none;background-image:repeating-linear-gradient(0deg,transparent 0 30px,rgba(179,38,30,.14) 30px 31px)}.ds-sheet>h2,.ds-sheet>.ds-body,.ds-sheet>.ds-ref,.ds-sheet>.ds-stamp{position:relative}.ds-sheet h2,.ds-sheet h3{font-weight:900;color:#1d2b24;margin:0 0 14px;line-height:1.3}.ds-sheet h2{font-size:28px;padding-bottom:10px;border-bottom:2px solid rgba(179,38,30,.55)}.ds-sheet h3{font-size:20px;margin-top:26px}.ds-en{font-family:'Courier Prime','Courier New',monospace;font-size:.78em;color:#4b5a52;margin-left:.5em;letter-spacing:.01em;white-space:nowrap}.ds-sheet h2 .ds-en{font-size:14px;font-weight:400;display:inline-block;vertical-align:.35em}.ds-body{font-size:17px;line-height:1.85;max-width:36em}.ds-body p{margin:0 0 14px;text-align:justify}.ds-body p:last-child{margin-bottom:0}.ds-lead{font-size:19px;font-weight:600;margin:0 0 18px}.ds-body ul{list-style:none;margin:0 0 14px;padding:0 0 0 1.4em}.ds-body ul li{position:relative;margin:0 0 4px}.ds-body ul li::before{content:'';position:absolute;left:-1.25em;top:.75em;width:.42em;height:.42em;border:1px solid #b3261e;transform:rotate(45deg)}.ds-ref{position:absolute;right:40px;bottom:11px;font-family:'Courier Prime','Courier New',monospace;font-size:12px;color:#b3261e;letter-spacing:.12em;background:#fff;padding:0 4px}.ds-sheet>.ds-stamp{position:absolute;right:22px;top:18px;display:inline-block;padding:4px 12px;border:3px double #b3261e;color:#b3261e;border-radius:4px;font-weight:900;font-size:15px;letter-spacing:.28em;text-indent:.28em;line-height:1.3;transform:rotate(-12deg);mix-blend-mode:multiply;opacity:.9;filter:url(#ds-ink-seal)}"
+    },
+    {
+      "name": "卷首用箋",
+      "kind": "card",
+      "refersTo": "sheet-head",
+      "description": "每卷第一張用箋：靛藍邊與內框、34px 靛藍底線標題、不畫格，底下露出一張略斜的第二張紙。",
+      "html": "<div class='ds-desk'><section class='ds-sheet ds-sheet-head'><div class='ds-ref'>卷二 · 第一頁</div><h2>第二卷　科瓦雷諸國<span class='ds-en'>Nations of Khorvaire</span></h2><div class='ds-body'><p class='ds-lead'>從同一個王國分裂出來的五國，加上戰爭中誕生的鄰居。</p><p>加利法王國的五個省份在國王死後各擁其主，打了一百年；王座堡條約把戰爭停在紙上，沒有停在人心裡。</p></div></section></div>",
+      "css": ".ds-desk{position:relative;z-index:0;background:#f4f5f2;padding:24px 32px;font-family:'Noto Serif TC','Songti TC','PMingLiU',serif;color:#1d2b24}.ds-sheet{position:relative;background:#fff;border:1px solid #16233f;box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 5px rgba(22,35,63,.14),0 10px 24px -14px rgba(22,35,63,.45),0 1px 0 rgba(22,35,63,.06);padding:34px 40px 36px;max-width:820px;transition:transform 320ms cubic-bezier(.16,1,.3,1),box-shadow 320ms cubic-bezier(.16,1,.3,1)}.ds-sheet:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 4px #fff,inset 0 0 0 5px rgba(22,35,63,.14),0 18px 32px -18px rgba(22,35,63,.5),0 1px 0 rgba(22,35,63,.06)}.ds-sheet-head::before{content:'';position:absolute;inset:10px -8px -10px 8px;z-index:-1;background:#fff;border:1px solid rgba(179,38,30,.14);transform:rotate(.6deg)}.ds-sheet>h2,.ds-sheet>.ds-body,.ds-sheet>.ds-ref{position:relative}.ds-sheet h2{font-weight:900;font-size:34px;line-height:1.3;margin:0 0 14px;padding-bottom:10px;border-bottom:2px solid #16233f}.ds-en{font-family:'Courier Prime','Courier New',monospace;font-size:.78em;color:#4b5a52;margin-left:.5em;letter-spacing:.01em;white-space:nowrap}.ds-sheet h2 .ds-en{font-size:14px;font-weight:400;display:inline-block;vertical-align:.35em}.ds-body{font-size:17px;line-height:1.85;max-width:36em}.ds-body p{margin:0 0 14px;text-align:justify}.ds-body p:last-child{margin-bottom:0}.ds-lead{font-size:19px;font-weight:600;margin:0 0 18px}.ds-ref{position:absolute;right:40px;bottom:11px;font-family:'Courier Prime','Courier New',monospace;font-size:12px;color:#b3261e;letter-spacing:.12em;background:#fff;padding:0 4px}"
+    },
+    {
+      "name": "印章",
+      "kind": "custom",
+      "refersTo": "stamp",
+      "description": "三個尺寸的朱印：靛藍封面上的 44px「機密」大印（#e34b3f、落下動畫）、用箋 15px 章、12px 行內狀態章（有譯本／無譯本／待查）；SVG 印泥濾鏡讓邊緣碎、掉墨點。",
+      "html": "<svg width='0' height='0' style='position:absolute' aria-hidden='true' focusable='false'><filter id='ds-ink-seal' x='-8%' y='-16%' width='116%' height='132%' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='11' result='grain'/><feColorMatrix in='grain' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 -4.2' result='holes'/><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='2' seed='4' result='wash'/><feColorMatrix in='wash' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.6 0.66' result='density'/><feComposite in='SourceGraphic' in2='holes' operator='in' result='a'/><feComposite in='a' in2='density' operator='in' result='b'/><feTurbulence type='turbulence' baseFrequency='0.05' numOctaves='2' seed='7' result='warp'/><feDisplacementMap in='b' in2='warp' scale='3' xChannelSelector='R' yChannelSelector='G'/></filter><filter id='ds-ink-fine' x='-8%' y='-16%' width='116%' height='132%' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='5' result='grain'/><feColorMatrix in='grain' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 -3.4' result='holes'/><feComposite in='SourceGraphic' in2='holes' operator='in' result='a'/><feTurbulence type='turbulence' baseFrequency='0.08' numOctaves='1' seed='9' result='warp'/><feDisplacementMap in='a' in2='warp' scale='1.6' xChannelSelector='R' yChannelSelector='G'/></filter></svg><div class='ds-stamp-demo'><div class='ds-cover-swatch'><span class='ds-stamp ds-stamp-big' aria-hidden='true'>機密</span></div><div class='ds-paper-swatch'><span class='ds-stamp'>待查</span><span class='ds-stamp'>警戒</span><span class='ds-stamp ds-stamp-ok'>有譯本</span><span class='ds-stamp ds-stamp-no'>無譯本</span><span class='ds-stamp ds-stamp-tbd'>待查</span></div></div>",
+      "css": ".ds-stamp-demo{display:flex;flex-wrap:wrap;gap:16px;font-family:'Noto Serif TC','Songti TC','PMingLiU',serif}.ds-cover-swatch{background:#16233f;padding:40px 56px;display:flex;align-items:center;justify-content:center}.ds-paper-swatch{background:#fff;border:1px solid rgba(179,38,30,.55);padding:28px 32px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}.ds-stamp{display:inline-block;padding:4px 12px;border:3px double #b3261e;color:#b3261e;border-radius:4px;font-weight:900;font-size:15px;letter-spacing:.28em;text-indent:.28em;line-height:1.3;transform:rotate(-12deg);mix-blend-mode:multiply;opacity:.9;filter:url(#ds-ink-seal)}.ds-stamp-big{font-size:44px;padding:8px 20px;border-width:4px;color:#e34b3f;border-color:#e34b3f;mix-blend-mode:normal;opacity:.92;animation:ds-seal-land 520ms cubic-bezier(.16,1,.3,1) 240ms both}@keyframes ds-seal-land{from{transform:rotate(-12deg) scale(1.35);opacity:0}to{transform:rotate(-12deg) scale(1);opacity:.92}}.ds-stamp-ok,.ds-stamp-no,.ds-stamp-tbd{transform:rotate(-6deg);font-size:12px;padding:1px 8px;letter-spacing:.16em;text-indent:.16em;white-space:nowrap;filter:url(#ds-ink-fine)}.ds-stamp-tbd{color:#b3261e;border-color:#b3261e}.ds-stamp-ok{color:#2c6e49;border-color:#2c6e49}.ds-stamp-no{color:#4b5a52;border-color:#4b5a52}@media (prefers-reduced-motion:reduce){.ds-stamp-big{animation:none}}"
+    },
+    {
+      "name": "翻開卷宗按鈕",
+      "kind": "button",
+      "refersTo": "button-open",
+      "description": "全站唯一的自製按鈕：貼在靛藍封面上的一張紙白紙片，靛藍字，懸停抬起 2px。",
+      "html": "<div class='ds-cover-swatch'><a class='ds-btn-open' href='#'>翻開卷宗</a></div>",
+      "css": ".ds-cover-swatch{background:#16233f;padding:40px 56px;font-family:'Noto Serif TC','Songti TC','PMingLiU',serif}.ds-btn-open{display:inline-block;background:#f4f5f2;color:#16233f;font-weight:600;font-size:17px;padding:12px 22px;border:1px solid #f4f5f2;border-radius:0;text-decoration:none;box-shadow:0 8px 18px -10px rgba(0,0,0,.6);transition:transform 320ms cubic-bezier(.16,1,.3,1),box-shadow 320ms cubic-bezier(.16,1,.3,1)}.ds-btn-open:hover{transform:translateY(-2px);box-shadow:0 14px 24px -12px rgba(0,0,0,.7)}.ds-btn-open:focus-visible{outline:2px solid #b3261e;outline-offset:3px}.ds-btn-open:active{transform:translateY(0)}@media (prefers-reduced-motion:reduce){.ds-btn-open,.ds-btn-open:hover{transition:none;transform:none}}"
+    },
+    {
+      "name": "標籤片",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "純標示的紙片：桌面色底、靛藍 35% 細邊、方角、13px 墨字；沒有選取態，狀態改用章。",
+      "html": "<div class='ds-tags-demo'><dl class='ds-meta'><dt>特色</dt><dd><div class='ds-tags'><span>魔法學術</span><span>飛空艇</span><span>閃電列車</span><span>奧術大學</span></div></dd></dl></div>",
+      "css": ".ds-tags-demo{background:#fff;padding:24px 32px;font-family:'Noto Serif TC','Songti TC','PMingLiU',serif;color:#1d2b24}.ds-meta{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:0;font-size:15px}.ds-meta dt{color:#b3261e;font-weight:600;white-space:nowrap}.ds-meta dd{margin:0}.ds-tags{display:flex;flex-wrap:wrap;gap:6px}.ds-tags span{border:1px solid rgba(22,35,63,.35);padding:1px 8px;font-size:13px;background:#f4f5f2;border-radius:0}"
+    },
+    {
+      "name": "紙條",
+      "kind": "custom",
+      "refersTo": "note",
+      "description": "放在用箋上的一張附註紙條：桌面色底、--lift、略歪（-0.5°，第二張 +0.4°），標籤朱色 600 並自帶全形冒號。",
+      "html": "<div class='ds-sheet-frag'><div class='ds-note'><strong>戰爭餘波</strong>哀傷日那天，整個賽爾在一小時內死去；沒有人知道為什麼，所以沒有人敢再開戰。</div><div class='ds-note'><strong>紀事</strong>新賽爾的難民營裡，流亡王子每天早上都朝東邊的灰霧行禮。</div></div>",
+      "css": ".ds-sheet-frag{background:#fff;padding:24px 40px;font-family:'Noto Serif TC','Songti TC','PMingLiU',serif;color:#1d2b24}.ds-note{position:relative;margin:20px 0 6px;padding:12px 16px;background:#f4f5f2;border:1px solid rgba(22,35,63,.12);box-shadow:0 10px 24px -14px rgba(22,35,63,.45),0 1px 0 rgba(22,35,63,.06);transform:rotate(-.5deg);font-size:15.5px;line-height:1.8;max-width:36em}.ds-note+.ds-note{transform:rotate(.4deg);margin-top:16px}.ds-note strong{color:#b3261e;font-weight:600;margin-right:.35em}.ds-note strong::after{content:'：'}"
+    },
+    {
+      "name": "帳冊表",
+      "kind": "custom",
+      "refersTo": "ledger-cell",
+      "description": "帳冊式表格：朱色欄頭與 2px 朱底線、淡朱列線、數字欄用 Courier Prime 表格式數字、格內英文原名另起一行、列懸停淡靛底。",
+      "html": "<div class='ds-sheet-frag'><table class='ds-ledger'><thead><tr><th class='ds-num'>月</th><th>硬幣</th><th>說明</th></tr></thead><tbody><tr><td class='ds-num'>1</td><td>銅幣<span class='ds-en'>crown</span></td><td>日常小額：一餐、一杯酒。</td></tr><tr><td class='ds-num'>10</td><td>銀幣<span class='ds-en'>sovereign</span></td><td>一天的工資。</td></tr><tr><td class='ds-num'>100</td><td>金幣<span class='ds-en'>galifar</span></td><td>以舊王國之名鑄造。</td></tr></tbody></table></div>",
+      "css": ".ds-sheet-frag{background:#fff;padding:24px 40px;font-family:'Noto Serif TC','Songti TC','PMingLiU',serif;color:#1d2b24}.ds-ledger{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.6;margin:6px 0 0}.ds-ledger th{text-align:left;font-weight:600;color:#b3261e;padding:8px 10px;border-bottom:2px solid rgba(179,38,30,.55);font-size:14px;letter-spacing:.06em;white-space:nowrap}.ds-ledger td{padding:9px 10px;border-bottom:1px solid rgba(179,38,30,.14);vertical-align:top}.ds-ledger td.ds-num,.ds-ledger th.ds-num{font-family:'Courier Prime','Courier New',monospace;font-variant-numeric:tabular-nums;white-space:nowrap}.ds-ledger td .ds-en{display:block;margin:2px 0 0;font-family:'Courier Prime','Courier New',monospace;font-size:12.5px;color:#4b5a52;letter-spacing:.01em}.ds-ledger tr:hover td{background:rgba(22,35,63,.035)}"
+    },
+    {
+      "name": "尺規年表",
+      "kind": "custom",
+      "refersTo": "timeline-year",
+      "description": "一條連續的朱色直線，事件是白底朱邊的圓點，年份以 Courier Prime 表格式數字靠右釘在直線左側。",
+      "html": "<div class='ds-sheet-frag'><ol class='ds-rule'><li><span class='ds-year'>王國曆 894</span><div class='ds-label'>終末戰爭開打</div><p>加利法國王賈羅特駕崩，五個省份的繼承人各自稱王。</p></li><li><span class='ds-year'>王國曆 994</span><div class='ds-label'>哀傷日</div><p>賽爾在一日之內化為哀傷故地，戰爭因恐懼而停。</p></li><li><span class='ds-year'>王國曆 996</span><div class='ds-label'>王座堡條約</div><p>十二國簽字，承認彼此，也承認戰俑的自由。</p></li></ol></div>",
+      "css": ".ds-sheet-frag{background:#fff;padding:24px 40px;font-family:'Noto Serif TC','Songti TC','PMingLiU',serif;color:#1d2b24}.ds-rule{list-style:none;margin:8px 0 0;padding:0 0 0 150px;position:relative}.ds-rule::before{content:'';position:absolute;left:136px;top:0;bottom:0;width:1px;background:rgba(179,38,30,.55)}.ds-rule li{position:relative;padding:0 0 22px 22px}.ds-rule li::before{content:'';position:absolute;left:-7px;top:10px;width:10px;height:10px;background:#fff;border:2px solid #b3261e;border-radius:50%}.ds-year{position:absolute;left:-150px;top:4px;width:116px;text-align:right;font-family:'Courier Prime','Courier New',monospace;font-variant-numeric:tabular-nums;font-size:14px;color:#b3261e;font-weight:700}.ds-label{font-weight:900;font-size:18px;margin:0 0 4px}.ds-rule p{margin:0;font-size:16px;line-height:1.85}"
+    },
+    {
+      "name": "術語查詢輸入框",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Streamlit 文字輸入框在這個世界的樣子：白底、1px 朱邊、方角、宋體；焦點邊改朱並加 2px 淡朱環。",
+      "html": "<div class='ds-input-demo'><label class='ds-input-label' for='ds-q'>查術語</label><input class='ds-input' id='ds-q' type='text' placeholder='輸入中文或英文，例如：龍紋、Sharn'></div>",
+      "css": ".ds-input-demo{background:#f4f5f2;padding:24px 32px;font-family:'Noto Serif TC','Songti TC','PMingLiU',serif;color:#1d2b24;display:flex;flex-direction:column;gap:6px;max-width:480px}.ds-input-label{font-size:14px}.ds-input{background:#fff;border:1px solid rgba(179,38,30,.55);border-radius:0;font-family:'Noto Serif TC','Songti TC','PMingLiU',serif;font-size:16px;color:#1d2b24;padding:8px 12px;outline:none}.ds-input::placeholder{color:#4b5a52;opacity:.7}.ds-input:focus{box-shadow:0 0 0 2px rgba(179,38,30,.25);border-color:#b3261e}.ds-input:focus-visible{outline:2px solid #b3261e;outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "王座堡卷宗",
+    "overview": "整個艾伯倫被整理成一疊給新任探員翻閱的機密卷宗，攤在一張冷白的桌面上。桌面（`--paper` #f4f5f2）是最底層；靛藍封面是桌上的一件物件，不出血、三側留桌面；每一卷的內容寫在白色紅格公文用箋上，一張接一張往下疊；狀態與強調用斜落的朱印蓋上去；卷宗前緣（右側）是五色索引標籤軌，標籤高度依各卷篇幅比例。把所有內容拿掉，靛藍封面、紅格紙、朱印與彩色標籤軌仍然認得出是它。\n\n密度與聲音是文件式的、克制的。全站只有一種內文（17px／1.85、行寬 36em），階層靠字重 900 與尺寸分級、靠「哪張紙在上面」；沒有眉批式小標，沒有框中框。中文一律思源宋體（Noto Serif TC），英文原名一律以打字機字體 Courier Prime 作碳寫註記。全站唯一的入場動作是封面「機密」印落下；其餘互動只是紙張輕輕抬起。\n\n已確認的拒絕：深色羊皮紙底、燙金襯線大標、同尺寸主題卡片格、卡片套卡片；封面是純色靛藍，不做仿布紋；沒有官方地圖與插圖，圖像只有自繪的 SVG 圖版，編號並附說明。",
+    "keyCharacteristics": [
+      "桌面／封面／用箋三層材質：冷白桌面 #f4f5f2、靛藍封面 #16233f、白紙 #fff 配朱色格線。",
+      "朱 #b3261e 只當「印」與「格」，落在靛藍上時換 #e34b3f。",
+      "單一內文字級 17px／1.85、36em；標題以 900 字重分級；英文原名 Courier Prime 碳寫註記。",
+      "階層靠疊紙、位移與軟陰影（`--lift`），沒有硬偏移陰影、沒有框中框。",
+      "方角紙、斜落印：圓角只在標籤前緣（6px）與印章（4px）；印章 -12°／-6°，紙條 ±0.5°。",
+      "五色索引標籤軌在前緣，高度依篇幅（56px + 8px × 權重）；手機改成頂端橫向標籤列。",
+      "一個入場動作（印落下 520ms），其餘 320ms 指數緩出；尊重 prefers-reduced-motion。"
+    ],
+    "rules": [
+      { "name": "The Seal Rule", "body": "朱 #b3261e 在紙上只以「印」與「格」出現：印章、框線與格線、欄頭、折頁碼、年份、清單方點、焦點環、選取反白。唯一可填滿的朱色面是選中的朱色索引標籤。它從不當紙面或桌面的底色。", "section": "colors" },
+      { "name": "The Cover Seal Rule", "body": "落在靛藍上的印一律用 #e34b3f，並且只以大字（封面 44px、手機 30px，900）出現；紙上的印維持 #b3261e，並套 `#ink-seal`／`#ink-fine` 印泥濾鏡。", "section": "colors" },
+      { "name": "The Ochre Ink Rule", "body": "赭黃 #d7a021 選中時字用墨 #1d2b24（6.3:1），不用紙白（2.2:1）；其餘四色選中時字為紙白 #f4f5f2（靛 14.3:1、朱 6.0:1、綠 5.6:1、紫 7.9:1）。", "section": "colors" },
+      { "name": "The One Body Size Rule", "body": "內文只有 17px／1.85 一種字級、行寬 36em；階層靠字重 900 與 34／28／20px 的尺寸，沒有眉批式小標，也沒有全大寫的小字標籤。用箋的頁碼在腳、章在角落，標題上方永遠是空的。", "section": "typography" },
+      { "name": "The Carbon Copy Rule", "body": "每個專有名詞第一次出現時，英文原名以 Courier Prime 0.78em 淡墨緊跟在中文之後，像碳寫的註記；它永遠是附註，不當標題、不當裝飾字。", "section": "typography" },
+      { "name": "The Tabular Figures Rule", "body": "年份、頁碼、序號、金額一律 Courier Prime 加 `font-variant-numeric: tabular-nums`；數字在欄位裡對齊，在年表上靠右釘在事件旁。", "section": "typography" },
+      { "name": "The Fore Edge Rule", "body": "索引標籤軌永遠在卷宗前緣（右側），標籤突向用箋；手機上它變成頂端一列橫向標籤，絕不變成抽屜蓋在用箋上。", "section": "layout" },
+      { "name": "The Proportional Tab Rule", "body": "標籤高度不是等高的：56px + 8px × 該卷篇幅權重，長的卷標籤就高。新增一卷時給它權重與標籤色，不手調高度。", "section": "layout" },
+      { "name": "The Desk Rule", "body": "一切物件攤在 #f4f5f2 桌面上；封面是桌上的物件而非滿版背景，用箋最寬 820px 而非撐滿容器。", "section": "layout" },
+      { "name": "The Top Sheet Rule", "body": "階層靠哪張紙在上面：要分層就疊一張紙、移一點位、露一角下層紙，不在紙上再畫一個框。用箋裡唯一允許的框是裱圖版的那一道 1px 朱線。", "section": "elevation" },
+      { "name": "The Soft Shadow Only Rule", "body": "陰影只有 `--lift` 與它的懸停版：有位移、負擴散、靛藍色相；沒有硬偏移陰影、沒有黑色純影、沒有發光。", "section": "elevation" },
+      { "name": "The Square Paper, Tilted Seal Rule", "body": "紙方角、印斜落。新元件若是紙就 0 圓角、直放；若是印就 4px 圓角、雙線、負角度、套印泥濾鏡；沒有第三種。", "section": "shapes" }
+    ],
+    "dos": [
+      "Do 把每個新內容區塊放在一張用箋（`.sheet`）上：白紙 #fff、1px `--rule` 邊、內縮 4px 白 + 5px `--rule-faint` 的內框、`--lift` 軟影、內距 34px 40px 36px、最寬 820px；表格、術語表、年表才用 `.sheet.wide`。",
+      "Do 每張用箋在腳放一個 Courier Prime 12px 朱色折頁碼（`.ref`，如「卷二 · 第三頁」）；狀態章最多一枚，落在右上角。",
+      "Do 每個專有名詞第一次出現時，用 `.en` 把英文原名以 Courier Prime 0.78em 淡墨緊跟在中文之後。",
+      "Do 內文維持 17px／1.85、36em；標題只用 900 字重與 34／28／20px 分級。",
+      "Do 用該卷的標籤色 `--tab` 貫穿它的索引標籤、手機標籤與封面標籤頭；赭黃選中時字改墨色（`--tab-ink`）。",
+      "Do 落在靛藍上的朱印用 #e34b3f；紙上的印維持 #b3261e，並套 `#ink-seal`／`#ink-fine` 印泥濾鏡。",
+      "Do 要在用箋上附註，就放一張略歪的紙條（`.note`，`--paper` 底、`--lift`、±0.5°），標籤朱色 600 並自帶全形冒號。",
+      "Do 數字用 Courier Prime + `tabular-nums`：年份靠右釘在年表直線左側，帳冊數字欄用 `.num`。",
+      "Do 尊重 `prefers-reduced-motion`：關掉印落下動畫與所有位移過渡。"
+    ],
+    "donts": [
+      "Don't 用眉批式小標、全大寫小字標籤或任何放在標題上方的短標；用箋的識別在腳（折頁碼）與角落（章）。",
+      "Don't 用深色羊皮紙、米色紙、燙金襯線大標，或在封面加仿布紋、紋理：封面是純色 #16233f。",
+      "Don't 排同尺寸的主題卡片格，或在用箋裡再畫一個框；要分層就疊一張紙。",
+      "Don't 用硬偏移陰影或描邊做深度；唯一的陰影語彙是 `--lift` 與它的懸停版。",
+      "Don't 把朱 #b3261e 當底色填滿一個面（選中的朱色索引標籤與選取反白除外）。",
+      "Don't 在赭黃 #d7a021 上放白字（2.2:1）；也不要把 #b3261e 直接印在靛藍上（約 2.4:1）。",
+      "Don't 加圓角超過標籤前緣的 6px 與印章的 4px：沒有藥丸按鈕、沒有圓角卡片、沒有圓角輸入框。",
+      "Don't 在 900px 以下顯示側邊標籤軌或 Streamlit 抽屜；行動版只用頂端橫向標籤列。",
+      "Don't 用圖示字型或字符圖示補畫面；圖像只以編號圖版（`.plate`，「圖版一」+ 說明）出現。"
+    ]
+  }
+}

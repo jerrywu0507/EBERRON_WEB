@@ -1,0 +1,17 @@
+[server]
+address = "127.0.0.1"
+port = 8509
+headless = true
+enableXsrfProtection = true
+runOnSave = false
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "light"
+primaryColor = "#b3261e"
+backgroundColor = "#f4f5f2"
+secondaryBackgroundColor = "#16233f"
+textColor = "#1d2b24"
+font = "serif"
