@@ -342,7 +342,7 @@ components:
 `ui.form(title, title_en, rows, ref, no, lead, log, table, foot, prose, stamp, tilt, plain_log)`：雙線標題列與右側編號；`rows` 是欄位列（值 ≤ 30 字且無標記時自動改手寫）；`log` 是條目列（鍵／事項／內文，鍵用 Courier 朱色）；`table` 放 `ledger`；`prose` 段落；`foot` 腳註。
 
 ### Card（紅色檔案卡）＋ Attached
-`ui.card(name, name_en, fields, line, stamp, tilt)`：紅卡、左緣鐵夾（`ui.BINDER`）、名稱與原名、一句話、`fields` 欄位格（`repeat(auto-fit, minmax(210px, 1fr))`）；卡上的章用米色。正文放在 `ui.attached(body, ref)` 的白紙上，白紙上移藏進卡下。
+`ui.card(name, name_en, fields, line, stamp, tilt)`：紅卡、左緣鐵夾（`ui.BINDER`）、名稱與原名、一句話、`fields` 欄位格（`repeat(auto-fit, minmax(210px, 1fr))`）；卡上的章用米色。`emblem=` 可貼一張小相片在卡的右上角（`.emblem`：122px 寬、白色相紙邊、2°、頂邊膠帶；卡文字區右側留 190px），像檔案卡上的證件照，五國的國旗就貼在這裡；章壓在相片上緣。正文放在 `ui.attached(body, ref)` 的白紙上，白紙上移藏進卡下。
 
 ### Slip（警示紙）
 `ui.slip(title, title_en, body, stamp)`：黃紙、頂邊黑色虛線帶、-1.1°、最寬 560px。

@@ -197,9 +197,12 @@ def form(title, title_en=None, rows=None, ref=None, no=None, lead=None, log=None
     return "".join(parts)
 
 
-def card(name, name_en, fields, line=None, stamp=None, tilt=None):
-    """紅色檔案卡：名稱、原名、一句話、欄位。左緣一枚鐵夾。長文放在後面 attached 的白紙上。"""
-    parts = ['<section class="card"%s>%s' % (_tilt(tilt), BINDER)]
+def card(name, name_en, fields, line=None, stamp=None, tilt=None, emblem=None):
+    """紅色檔案卡：名稱、原名、一句話、欄位。左緣一枚鐵夾。長文放在後面 attached 的白紙上。
+    emblem 是貼在卡片右上角的一張小相片（國旗、徽章），像檔案卡上的證件照。"""
+    parts = ['<section class="card%s"%s>%s' % (" has-emblem" if emblem else "", _tilt(tilt), BINDER)]
+    if emblem:
+        parts.append('<div class="emblem tape">%s</div>' % emblem)
     if stamp:
         parts.append('<div class="stamp">%s</div>' % esc(stamp))
     parts.append("<h2>%s%s</h2>" % (esc(name), en(name_en)))

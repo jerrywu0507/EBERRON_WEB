@@ -20,6 +20,7 @@ cd <專案資料夾>
 .\restart_streamlit.ps1  # 關掉 8509 上的舊程序後以隱藏視窗重啟
 ```
 
+Community Cloud 的坑：推新提交後，雲端會把檔案拉進**執行中的**程序，`app.py` 與 `styles.css` 每次執行都重讀，但已載入的 `guide` 模組留在舊版，畫面變成「舊標記配新樣式」（封面出現舊的檔號清單、迴紋針 SVG 撐成大黑弧）。`app.py` 的 `_fresh_modules()` 會比對 `guide/*.py` 的修改時間並自動 `importlib.reload`；若還是看到混合畫面，到 share.streamlit.io 的 app 選單按 Reboot。
 健康檢查：`http://127.0.0.1:8509/_stcore/health` 回 `ok`。主題在 [.streamlit/config.toml](.streamlit/config.toml)；連接埠與位址寫在 `start_streamlit.ps1` 的啟動參數（config.toml 不放 server.address/port，雲端部署時由平台決定）。開機不會自動啟動。
 
 注意：Windows PowerShell 5.1 讀含中文的 `.ps1` 需要 UTF-8 BOM；現有三個腳本都是純 ASCII，可直接跑。
@@ -33,7 +34,7 @@ cd <專案資料夾>
 | `guide/pages.py` | 九個頁面函式、行動版標籤列 `tabstrip(current)`、圖版一 `_khorvaire_plate()`（手繪 SVG 科瓦雷全境示意，16 地區＋王座堡） |
 | `assets/styles.css` | 整站樣式（牛皮紙案卷世界：桌面、封面夾、攤開的夾子、白紙文件、記錄單、紅色檔案卡、警示紙、便條、名片、拍立得與方格紙、固定物、標籤軌、手機斷點 900px、減少動態） |
 | `static/fonts/`、`static/paper-grain.png`、`static/kraft-grain.png` | 自帶字型子集（思源宋體 400/600/900、Courier Prime、霞鶩文楷 TC 手寫）與白紙／牛皮紙紋貼圖；`config.toml` 開了 `enableStaticServing`，網址是 `/app/static/...` |
-| `static/*.jpg` | 使用者提供的圖片，原圖在專案外層 `圖片/`（不進版控），以 `ui.photo()` 放進拍立得：科瓦雷全圖 `map-khorvaire`（第二卷卷首，另有 `-full` 點開版）、世界全圖 `map-world`（第二卷遠方諸地前）、薩恩剖面 `sharn-cross-section`（第三卷，`-full`）、薩恩上中下層區圖 `sharn-upper/middle/lower`（第三卷五個大區後）、莫格雷夫大學 `morgrave`（第三卷卷首，浮在正文右側）、空中追逐 `sharn-sky-battle`（第三卷怎麼移動）、四個種族畫像 `race-warforged/shifter/changeling/kalashtar`（第五卷各自的白紙）、諸位面地圖 `planes-map`（第七卷卷首後，`-full`）、元素飛艇 `airship`（封面三大基調，浮在正文右側）、薩恩罪犯列隊 `sharn-criminals`（第三卷薩恩的面孔後）、龍紋家族代理人 `house-agents-1/2`（第四卷十二家族名片後，兩張並排）、翡翠利爪 `emerald-claw`（第六卷翡翠利爪教團的白紙）。新圖：放進 `圖片/`，轉成 ≤1100px 的 JPEG（大圖另存 ≤2000px 的 `-full`），用 `polaroid(photo(...), 手寫圖說, typed=打字機小字, tall=直幅)` 夾到對應的文件 |
+| `static/*.jpg` | 使用者提供的圖片，原圖在專案外層 `圖片/`（不進版控），以 `ui.photo()` 放進拍立得：科瓦雷全圖 `map-khorvaire`（第二卷卷首，另有 `-full` 點開版）、世界全圖 `map-world`（第二卷遠方諸地前）、薩恩剖面 `sharn-cross-section`（第三卷，`-full`）、薩恩上中下層區圖 `sharn-upper/middle/lower`（第三卷五個大區後）、莫格雷夫大學 `morgrave`（第三卷卷首，浮在正文右側）、空中追逐 `sharn-sky-battle`（第三卷怎麼移動）、四個種族畫像 `race-warforged/shifter/changeling/kalashtar`（第五卷各自的白紙）、諸位面地圖 `planes-map`（第七卷卷首後，`-full`）、元素飛艇 `airship`（封面三大基調，浮在正文右側）、薩恩罪犯列隊 `sharn-criminals`（第三卷薩恩的面孔後）、龍紋家族代理人 `house-agents-1/2`（第四卷十二家族名片後，兩張並排）、翡翠利爪 `emerald-claw`（第六卷翡翠利爪教團的白紙）、五國國旗 `flag-aundair/breland/karrnath/thrane/cyre`（第二卷各國檔案卡右上角的證件照位置，`card(emblem=photo(...))`，原圖在 `圖片/五國國國旗/`，轉檔時裁掉白邊）。新圖：放進 `圖片/`，轉成 ≤1100px 的 JPEG（大圖另存 ≤2000px 的 `-full`），用 `polaroid(photo(...), 手寫圖說, typed=打字機小字, tall=直幅)` 夾到對應的文件 |
 | `tools/build_fonts.py` | 重建四個字型子集（需 `pip install fonttools brotli`；原始 OTF／TTF 會下載到 `~/.cache/eberron-fonts/`） |
 | `assets/favicon.png` | 自製網站圖示（靛藍卷宗＋朱印） |
 | `data/*.json` | 全部文字內容：overview、history、nations、sharn、houses、races、faiths、orgs、planes、appendix、glossary |

@@ -164,13 +164,17 @@ def nations():
             lead="從同一個王國分裂出來的五國，加上戰爭中誕生的鄰居。", bureau=_bureau("第二卷", "NATIONS OF KHORVAIRE")),
         pinboard(map_polaroid, plate_polaroid),
     ]
+    flags = {"Aundair": "flag-aundair", "Breland": "flag-breland", "Karrnath": "flag-karrnath",
+             "Thrane": "flag-thrane", "Cyre (The Mournland)": "flag-cyre"}
     for i, n in enumerate(d["five_nations"], start=2):
         fields = [("首都", term(n["capital"], n["capital_en"])), ("統治者", esc(n["ruler"])),
                   ("信仰", esc(n["faith"])), ("特色", tags(n["traits"]))]
+        flag = flags.get(n["en"])
+        emblem = photo(flag + ".jpg", n["name"] + "的國旗", full=flag + "-full.jpg") if flag else None
         sites = "<ul>%s</ul>" % "".join("<li>%s</li>" % esc(s) for s in n["sites"])
         body = (paras(n["body"]) + memos([("戰爭餘波", n["war_scar"]), ("紀事", n["hook"])])
                 + "<h3>城市與地標</h3>" + sites)
-        parts.append(card(n["name"], n["en"], fields, line=n["one_line"],
+        parts.append(card(n["name"], n["en"], fields, line=n["one_line"], emblem=emblem,
                           stamp="已消失" if n["en"].startswith("Cyre") else None, tilt=(-0.6, 0.5)[i % 2]))
         parts.append(attached(body, ref="卷二 · 第 %d 頁" % i))
     t = d["thronehold"]
