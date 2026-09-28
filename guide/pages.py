@@ -181,6 +181,8 @@ def nations():
                       prose=paras("王座堡條約承認十二個國家：五國中尚存的四國，加上這裡的達貢、埃魯登原野、拉札爾聯邦、摩洛領、夸巴拉、塔蘭塔平原、維倫娜、吉拉哥。"
                                   "卓姆自立為國但未獲承認，陰影濕地與惡魔荒原沒有統一政府，哀傷故地則已無人主張。"),
                       table=regions, no=("地區清冊", "REG-01"), ref="卷二 · 第八頁"))
+    parts.append(pinboard(polaroid(photo("map-world.jpg", "艾伯倫全球圖：科瓦雷、希恩德瑞克、艾倫諾、阿貢尼森、薩洛納與永冰極地"),
+                                   "艾伯倫全球圖，西維斯家族刊行", typed="王國曆 998 年 · 科瓦雷以外的四塊大陸", tilt=-0.9)))
     far = [(None, term(r["name"], r["en"]), esc(r["line"])) for r in d["far_lands"]]
     parts.append(form("遠方諸地", "Distant Lands", log=far, plain_log=True, no=("地區清冊", "REG-02"), ref="卷二 · 第九頁", tilt=-0.3))
     page(*parts)
@@ -256,13 +258,22 @@ def sharn():
     moves = memos(['<div class="memo tape hand">%s</div>' % esc(g) for g in d["getting_around"]])
     faces = bizcards([{"mark": None, "name": f["name"], "en": f["en"], "lines": [("一句話", esc(f["line"]))]} for f in d["faces"]])
     page(
-        doc("第三卷　眾塔之城薩恩", "Sharn, the City of Towers", paras(d["body"]), ref="卷三 · 第一頁", cls="head punched",
+        doc("第三卷　眾塔之城薩恩", "Sharn, the City of Towers",
+            polaroid(photo("morgrave.jpg", "莫格雷夫大學的塔群，塔與塔之間以橋相連"), "莫格雷夫大學，孟西斯高地", typed="Morgrave University")
+            + paras(d["body"]), ref="卷三 · 第一頁", cls="head punched",
             lead=d["one_line"], bureau=_bureau("第三卷", "SHARN, CITY OF TOWERS")),
         doc("垂直的城市", "Wards of Sharn", paras(d["vertical"]), ref="卷三 · 第二頁", tilt=0.4),
-        pinboard(polaroid(_sharn_plate(), "薩恩剖面示意：海拔就是階級", typed="圖版二 · 非比例", tilt=-1.2)),
+        pinboard(polaroid(photo("sharn-cross-section.jpg", "薩恩城剖面圖：天城區、上中下三個層區、齒輪區與熔池", full="sharn-cross-section-full.jpg"),
+                          "薩恩剖面：從天城區到齒輪區", typed="西維斯家族刊行 · 點開看大圖", tilt=-1.0, tall=True),
+                 polaroid(_sharn_plate(), "同一座城的示意，非比例", typed="圖版二", tilt=1.3)),
         form("五個大區", "Quarters of Sharn", table=quarters, no=("區域清冊", "SHN-01"), ref="卷三 · 第三頁"),
+        pinboard(polaroid(photo("sharn-upper.jpg", "薩恩上層區地圖", full="sharn-upper.jpg"), "上層區：富人與掌權者", typed="Upper Wards · 點開看大圖", tilt=-1.4, small=True),
+                 polaroid(photo("sharn-middle.jpg", "薩恩中層區地圖", full="sharn-middle.jpg"), "中層區：市場與酒館", typed="Middle Wards · 點開看大圖", tilt=0.8, small=True),
+                 polaroid(photo("sharn-lower.jpg", "薩恩下層區地圖", full="sharn-lower.jpg"), "下層區：勞工、赤貧者與難民", typed="Lower Wards · 點開看大圖", tilt=-0.6, small=True), tilt=-0.4),
         doc("城市上空與地底", "Above and Below", above, ref="卷三 · 第四頁", cls="cream wide", tilt=-0.5),
-        doc("怎麼在薩恩移動", "Getting Around", moves, ref="卷三 · 第五頁", tilt=0.3),
+        doc("怎麼在薩恩移動", "Getting Around",
+            polaroid(photo("sharn-sky-battle.jpg", "空中飛艇上的追逐戰，滑翔者在塔間穿梭"), "塔與塔之間的空中追逐", typed="skycoach · 每層兩枚銀君幣")
+            + moves, ref="卷三 · 第五頁", tilt=0.3),
         doc("薩恩的面孔", "Faces of Sharn", faces + note("戰爭的痕跡", d["war_marks"]), ref="卷三 · 第六頁", cls="wide punched"),
     )
 
@@ -292,9 +303,18 @@ def races():
     d = ui.load("races")
     parts = [doc("第五卷　種族", "Races of Eberron", paras(d["intro"]), ref="卷五 · 第一頁", cls="head punched",
                  lead="四個只有艾伯倫才有的種族，以及熟悉種族的新位置。", bureau=_bureau("第五卷", "RACES OF EBERRON"))]
+    portraits = {
+        "Shifter": ("race-shifter.jpg", "甲板上的化獸者水手", "Shifter"),
+        "Changeling": ("race-changeling.jpg", "鏡前的幻身靈：一張臉換過一張", "Changeling"),
+        "Kalashtar": ("race-kalashtar.jpg", "離夢人，與身後的夢靈", "Kalashtar"),
+    }
     for i, r in enumerate(d["races"], start=2):
         parts.append(card(r["name"], r["en"], [("常見名字", tags(r["names"]))], line=r["tagline"], tilt=(-0.5, 0.6)[i % 2]))
-        parts.append(attached(paras(r["body"]) + note("扮演提示", r["play"], hand_written=True), ref="卷五 · 第 %d 頁" % i))
+        pic = ""
+        if r["en"] in portraits:
+            src, cap, typed = portraits[r["en"]]
+            pic = polaroid(photo(src, r["name"] + "的畫像"), cap, typed=typed)
+        parts.append(attached(pic + paras(r["body"]) + note("扮演提示", r["play"], hand_written=True), ref="卷五 · 第 %d 頁" % i))
     others = [(None, esc(o["name"]), esc(o["line"])) for o in d["others"]]
     parts.append(form("熟悉的種族，不同的位置", "Familiar Races", log=others, plain_log=True, no=("種族清冊", "RCE-01"), ref="卷五 · 第六頁"))
     a = d["artificer"]
@@ -342,6 +362,8 @@ def planes():
     page(
         doc("第七卷　存在位面", "Planes of Existence", paras(d["intro"]), ref="卷七 · 第一頁", cls="head punched",
             lead="十三個環繞艾伯倫、時近時遠的位面，以及它們滲進世界的地方。", bureau=_bureau("第七卷", "PLANES OF EXISTENCE")),
+        pinboard(polaroid(photo("planes-map.jpg", "諸位面地圖：十三個位面環繞著物質位面艾伯倫", full="planes-map-full.jpg"),
+                          "諸位面地圖：十三個位面環著物質位面", typed="Exploring Eberron · 社群譯製 · 點開看大圖", tilt=-0.8, tall=True)),
         doc("十三位面", "Tour of the Planes", cards, ref="卷七 · 第二頁", cls="wide cream"),
         doc("宇宙觀備註", None, paras(d["cosmology_note"]) + "<h3>月亮</h3>" + paras(d["moons"]), ref="卷七 · 第三頁", cls="punched", tilt=-0.4),
     )

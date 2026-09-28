@@ -272,11 +272,12 @@ def plate(number, caption, svg):
             % (svg, esc(number), esc(caption)))
 
 
-def polaroid(inner, caption, typed=None, tilt=None):
-    """拍立得：白框相紙，下方手寫一行，打字機小字補一行。inner 是 img 或圖版 HTML。"""
+def polaroid(inner, caption, typed=None, tilt=None, tall=False, small=False):
+    """拍立得：白框相紙，下方手寫一行，打字機小字補一行。inner 是 img 或圖版 HTML；tall 給直幅的剖面圖與海報，small 讓幾張相片在同一張方格紙上並排。"""
     t = '<span class="typed">%s</span>' % esc(typed) if typed else ""
-    return ('<figure class="polaroid tape"%s><div class="print">%s</div><figcaption>%s%s</figcaption></figure>'
-            % (_tilt(tilt), inner, esc(caption), t))
+    cls = (" tall" if tall else "") + (" small" if small else "")
+    return ('<figure class="polaroid tape%s"%s><div class="print">%s</div><figcaption>%s%s</figcaption></figure>'
+            % (cls, _tilt(tilt), inner, esc(caption), t))
 
 
 def photo(src, alt, full=None):

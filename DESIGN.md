@@ -354,7 +354,7 @@ components:
 `ui.bizcards(items, index)`：牛皮紙名片（上緣打字機小標、名稱、原名、幾行「標籤 值」）或白色索引卡（`index=True`，第一條紅線、其餘淡橫線）。`auto-fill, minmax(230px, 1fr)`。
 
 ### Polaroid & Pinboard（拍立得與方格紙）
-`ui.pinboard(*polaroids)`：方格紙，拍立得以 flex 並排、置中。`ui.polaroid(inner, caption, typed, tilt)`：白框相紙、頂邊膠帶、圖說手寫（第二行 `typed` 打字機）；`inner` 是 `ui.photo()` 的 `<img>` 或 `plate()` 的 SVG。
+`ui.pinboard(*polaroids)`：方格紙，拍立得以 flex 並排、置中。`ui.polaroid(inner, caption, typed, tilt, tall)`：白框相紙、頂邊膠帶、圖說手寫（第二行 `typed` 打字機）；`inner` 是 `ui.photo()` 的 `<img>` 或 `plate()` 的 SVG。橫幅相片在方格紙上最寬 640px、最高 520px（超出裁切）；`tall=True` 的直幅相片（剖面圖、海報）保留全高、最寬 430px。拍立得也可以直接放進白紙文件的正文開頭：它會浮在正文右側（最寬 280px，1.2°），像夾在紙上的一張照片；手機上回到正文上方置中。
 
 ### Seal（印章）
 `.stamp`：3px 雙線朱框、4px 圓角、900、-12°、`multiply`、`#ink-seal` 印泥濾鏡；文件與記錄單右上角 15px；檔案卡上米色、`normal` 混合；行內章 `stamp_inline()` 12px／-6°／`#ink-fine`。

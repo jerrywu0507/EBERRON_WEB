@@ -379,6 +379,19 @@ section[data-testid="stSidebar"] [data-testid="stSidebarNavSeparator"] { display
 .plate figcaption { margin: 10px 0 0; font-size: 13.5px; color: var(--ink-soft); }
 .plate figcaption b { color: var(--seal); font-weight: 600; margin-right: 8px; }
 
+/* ---- a polaroid inside a document floats to the right of the prose; tall prints keep their height ---- */
+.doc .polaroid { float: right; width: min(280px, 46%); margin: 6px 0 16px 26px; --tilt: 1.2deg; }
+.doc .polaroid .print { max-height: none; }
+.doc .body::after { content: ""; display: block; clear: both; }
+.polaroid.tall .print { max-height: none; max-width: 430px; }
+.polaroid.tall .print img { width: 100%; height: auto; }
+.polaroid.small .print { max-height: none; max-width: 330px; }
+.pinboard .polaroid { flex: 0 1 auto; }
+@media (max-width: 900px) {
+  .doc .polaroid { float: none; width: fit-content; max-width: 100%; margin: 12px auto 18px; }
+  .polaroid.tall .print, .polaroid.small .print { max-width: 100%; }
+}
+
 /* ---- lists that live inside documents ---- */
 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .doc .tags span, .form .tags span { border: 1px solid rgba(27,26,23,0.35); padding: 1px 8px; font-size: 13px; background: var(--grain) repeat, var(--cream); }
