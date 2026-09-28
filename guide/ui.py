@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 """案卷世界的共用零件：資料載入、文件（白紙、記錄單、紅色檔案卡、警示紙、便條、拍立得、名片）、
 印章、固定物（長尾夾、鐵夾、迴紋針、膠帶）、行動版標籤列。每個零件回傳 HTML，page() 把一頁的文件裝進同一個攤開的檔案夾。"""
+import base64
 import html
 import io
 import json
+import mimetypes
 import os
 import re
 
@@ -12,6 +14,7 @@ import streamlit as st
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 ASSETS = os.path.join(ROOT, "assets")
+STATIC = os.path.join(ROOT, "static")
 
 # 各卷：標題、網址、標籤色、篇幅權重（決定索引標籤高度份額）。app.py 依此建立頁面。
 VOLUMES = [
@@ -76,14 +79,54 @@ PAGE_OBJS = []  # app.py 建立 st.Page 後填入
 
 
 @st.cache_data(show_spinner=False)
-def load(name):
-    with io.open(os.path.join(DATA, name + ".json"), encoding="utf-8") as f:
+def _load(path, mtime):
+    with io.open(path, encoding="utf-8") as f:
         return json.load(f)
+
+
+def load(name):
+    """讀一卷的資料。快取鍵含檔案修改時間：雲端把新資料拉進執行中的程序時，舊快取不會再被端出來。"""
+    path = os.path.join(DATA, name + ".json")
+    return _load(path, os.path.getmtime(path))
+
+
+def static_enabled():
+    """執行中的程序有沒有 /app/static 路由。它在啟動時依 server.enableStaticServing 註冊；
+    雲端主機拉進新的 config.toml 不會重啟程序，所以要問執行中的設定值，不能假設檔案裡寫了就有。"""
+    try:
+        return bool(st.config.get_option("server.enableStaticServing"))
+    except Exception:
+        return True
+
+
+@st.cache_data(show_spinner=False)
+def _data_uri(path, mtime):
+    mime = mimetypes.guess_type(path)[0] or "application/octet-stream"
+    with open(path, "rb") as f:
+        return "data:%s;base64,%s" % (mime, base64.b64encode(f.read()).decode("ascii"))
+
+
+def static_url(name):
+    """static/ 裡一個檔案的網址：正常走 /app/static/；沒有那條路由時改成 data URI 內嵌，圖片與紙紋才不會破。"""
+    if static_enabled():
+        return "/app/static/" + name
+    path = os.path.join(STATIC, name)
+    return _data_uri(path, os.path.getmtime(path))
 
 
 def _css_text():
     with io.open(os.path.join(ASSETS, "styles.css"), encoding="utf-8") as f:
         return f.read()
+
+
+def _css_for_runtime():
+    css = _css_text()
+    if static_enabled():
+        return css
+    # 沒有 /app/static 路由：紙紋內嵌；自帶字型那幾行拿掉，讓 @import 的 Google Fonts 接手（手寫字退回宋體）
+    for tile in ("paper-grain.png", "kraft-grain.png"):
+        css = css.replace("url(/app/static/%s)" % tile, "url(%s)" % static_url(tile))
+    return chr(10).join(line for line in css.splitlines() if not line.startswith("@font-face {"))
 
 
 def inject_css():
@@ -95,7 +138,7 @@ def inject_css():
             'section[data-testid="stSidebar"] [data-testid="stSidebarNav"] li:nth-child(%d) a{%s}'
             % (i, v["weight"], i, tab_vars(v["tab"]))
         )
-    st.markdown("<style>%s\n%s</style>%s" % (_css_text(), "\n".join(rules), INK_FILTERS), unsafe_allow_html=True)
+    st.markdown("<style>%s\n%s</style>%s" % (_css_for_runtime(), "\n".join(rules), INK_FILTERS), unsafe_allow_html=True)
 
 
 # ---------------------------------------------------------------- 文字
@@ -284,9 +327,9 @@ def polaroid(inner, caption, typed=None, tilt=None, tall=False, small=False):
 
 
 def photo(src, alt, full=None):
-    """static 目錄裡的一張照片；full 給原尺寸檔，點開另開新頁。"""
-    img = '<img src="/app/static/%s" alt="%s" loading="lazy">' % (esc(src), esc(alt))
-    if full:
+    """static 目錄裡的一張照片；full 給原尺寸檔，點開另開新頁（內嵌模式下省略，免得頁面塞進整張大圖）。"""
+    img = '<img src="%s" alt="%s" loading="lazy">' % (static_url(src), esc(alt))
+    if full and static_enabled():
         img = '<a href="/app/static/%s" target="_blank" rel="noopener">%s</a>' % (esc(full), img)
     return img
 

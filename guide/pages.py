@@ -282,7 +282,9 @@ def sharn():
             + moves, ref="卷三 · 第五頁", tilt=0.3),
         doc("薩恩的面孔", "Faces of Sharn", faces + note("戰爭的痕跡", d["war_marks"]), ref="卷三 · 第六頁", cls="wide punched"),
         pinboard(polaroid(photo("sharn-criminals.jpg", "薩恩警衛的列隊照：半身人、幻身靈、化獸者與離夢人並肩站在量身牆前"),
-                          "薩恩的罪犯：各種體型，甚至來自別的位面", typed="Sharn Watch lineup", tilt=-1.1)),
+                          "薩恩的罪犯：各種體型，甚至來自別的位面", typed="Sharn Watch lineup", tilt=-1.1, small=True),
+                 polaroid(photo("tarkanan.jpg", "兩名塔卡南家族的成員在薩恩高塔之間交戰，異種龍紋迸出電光"),
+                          "塔卡南的掠襲者與打手，在城市高處交手", typed="House Tarkanan", tilt=0.9, small=True)),
     )
 
 
@@ -294,7 +296,10 @@ def houses():
                        "lines": [("龍紋", esc(m["mark"])), ("血脈", esc(m["race"])), ("專擅", esc(m["business"]))]} for m in d["marks"]])
     a = d["aberrant"]
     page(
-        doc("第四卷　龍紋家族", "Dragonmarked Houses", paras(d["intro"]), ref="卷四 · 第一頁", cls="head punched",
+        doc("第四卷　龍紋家族", "Dragonmarked Houses",
+            polaroid(photo("houses-murder.jpg", "不同龍紋家族的成員圍著一具戰俑屍體，在薩恩的巷弄裡調查謀殺案"),
+                     "各家族的成員放下成見，在薩恩聯手查一樁謀殺案", typed="Dragonmarked houses · Sharn")
+            + paras(d["intro"]), ref="卷四 · 第一頁", cls="head punched",
             lead="十二個靠皮膚上的印記壟斷大陸經濟的家族。", bureau=_bureau("第四卷", "DRAGONMARKED HOUSES")),
         doc("十二龍紋與其家族", "Dragonmarks and Their Houses", marks, ref="卷四 · 第二頁", cls="wide cream"),
         pinboard(polaroid(photo("house-agents-1.jpg", "六個龍紋家族的代理人合照", full="house-agents-1.jpg"),
