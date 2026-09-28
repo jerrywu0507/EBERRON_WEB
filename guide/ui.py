@@ -108,9 +108,10 @@ def _data_uri(path, mtime):
 
 def static_url(name):
     """static/ 裡一個檔案的網址：正常走 /app/static/；沒有那條路由時改成 data URI 內嵌，圖片與紙紋才不會破。"""
-    if static_enabled():
-        return "/app/static/" + name
     path = os.path.join(STATIC, name)
+    if static_enabled():
+        # 版本參數：檔案一換網址就換，瀏覽器或雲端快取裡的舊回應（例如路由還沒開時拿到的 HTML）不會再被端出來
+        return "/app/static/%s?v=%d" % (name, int(os.path.getmtime(path)))
     return _data_uri(path, os.path.getmtime(path))
 
 
@@ -330,7 +331,7 @@ def photo(src, alt, full=None):
     """static 目錄裡的一張照片；full 給原尺寸檔，點開另開新頁（內嵌模式下省略，免得頁面塞進整張大圖）。"""
     img = '<img src="%s" alt="%s" loading="lazy">' % (static_url(src), esc(alt))
     if full and static_enabled():
-        img = '<a href="/app/static/%s" target="_blank" rel="noopener">%s</a>' % (esc(full), img)
+        img = '<a href="%s" target="_blank" rel="noopener">%s</a>' % (static_url(full), img)
     return img
 
 
