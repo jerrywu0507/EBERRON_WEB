@@ -41,19 +41,19 @@
   --hand: "LXGW WenKai TC", "Noto Serif TC", serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --lift: 0 12px 28px -16px rgba(0, 0, 0, 0.75), 0 2px 4px -2px rgba(0, 0, 0, 0.35);
-  --grain: url(/app/static/paper-grain.png);
-  --fibre: url(/app/static/kraft-grain.png);
+  --grain: url(app/static/paper-grain.png);
+  --fibre: url(app/static/kraft-grain.png);
 }
 
 /* self-hosted subsets built by tools/build_fonts.py; declared after the Google import so they win,
    and any glyph outside the subset still falls through to the Google faces */
-@font-face { font-family: "Noto Serif TC"; font-weight: 400; font-style: normal; font-display: swap; src: url(/app/static/fonts/NotoSerifTC-400.woff2) format("woff2"); }
-@font-face { font-family: "Noto Serif TC"; font-weight: 600; font-style: normal; font-display: swap; src: url(/app/static/fonts/NotoSerifTC-600.woff2) format("woff2"); }
-@font-face { font-family: "Noto Serif TC"; font-weight: 900; font-style: normal; font-display: swap; src: url(/app/static/fonts/NotoSerifTC-900.woff2) format("woff2"); }
-@font-face { font-family: "Courier Prime"; font-weight: 400; font-style: normal; font-display: swap; src: url(/app/static/fonts/CourierPrime-Regular.woff2) format("woff2"); }
-@font-face { font-family: "Courier Prime"; font-weight: 700; font-style: normal; font-display: swap; src: url(/app/static/fonts/CourierPrime-Bold.woff2) format("woff2"); }
-@font-face { font-family: "Courier Prime"; font-weight: 400; font-style: italic; font-display: swap; src: url(/app/static/fonts/CourierPrime-Italic.woff2) format("woff2"); }
-@font-face { font-family: "LXGW WenKai TC"; font-weight: 400; font-style: normal; font-display: swap; src: url(/app/static/fonts/LXGWWenKaiTC-400.woff2) format("woff2"); }
+@font-face { font-family: "Noto Serif TC"; font-weight: 400; font-style: normal; font-display: swap; src: url(app/static/fonts/NotoSerifTC-400.woff2) format("woff2"); }
+@font-face { font-family: "Noto Serif TC"; font-weight: 600; font-style: normal; font-display: swap; src: url(app/static/fonts/NotoSerifTC-600.woff2) format("woff2"); }
+@font-face { font-family: "Noto Serif TC"; font-weight: 900; font-style: normal; font-display: swap; src: url(app/static/fonts/NotoSerifTC-900.woff2) format("woff2"); }
+@font-face { font-family: "Courier Prime"; font-weight: 400; font-style: normal; font-display: swap; src: url(app/static/fonts/CourierPrime-Regular.woff2) format("woff2"); }
+@font-face { font-family: "Courier Prime"; font-weight: 700; font-style: normal; font-display: swap; src: url(app/static/fonts/CourierPrime-Bold.woff2) format("woff2"); }
+@font-face { font-family: "Courier Prime"; font-weight: 400; font-style: italic; font-display: swap; src: url(app/static/fonts/CourierPrime-Italic.woff2) format("woff2"); }
+@font-face { font-family: "LXGW WenKai TC"; font-weight: 400; font-style: normal; font-display: swap; src: url(app/static/fonts/LXGWWenKaiTC-400.woff2) format("woff2"); }
 
 /* ---- the desk ---- */
 html, body { background: var(--desk); color: var(--ink); }

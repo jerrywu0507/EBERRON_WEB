@@ -107,11 +107,12 @@ def _data_uri(path, mtime):
 
 
 def static_url(name):
-    """static/ 裡一個檔案的網址：正常走 /app/static/；沒有那條路由時改成 data URI 內嵌，圖片與紙紋才不會破。"""
+    """static/ 裡一個檔案的網址：正常走相對路徑 app/static/；沒有那條路由時改成 data URI 內嵌，圖片與紙紋才不會破。"""
     path = os.path.join(STATIC, name)
     if static_enabled():
         # 版本參數：檔案一換網址就換，瀏覽器或雲端快取裡的舊回應（例如路由還沒開時拿到的 HTML）不會再被端出來
-        return "/app/static/%s?v=%d" % (name, int(os.path.getmtime(path)))
+        # 相對路徑（沒有開頭的斜線）：Community Cloud 把 app 放在 /~/+/ 基底路徑底下，絕對路徑 /app/static 會打到代理層拿回 HTML
+        return "app/static/%s?v=%d" % (name, int(os.path.getmtime(path)))
     return _data_uri(path, os.path.getmtime(path))
 
 
@@ -126,7 +127,7 @@ def _css_for_runtime():
         return css
     # 沒有 /app/static 路由：紙紋內嵌；自帶字型那幾行拿掉，讓 @import 的 Google Fonts 接手（手寫字退回宋體）
     for tile in ("paper-grain.png", "kraft-grain.png"):
-        css = css.replace("url(/app/static/%s)" % tile, "url(%s)" % static_url(tile))
+        css = css.replace("url(app/static/%s)" % tile, "url(%s)" % static_url(tile))
     return chr(10).join(line for line in css.splitlines() if not line.startswith("@font-face {"))
 
 
