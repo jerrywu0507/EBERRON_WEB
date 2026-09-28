@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-"""卷宗世界的共用零件：資料載入、公文用箋、印章、帳冊表、時間軸、圖版、行動版標籤列。"""
+"""案卷世界的共用零件：資料載入、文件（白紙、記錄單、紅色檔案卡、警示紙、便條、拍立得、名片）、
+印章、固定物（長尾夾、鐵夾、迴紋針、膠帶）、行動版標籤列。每個零件回傳 HTML，page() 把一頁的文件裝進同一個攤開的檔案夾。"""
 import html
 import io
 import json
 import os
+import re
 
 import streamlit as st
 
@@ -11,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 ASSETS = os.path.join(ROOT, "assets")
 
-# 各卷：標題、網址、標籤色、篇幅權重（決定索引標籤高度）。app.py 依此建立頁面。
+# 各卷：標題、網址、標籤色、篇幅權重（決定索引標籤高度份額）。app.py 依此建立頁面。
 VOLUMES = [
     {"title": "卷宗封面", "path": "", "tab": "indigo", "weight": 6},
     {"title": "第一卷 歷史", "path": "history", "tab": "indigo", "weight": 6},
@@ -23,8 +25,8 @@ VOLUMES = [
     {"title": "第七卷 位面", "path": "planes", "tab": "ochre", "weight": 5},
     {"title": "附錄", "path": "appendix", "tab": "violet", "weight": 7},
 ]
-TAB_COLORS = {"indigo": "#16233f", "seal": "#b3261e", "green": "#2c6e49", "ochre": "#d7a021", "violet": "#5b3a8a"}
-TAB_INK = {"ochre": "var(--ink)"}  # 淺色標籤選中時要用墨色字，白字在赭黃上對比不到 4.5:1
+TAB_COLORS = {"indigo": "#2f3f6e", "seal": "#c2321f", "green": "#5f8f6c", "ochre": "#d9a23a", "violet": "#6c5a91"}
+TAB_INK = {"ochre": "var(--kraft-ink)"}  # 淺色標籤選中時要用深色字
 
 # 印泥效果：SVG 濾鏡讓印章邊緣不整、掉墨點、濃淡不一；ink-fine 是給小章的輕版。inject_css 注入一次。
 INK_FILTERS = (
@@ -52,12 +54,16 @@ INK_FILTERS = (
     '</svg>'
 )
 
-# 迴紋針：一條金屬絲的路徑，夾在照片頂邊
-PAPERCLIP = (
-    '<svg class="clip" viewBox="0 0 30 74" aria-hidden="true">'
-    '<path d="M9 20 V56 a6 6 0 0 0 12 0 V14 a8 8 0 0 0 -16 0 V50 a10 10 0 0 0 20 0 V22"/>'
-    '</svg>'
-)
+# 固定物
+BULLDOG = ('<div class="bulldog" aria-hidden="true"><div class="ring"></div><div class="arm l"></div>'
+           '<div class="arm r"></div><div class="jaw"></div></div>')
+BINDER = '<div class="binder" aria-hidden="true"></div>'
+
+
+def paperclip(cls="clip"):
+    """迴紋針：一條金屬絲的路徑。"""
+    return ('<svg class="%s" viewBox="0 0 30 74" aria-hidden="true">'
+            '<path d="M9 20 V56 a6 6 0 0 0 12 0 V14 a8 8 0 0 0 -16 0 V50 a10 10 0 0 0 20 0 V22"/></svg>' % cls)
 
 
 def tab_vars(tab):
@@ -92,6 +98,7 @@ def inject_css():
     st.markdown("<style>%s\n%s</style>%s" % (_css_text(), "\n".join(rules), INK_FILTERS), unsafe_allow_html=True)
 
 
+# ---------------------------------------------------------------- 文字
 def esc(text):
     return html.escape(str(text), quote=False)
 
@@ -105,6 +112,11 @@ def term(zh, term_en):
     return esc(zh) + en(term_en)
 
 
+def hand(text):
+    """手寫字（鋼筆藍）。"""
+    return '<span class="hand">%s</span>' % esc(text)
+
+
 def paras(*texts):
     return "".join("<p>%s</p>" % esc(t) for t in texts if t)
 
@@ -113,20 +125,117 @@ def raw(html_text):
     st.markdown(html_text.replace("\n", " "), unsafe_allow_html=True)
 
 
-def sheet(title, title_en=None, body="", ref=None, stamp=None, cls="", lead=None):
-    """一張紅格公文用箋。body 是已組好的 HTML。"""
-    parts = ['<section class="sheet %s">' % cls]
-    if ref:
-        parts.append('<div class="ref">%s</div>' % esc(ref))
+def _tilt(t):
+    return ' style="--tilt:%sdeg"' % t if t is not None else ""
+
+
+# ---------------------------------------------------------------- 文件
+def doc(title, title_en=None, body="", ref=None, stamp=None, cls="", lead=None, bureau=None, tilt=None):
+    """一張白色公文紙。title 為 None 時是接在檔案卡後面的續頁（cls 加 attached）。"""
+    parts = ['<section class="doc %s"%s>' % (cls, _tilt(tilt))]
+    if bureau:
+        parts.append('<div class="bureau"><span>%s</span><span>%s</span></div>' % (esc(bureau[0]), esc(bureau[1])))
     if stamp:
         parts.append('<div class="stamp">%s</div>' % esc(stamp))
-    parts.append("<h2>%s%s</h2>" % (esc(title), en(title_en)))
+    if title:
+        parts.append("<h2>%s%s</h2>" % (esc(title), en(title_en)))
     parts.append('<div class="body">')
     if lead:
         parts.append('<p class="lead">%s</p>' % esc(lead))
     parts.append(body)
-    parts.append("</div></section>")
-    raw("".join(parts))
+    parts.append("</div>")
+    if ref:
+        parts.append('<div class="ref">%s</div>' % esc(ref))
+    parts.append("</section>")
+    return "".join(parts)
+
+
+def _is_short(value_html):
+    plain = re.sub(r"<[^>]+>", "", value_html)
+    return len(plain) <= 30 and "<" not in value_html
+
+
+def form(title, title_en=None, rows=None, ref=None, no=None, lead=None, log=None, table=None, foot=None,
+         prose=None, stamp=None, tilt=None, plain_log=False, extra=""):
+    """一張印好格式的記錄單。rows 是 (欄名, 值HTML) 的欄位列，短的值用手寫；log 是 (鍵, 事項HTML, 內文HTML) 的條目；
+    table 是 ledger HTML；prose 是段落 HTML；foot 是腳註 HTML。"""
+    parts = ['<section class="form"%s>' % _tilt(tilt)]
+    if stamp:
+        parts.append('<div class="stamp">%s</div>' % esc(stamp))
+    no_html = ""
+    if no:
+        no_html = '<div class="no">%s<b>%s</b></div>' % (esc(no[0]), esc(no[1]))
+    parts.append('<div class="formhead"><h2>%s%s</h2>%s</div>' % (esc(title), en(title_en), no_html))
+    if lead:
+        parts.append('<p class="lead">%s</p>' % esc(lead))
+    if prose:
+        parts.append('<div class="prose">%s</div>' % prose)
+    if rows:
+        cells = []
+        for k, v in rows:
+            cls = "v hand" if _is_short(v) else "v"
+            cells.append('<div class="row"><div class="k">%s</div><div class="%s">%s</div></div>' % (esc(k), cls, v))
+        parts.append('<div class="rows">%s</div>' % "".join(cells))
+    if log:
+        entries = []
+        for key, what, body in log:
+            if plain_log or key is None:
+                entries.append('<div class="entry"><div><div class="what">%s</div><p>%s</p></div></div>' % (what, body))
+            else:
+                entries.append('<div class="entry"><div class="key">%s</div><div><div class="what">%s</div><p>%s</p></div></div>'
+                               % (esc(key), what, body))
+        parts.append('<div class="log %s">%s</div>' % ("plain" if plain_log else "", "".join(entries)))
+    if table:
+        parts.append(table)
+    if extra:
+        parts.append(extra)
+    if foot:
+        parts.append('<div class="foot">%s</div>' % foot)
+    if ref:
+        parts.append('<div class="ref">%s</div>' % esc(ref))
+    parts.append("</section>")
+    return "".join(parts)
+
+
+def card(name, name_en, fields, line=None, stamp=None, tilt=None):
+    """紅色檔案卡：名稱、原名、一句話、欄位。左緣一枚鐵夾。長文放在後面 attached 的白紙上。"""
+    parts = ['<section class="card"%s>%s' % (_tilt(tilt), BINDER)]
+    if stamp:
+        parts.append('<div class="stamp">%s</div>' % esc(stamp))
+    parts.append("<h2>%s%s</h2>" % (esc(name), en(name_en)))
+    if line:
+        parts.append('<p class="line">%s</p>' % esc(line))
+    if fields:
+        parts.append('<dl class="fields">%s</dl>' % "".join("<div><dt>%s</dt><dd>%s</dd></div>" % (esc(k), v) for k, v in fields))
+    parts.append("</section>")
+    return "".join(parts)
+
+
+def attached(body, ref=None, cls="", tilt=None):
+    """接在檔案卡下面、從卡片底下露出來的白紙。"""
+    return doc(None, body=body, ref=ref, cls="attached " + cls, tilt=tilt)
+
+
+def slip(title, title_en, body, stamp=None, tilt=None):
+    """黃色警示紙。"""
+    parts = ['<section class="slip"%s>' % _tilt(tilt)]
+    if stamp:
+        parts.append('<div class="stamp">%s</div>' % esc(stamp))
+    parts.append("<h2>%s%s</h2>" % (esc(title), en(title_en)))
+    parts.append('<div class="body">%s</div></section>' % body)
+    return "".join(parts)
+
+
+def note(label, text, hand_written=False):
+    """便條：一張貼在文件上的小紙，標籤朱色並自帶全形冒號。"""
+    cls = "memo tape hand" if hand_written else "memo tape"
+    return '<div class="%s"><strong>%s</strong>%s</div>' % (cls, esc(label), esc(text))
+
+
+def memos(items):
+    """幾張便條並排。items 是 (標籤, 文字) 或已組好的便條 HTML。"""
+    inner = "".join(x if isinstance(x, str) else note(*x) for x in items)
+    return '<div class="memos">%s</div>' % inner
 
 
 def meta(rows):
@@ -139,7 +248,7 @@ def tags(items):
 
 
 def ledger(cols, rows):
-    """帳冊表。cols: [(key, 標題, 是否數字欄)]；rows: dict 列表，值可為 HTML。"""
+    """打字機表格。cols: [(key, 標題, 是否數字欄)]；rows: dict 列表，值可為 HTML。"""
     head = "".join('<th class="%s">%s</th>' % ("num" if num else "", esc(label)) for key, label, num in cols)
     body = []
     for r in rows:
@@ -148,16 +257,14 @@ def ledger(cols, rows):
     return '<table class="ledger"><thead><tr>%s</tr></thead><tbody>%s</tbody></table>' % (head, "".join(body))
 
 
-def timeline(items):
-    lis = []
+def bizcards(items, index=False):
+    """一疊名片（牛皮紙）或索引卡（白紙）。items: dict(mark, name, en, lines=[(標籤, 文字)])。"""
+    cards = []
     for it in items:
-        lis.append('<li><span class="year">%s</span><div class="label">%s</div><p>%s</p></li>'
-                   % (esc(it["year"]), esc(it["label"]), esc(it["body"])))
-    return '<ol class="rule">%s</ol>' % "".join(lis)
-
-
-def note(label, text):
-    return '<div class="note"><strong>%s</strong>%s</div>' % (esc(label), esc(text))
+        lines = "".join("<p><b>%s</b>%s</p>" % (esc(k), v) for k, v in it.get("lines", []))
+        mark = '<div class="mark">%s</div>' % esc(it["mark"]) if it.get("mark") else ""
+        cards.append('<div class="bizcard %s">%s<h3>%s%s</h3>%s</div>' % ("index" if index else "", mark, esc(it["name"]), en(it.get("en")), lines))
+    return '<div class="bizcards">%s</div>' % "".join(cards)
 
 
 def plate(number, caption, svg):
@@ -165,14 +272,35 @@ def plate(number, caption, svg):
             % (svg, esc(number), esc(caption)))
 
 
-def photo(src, caption, alt, full=None, label="照片"):
-    """一張用迴紋針夾在用箋上的照片。src 是 static 目錄下的檔名；full 給原尺寸檔，點開另開新頁。"""
+def polaroid(inner, caption, typed=None, tilt=None):
+    """拍立得：白框相紙，下方手寫一行，打字機小字補一行。inner 是 img 或圖版 HTML。"""
+    t = '<span class="typed">%s</span>' % esc(typed) if typed else ""
+    return ('<figure class="polaroid tape"%s><div class="print">%s</div><figcaption>%s%s</figcaption></figure>'
+            % (_tilt(tilt), inner, esc(caption), t))
+
+
+def photo(src, alt, full=None):
+    """static 目錄裡的一張照片；full 給原尺寸檔，點開另開新頁。"""
     img = '<img src="/app/static/%s" alt="%s" loading="lazy">' % (esc(src), esc(alt))
     if full:
         img = '<a href="/app/static/%s" target="_blank" rel="noopener">%s</a>' % (esc(full), img)
-    return ('<figure class="photo">%s%s<figcaption><b>%s</b>%s</figcaption></figure>'
-            % (PAPERCLIP, img, esc(label), esc(caption)))
+    return img
+
+
+def pinboard(*items, tilt=None):
+    """一張方格紙，上面貼著幾張拍立得。"""
+    return '<div class="pinboard"%s>%s</div>' % (_tilt(tilt), "".join(items))
 
 
 def stamp_inline(text, kind="ok"):
     return '<span class="stamp %s">%s</span>' % (kind, esc(text))
+
+
+def folder(*parts, part=None):
+    """攤開的檔案夾；part 是 top / bottom 時，兩半之間可以放 Streamlit 元件。"""
+    cls = "folder" + (" " + part if part else "")
+    return '<div class="%s">%s</div>' % (cls, "".join(parts))
+
+
+def page(*parts, part=None):
+    raw(folder(*parts, part=part))

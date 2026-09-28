@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
-"""各卷的內容頁。每一頁先一句話說清是什麼，再展開。"""
+"""各卷的內容頁。每一頁是一個攤開的檔案夾，裡面夾著幾件不同格式的文件：先一句話說清是什麼，再展開。"""
 import streamlit as st
 
 from guide import ui
-from guide.ui import esc, en, term, paras, note, meta, tags, ledger, timeline, plate, photo, sheet, raw
+from guide.ui import (esc, en, term, paras, note, memos, meta, tags, ledger, plate, photo, polaroid, pinboard,
+                      doc, form, card, attached, slip, bizcards, page, raw)
+
+NUMS = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "十三"]
 
 
 def tabstrip(current=""):
@@ -13,67 +16,67 @@ def tabstrip(current=""):
     raw('<nav class="tabstrip" aria-label="各卷">%s</nav>' % links)
 
 
+def _bureau(vol, en_title):
+    return ("王座堡卷宗 · %s" % vol, en_title)
+
+
 # ---------------------------------------------------------------- 封面
 def cover():
     tabstrip("")
     d = ui.load("overview")
-    heads = "".join('<a href="./%s" style="%s">%s</a>' % (v["path"], ui.tab_vars(v["tab"]), esc(v["title"]))
-                    for v in ui.VOLUMES[1:])
-    raw(
-        '<section class="cover" aria-label="卷宗封面">'
-        '<div class="spine"></div>'
-        '<div class="cover-grid">'
-        '<h1 class="vtitle">艾伯倫</h1>'
-        '<div class="cover-meta">'
-        '<p class="dossier">王座堡卷宗</p>'
-        '<p class="sub">致新任探員的簡報 <span class="en">%s</span></p>'
-        '<dl class="filenum"><dt>檔號</dt><dd>998-YK-001</dd><dt>日期</dt><dd>王國曆 998 年 1 月 1 日</dd>'
-        '<dt>主題</dt><dd>Eberron / D&amp;D 戰役設定</dd><dt>密等</dt><dd>機密　探員限閱</dd></dl>'
-        '<p class="lede">%s</p>'
-        '<a class="open" href="#seven">翻開卷宗</a>'
-        '</div>'
-        '<div class="emboss" aria-hidden="true">王座堡</div>'
-        '<div class="stamp big" aria-hidden="true">機密</div>'
-        '</div>'
-        '<nav class="tabheads" aria-label="各卷索引">%s</nav>'
-        '</section>' % (esc(d["site_title_en"]), esc(d["tagline"]), heads)
+    label = (
+        '<div class="label">'
+        '<p class="head">王座堡卷宗<span class="en">THRONEHOLD DOSSIER</span></p>'
+        '<p class="div">戰役設定簡報 · 致新任探員</p>'
+        '<h1 class="subject">艾伯倫<span class="en">%s</span></h1>'
+        '<div class="meta"><span><b>檔號</b><i>998-YK-001</i></span><span><b>建檔</b><i>王國曆 998 年 1 月 1 日</i></span></div>'
+        '</div>' % esc(d["site_title_en"]).upper()
     )
-    raw('<div id="seven"></div>')
-    things = "".join("<li><h3>%s%s</h3><p>%s</p></li>" % (esc(t["title"]), en(t["en"]), esc(t["body"]))
-                     for t in d["seven_things"])
-    sheet("致新任探員：該瞭解的七件事", "Seven Things to Know", '<ol class="seven">%s</ol>' % things,
-          ref="卷宗封面 · 第一頁", lead=d["one_line"])
+    raw(
+        '<section class="cover" aria-label="卷宗封面">' + ui.BULLDOG
+        + '<div class="foldertab" aria-hidden="true">EBERRON FILES · 艾伯倫檔案</div>' + label
+        + '<p class="penned">%s</p>' % esc(d["tagline"])
+        + '<div class="band"><span class="word">機密</span><span class="sub">探員限閱 · READ ONLY IF AUTHORIZED</span></div>'
+        + '<a class="open" href="#docs">翻開卷宗 ▸</a>' + ui.paperclip("clip paper")
+        + '</section><div id="docs"></div>'
+    )
+    things = [(NUMS[i], esc(t["title"]) + en(t["en"]), esc(t["body"])) for i, t in enumerate(d["seven_things"])]
     themes = "".join("<h3>%s%s</h3>%s" % (esc(t["title"]), en(t["en"]), paras(t["body"])) for t in d["themes"])
-    sheet("三大基調", None, themes, ref="卷宗封面 · 第二頁")
-    facts = meta([(f["k"], esc(f["v"])) for f in d["quick_facts"]])
     months = ledger([("n", "月", True), ("name", "名稱", False)],
                     [{"n": str(i + 1), "name": esc(m)} for i, m in enumerate(d["calendar"]["months"])])
     coins = ledger([("coin", "硬幣", False), ("en", "原名", False), ("note", "說明", False)],
                    [{"coin": esc(c["coin"]), "en": en(c["en"]), "note": esc(c["note"])} for c in d["currency"]])
-    sheet("速記：時間與錢", None,
-          facts + "<h3>曆法</h3>" + paras(d["calendar"]["note"]) + months
-          + "<p>一週七天依序為 %s。</p>" % esc("、".join(d["calendar"]["days"]))
-          + "<h3>貨幣</h3>" + coins,
-          ref="卷宗封面 · 第三頁", cls="wide")
+    page(
+        form("致新任探員：該瞭解的七件事", "Seven Things to Know", lead=d["one_line"], log=things,
+             no=("摘要單", "BRIEF-01"), ref="卷宗封面 · 第一頁"),
+        doc("三大基調", "Three Themes", themes, ref="卷宗封面 · 第二頁", cls="cream punched", tilt=0.4),
+        form("速記：時間與錢", "Time and Money", rows=[(f["k"], esc(f["v"])) for f in d["quick_facts"]],
+             prose="<h3>曆法</h3>" + paras(d["calendar"]["note"]), table=months,
+             foot="<p>一週七天依序為 %s。</p>" % esc("、".join(d["calendar"]["days"])) + coins,
+             no=("速記單", "REF-02"), ref="卷宗封面 · 第三頁", tilt=-0.3),
+    )
 
 
 # ---------------------------------------------------------------- 第一卷 歷史
 def history():
     tabstrip("history")
     d = ui.load("history")
-    sheet("第一卷　歷史", "History of Eberron", paras(d["creation_myth"]), ref="卷一 · 第一頁", cls="head",
-          lead="一個由三條祖龍創造、被一場百年戰爭與一日浩劫定義的世界。")
     eras = "".join("<h3>%s%s</h3>%s" % (esc(e["era"]), en(e["en"]), paras(e["body"])) for e in d["eras"])
-    sheet("五個時代", None, eras, ref="卷一 · 第二頁")
-    sheet("年表", "Timeline", timeline(d["timeline"]), ref="卷一 · 第三頁", cls="wide")
-    sheet("王座堡條約承認的十二國", "The Treaty of Thronehold",
-          tags(d["treaty_nations"]["recognized"]) + "<p></p>" + paras(d["treaty_nations"]["note"]),
-          ref="卷一 · 第四頁")
+    timeline = [(it["year"], esc(it["label"]), esc(it["body"])) for it in d["timeline"]]
     scars = "".join("<h3>%s</h3>%s" % (esc(s["title"]), paras(s["body"])) for s in d["scars"])
     theories = "<ul>%s</ul>" % "".join("<li>%s</li>" % esc(t) for t in d["mourning_theories"])
-    sheet("戰爭的傷痕", "The Scars of War", scars + "<h3>哀傷的成因：三種猜測</h3>" + theories
-          + note("備註", "設定書把哀傷的真相留給 DM 決定。只要它仍是謎，對它的恐懼就壓著下一場戰爭。"),
-          ref="卷一 · 第五頁", stamp="待查")
+    page(
+        doc("第一卷　歷史", "History of Eberron", paras(d["creation_myth"]), ref="卷一 · 第一頁", cls="head punched",
+            lead="一個由三條祖龍創造、被一場百年戰爭與一日浩劫定義的世界。", bureau=_bureau("第一卷", "HISTORY OF EBERRON")),
+        doc("五個時代", "Five Ages", eras, ref="卷一 · 第二頁", cls="cream", tilt=0.5),
+        form("年表", "Timeline", log=timeline, no=("事件記錄單", "LOG-01"), ref="卷一 · 第三頁", tilt=-0.4),
+        doc("王座堡條約承認的十二國", "The Treaty of Thronehold",
+            tags(d["treaty_nations"]["recognized"]) + "<p></p>" + paras(d["treaty_nations"]["note"]),
+            ref="卷一 · 第四頁", tilt=0.3),
+        doc("戰爭的傷痕", "The Scars of War", scars + note("備註", "設定書把哀傷的真相留給 DM 決定。只要它仍是謎，對它的恐懼就壓著下一場戰爭。", hand_written=True),
+            ref="卷一 · 第五頁", cls="punched"),
+        slip("哀傷的成因：三種猜測", "Theories of the Mourning", theories, stamp="待查"),
+    )
 
 
 # ---------------------------------------------------------------- 第二卷 諸國
@@ -148,39 +151,39 @@ def _seat_line(r):
         return '<span class="seat">首府　無</span>'
     return '<span class="seat">首府　%s%s</span>' % (esc(r["seat"]), en(r.get("seat_en")))
 
-
 def nations():
     tabstrip("nations")
     d = ui.load("nations")
-    khorvaire_map = photo("map-khorvaire.jpg", "科瓦雷全圖，尋路者基金會審度，王國曆 998 年。點開看大圖。",
-                          "科瓦雷大陸地圖：五國、周邊各地區、海洋與主要城市", full="map-khorvaire-full.jpg", label="附圖")
-    sheet("第二卷　科瓦雷諸國", "Nations of Khorvaire", paras(d["intro"]) + khorvaire_map + _khorvaire_plate(d),
-          ref="卷二 · 第一頁", cls="head", lead="從同一個王國分裂出來的五國，加上戰爭中誕生的鄰居。")
+    map_polaroid = polaroid(photo("map-khorvaire.jpg", "科瓦雷大陸地圖：五國、周邊各地區、海洋與主要城市", full="map-khorvaire-full.jpg"),
+                            "科瓦雷全圖，尋路者基金會審度", typed="王國曆 998 年 · 點開看大圖", tilt=-1.4)
+    plate_polaroid = polaroid(_khorvaire_plate(d), "科瓦雷示意，非比例；斜線是哀傷故地", typed="圖版一 · 粗框為五國、實線為條約承認", tilt=1.1)
+    parts = [
+        doc("第二卷　科瓦雷諸國", "Nations of Khorvaire", paras(d["intro"]), ref="卷二 · 第一頁", cls="head punched",
+            lead="從同一個王國分裂出來的五國，加上戰爭中誕生的鄰居。", bureau=_bureau("第二卷", "NATIONS OF KHORVAIRE")),
+        pinboard(map_polaroid, plate_polaroid),
+    ]
     for i, n in enumerate(d["five_nations"], start=2):
-        m = meta([
-            ("首都", term(n["capital"], n["capital_en"])),
-            ("統治者", esc(n["ruler"])),
-            ("信仰", esc(n["faith"])),
-            ("特色", tags(n["traits"])),
-        ])
+        fields = [("首都", term(n["capital"], n["capital_en"])), ("統治者", esc(n["ruler"])),
+                  ("信仰", esc(n["faith"])), ("特色", tags(n["traits"]))]
         sites = "<ul>%s</ul>" % "".join("<li>%s</li>" % esc(s) for s in n["sites"])
-        body = (m + paras(n["body"]) + note("戰爭餘波", n["war_scar"]) + note("紀事", n["hook"])
+        body = (paras(n["body"]) + memos([("戰爭餘波", n["war_scar"]), ("紀事", n["hook"])])
                 + "<h3>城市與地標</h3>" + sites)
-        sheet(n["name"], n["en"], body, ref="卷二 · 第 %d 頁" % i, lead=n["one_line"],
-              stamp="已消失" if n["en"].startswith("Cyre") else None)
+        parts.append(card(n["name"], n["en"], fields, line=n["one_line"],
+                          stamp="已消失" if n["en"].startswith("Cyre") else None, tilt=(-0.6, 0.5)[i % 2]))
+        parts.append(attached(body, ref="卷二 · 第 %d 頁" % i))
     t = d["thronehold"]
-    sheet(t["name"], t["en"], paras(t["body"]), ref="卷二 · 第七頁")
+    parts.append(doc(t["name"], t["en"], paras(t["body"]), ref="卷二 · 第七頁", cls="cream", tilt=0.4))
     regions = ledger([("name", "地區", False), ("treaty", "王座堡條約", False), ("line", "一句話", False)],
                      [{"name": term(r["name"], r["en"]) + _seat_line(r),
                        "treaty": "承認" if r.get("treaty") else "未承認",
                        "line": esc(r["line"])} for r in d["regions"]])
-    sheet("其他區域", "Beyond the Five Nations",
-          paras("王座堡條約承認十二個國家：五國中尚存的四國，加上這裡的達貢、埃魯登原野、拉札爾聯邦、摩洛領、夸巴拉、塔蘭塔平原、維倫娜、吉拉哥。"
-                "卓姆自立為國但未獲承認，陰影濕地與惡魔荒原沒有統一政府，哀傷故地則已無人主張。") + regions,
-          ref="卷二 · 第八頁", cls="wide")
-    far = ledger([("name", "遠方諸地", False), ("line", "一句話", False)],
-                 [{"name": term(r["name"], r["en"]), "line": esc(r["line"])} for r in d["far_lands"]])
-    sheet("遠方諸地", "Distant Lands", far, ref="卷二 · 第九頁", cls="wide")
+    parts.append(form("其他區域", "Beyond the Five Nations",
+                      prose=paras("王座堡條約承認十二個國家：五國中尚存的四國，加上這裡的達貢、埃魯登原野、拉札爾聯邦、摩洛領、夸巴拉、塔蘭塔平原、維倫娜、吉拉哥。"
+                                  "卓姆自立為國但未獲承認，陰影濕地與惡魔荒原沒有統一政府，哀傷故地則已無人主張。"),
+                      table=regions, no=("地區清冊", "REG-01"), ref="卷二 · 第八頁"))
+    far = [(None, term(r["name"], r["en"]), esc(r["line"])) for r in d["far_lands"]]
+    parts.append(form("遠方諸地", "Distant Lands", log=far, plain_log=True, no=("地區清冊", "REG-02"), ref="卷二 · 第九頁", tilt=-0.3))
+    page(*parts)
 
 
 # ---------------------------------------------------------------- 第三卷 薩恩
@@ -244,57 +247,59 @@ def _sharn_plate():
     return plate("二", "薩恩剖面示意，非比例。海拔就是階級：天城區浮在固化的雲上，每座塔分成上、中、下三個層區，"
                  "齒輪區在地底，邊沿崖區沿著匕首河的崖壁而建。", "".join(parts))
 
-
 def sharn():
     tabstrip("sharn")
     d = ui.load("sharn")
-    sheet("第三卷　眾塔之城薩恩", "Sharn, the City of Towers", paras(d["body"]), ref="卷三 · 第一頁", cls="head",
-          lead=d["one_line"])
-    sheet("垂直的城市", "Wards of Sharn", paras(d["vertical"]) + _sharn_plate(), ref="卷三 · 第二頁")
     quarters = ledger([("name", "大區", False), ("character", "性格", False)],
                       [{"name": term(q["name"], q["en"]), "character": esc(q["character"])} for q in d["quarters"]])
-    above = ledger([("name", "區域", False), ("line", "說明", False)],
-                   [{"name": term(a["name"], a["en"]), "line": esc(a["line"])} for a in d["above_below"]])
-    sheet("五個大區，加上天上與地下", None, quarters + "<h3>城市上空與地底</h3>" + above,
-          ref="卷三 · 第三頁", cls="wide")
-    moves = "<ul>%s</ul>" % "".join("<li>%s</li>" % esc(g) for g in d["getting_around"])
-    sheet("怎麼在薩恩移動", "Getting Around", moves, ref="卷三 · 第四頁")
-    faces = ledger([("name", "勢力", False), ("line", "一句話", False)],
-                   [{"name": term(f["name"], f["en"]), "line": esc(f["line"])} for f in d["faces"]])
-    sheet("薩恩的面孔", None, faces + note("戰爭的痕跡", d["war_marks"]), ref="卷三 · 第五頁", cls="wide")
+    above = bizcards([{"mark": None, "name": a["name"], "en": a["en"], "lines": [("說明", esc(a["line"]))]} for a in d["above_below"]], index=True)
+    moves = memos(['<div class="memo tape hand">%s</div>' % esc(g) for g in d["getting_around"]])
+    faces = bizcards([{"mark": None, "name": f["name"], "en": f["en"], "lines": [("一句話", esc(f["line"]))]} for f in d["faces"]])
+    page(
+        doc("第三卷　眾塔之城薩恩", "Sharn, the City of Towers", paras(d["body"]), ref="卷三 · 第一頁", cls="head punched",
+            lead=d["one_line"], bureau=_bureau("第三卷", "SHARN, CITY OF TOWERS")),
+        doc("垂直的城市", "Wards of Sharn", paras(d["vertical"]), ref="卷三 · 第二頁", tilt=0.4),
+        pinboard(polaroid(_sharn_plate(), "薩恩剖面示意：海拔就是階級", typed="圖版二 · 非比例", tilt=-1.2)),
+        form("五個大區", "Quarters of Sharn", table=quarters, no=("區域清冊", "SHN-01"), ref="卷三 · 第三頁"),
+        doc("城市上空與地底", "Above and Below", above, ref="卷三 · 第四頁", cls="cream wide", tilt=-0.5),
+        doc("怎麼在薩恩移動", "Getting Around", moves, ref="卷三 · 第五頁", tilt=0.3),
+        doc("薩恩的面孔", "Faces of Sharn", faces + note("戰爭的痕跡", d["war_marks"]), ref="卷三 · 第六頁", cls="wide punched"),
+    )
 
 
 # ---------------------------------------------------------------- 第四卷 龍紋家族
 def houses():
     tabstrip("houses")
     d = ui.load("houses")
-    sheet("第四卷　龍紋家族", "Dragonmarked Houses", paras(d["intro"]), ref="卷四 · 第一頁", cls="head",
-          lead="十二個靠皮膚上的印記壟斷大陸經濟的家族。")
-    marks = ledger([("mark", "龍紋", False), ("house", "家族", False), ("race", "血脈", False), ("business", "專擅公會", False)],
-                   [{"mark": term(m["mark"], m["mark_en"]), "house": term(m["house"], m["house_en"]),
-                     "race": esc(m["race"]), "business": esc(m["business"])} for m in d["marks"]])
-    sheet("十二龍紋與其家族", "Dragonmarks and Their Houses", marks, ref="卷四 · 第二頁", cls="wide")
+    marks = bizcards([{"mark": m["mark_en"].upper(), "name": m["house"], "en": m["house_en"],
+                       "lines": [("龍紋", esc(m["mark"])), ("血脈", esc(m["race"])), ("專擅", esc(m["business"]))]} for m in d["marks"]])
     a = d["aberrant"]
-    sheet(a["name"], a["en"], paras(a["body"]), ref="卷四 · 第三頁", stamp="警戒")
-    facts = meta([(f["k"], esc(f["v"])) for f in d["facts"]])
-    sheet("家族常識", "All about the Houses", facts, ref="卷四 · 第四頁")
-    sheet("戰爭與家族", "The Houses in the War", paras(d["war"]) + note("摩擦", d["tension"]), ref="卷四 · 第五頁")
+    page(
+        doc("第四卷　龍紋家族", "Dragonmarked Houses", paras(d["intro"]), ref="卷四 · 第一頁", cls="head punched",
+            lead="十二個靠皮膚上的印記壟斷大陸經濟的家族。", bureau=_bureau("第四卷", "DRAGONMARKED HOUSES")),
+        doc("十二龍紋與其家族", "Dragonmarks and Their Houses", marks, ref="卷四 · 第二頁", cls="wide cream"),
+        slip(a["name"], a["en"], paras(a["body"]), stamp="警戒"),
+        form("家族常識", "All about the Houses", rows=[(f["k"], esc(f["v"])) for f in d["facts"]],
+             no=("備忘單", "HSE-01"), ref="卷四 · 第四頁", tilt=0.4),
+        doc("戰爭與家族", "The Houses in the War", paras(d["war"]) + note("摩擦", d["tension"], hand_written=True),
+            ref="卷四 · 第五頁", cls="punched", tilt=-0.3),
+    )
 
 
 # ---------------------------------------------------------------- 第五卷 種族
 def races():
     tabstrip("races")
     d = ui.load("races")
-    sheet("第五卷　種族", "Races of Eberron", paras(d["intro"]), ref="卷五 · 第一頁", cls="head",
-          lead="四個只有艾伯倫才有的種族，以及熟悉種族的新位置。")
+    parts = [doc("第五卷　種族", "Races of Eberron", paras(d["intro"]), ref="卷五 · 第一頁", cls="head punched",
+                 lead="四個只有艾伯倫才有的種族，以及熟悉種族的新位置。", bureau=_bureau("第五卷", "RACES OF EBERRON"))]
     for i, r in enumerate(d["races"], start=2):
-        body = paras(r["body"]) + note("扮演提示", r["play"]) + "<h3>常見名字</h3>" + tags(r["names"])
-        sheet(r["name"], r["en"], body, ref="卷五 · 第 %d 頁" % i, lead=r["tagline"])
-    others = ledger([("name", "種族", False), ("line", "在艾伯倫的位置", False)],
-                    [{"name": esc(o["name"]), "line": esc(o["line"])} for o in d["others"]])
-    sheet("熟悉的種族，不同的位置", None, others, ref="卷五 · 第六頁", cls="wide")
+        parts.append(card(r["name"], r["en"], [("常見名字", tags(r["names"]))], line=r["tagline"], tilt=(-0.5, 0.6)[i % 2]))
+        parts.append(attached(paras(r["body"]) + note("扮演提示", r["play"], hand_written=True), ref="卷五 · 第 %d 頁" % i))
+    others = [(None, esc(o["name"]), esc(o["line"])) for o in d["others"]]
+    parts.append(form("熟悉的種族，不同的位置", "Familiar Races", log=others, plain_log=True, no=("種族清冊", "RCE-01"), ref="卷五 · 第六頁"))
     a = d["artificer"]
-    sheet(a["name"], a["en"], paras(a["body"]), ref="卷五 · 第七頁")
+    parts.append(doc(a["name"], a["en"], paras(a["body"]), ref="卷五 · 第七頁", cls="cream", tilt=0.4))
+    page(*parts)
 
 
 # ---------------------------------------------------------------- 第六卷 信仰與組織
@@ -302,44 +307,44 @@ def faiths():
     tabstrip("faiths")
     f = ui.load("faiths")
     o = ui.load("orgs")
-    sheet("第六卷　信仰與組織", "Faiths and Factions", paras(f["intro"]), ref="卷六 · 第一頁", cls="head",
-          lead="諸神不顯聖，所以信仰靠人撐；真正下棋的是暗處的組織。")
     god_cols = [("name", "神祇", False), ("portfolio", "神職", False), ("symbol", "常見聖徽", False)]
-    sh = f["sovereign_host"]
-    gods = ledger(god_cols, [{"name": term(g["name"], g["en"]), "portfolio": esc(g["portfolio"]),
-                              "symbol": esc(g["symbol"])} for g in sh["gods"]])
-    sheet(sh["name"], sh["en"], paras(sh["body"]) + gods, ref="卷六 · 第二頁", cls="wide")
-    ds = f["dark_six"]
-    six = ledger(god_cols, [{"name": term(g["name"], g["en"]), "portfolio": esc(g["portfolio"]),
-                             "symbol": esc(g["symbol"])} for g in ds["gods"]])
-    sheet(ds["name"], ds["en"], paras(ds["body"]) + six, ref="卷六 · 第三頁", cls="wide")
+    sh, ds = f["sovereign_host"], f["dark_six"]
+    gods = ledger(god_cols, [{"name": term(g["name"], g["en"]), "portfolio": esc(g["portfolio"]), "symbol": esc(g["symbol"])} for g in sh["gods"]])
+    six = ledger(god_cols, [{"name": term(g["name"], g["en"]), "portfolio": esc(g["portfolio"]), "symbol": esc(g["symbol"])} for g in ds["gods"]])
     others = "".join("<h3>%s%s</h3>%s%s" % (esc(x["name"]), en(x["en"]),
                                             meta([("神職", esc(x["portfolio"])), ("聖徽", esc(x["symbol"]))]),
                                             paras(x["body"])) for x in f["other_faiths"])
-    sheet("其他信仰", "Other Faiths", others, ref="卷六 · 第四頁")
-    sheet("組織", "Factions", paras(o["intro"]), ref="卷六 · 第五頁", cls="head")
+    parts = [
+        doc("第六卷　信仰與組織", "Faiths and Factions", paras(f["intro"]), ref="卷六 · 第一頁", cls="head punched",
+            lead="諸神不顯聖，所以信仰靠人撐；真正下棋的是暗處的組織。", bureau=_bureau("第六卷", "FAITHS AND FACTIONS")),
+        form(sh["name"], sh["en"], prose=paras(sh["body"]), table=gods, no=("名冊", "FTH-01"), ref="卷六 · 第二頁"),
+        form(ds["name"], ds["en"], prose=paras(ds["body"]), table=six, no=("名冊", "FTH-02"), ref="卷六 · 第三頁", tilt=0.4),
+        doc("其他信仰", "Other Faiths", others, ref="卷六 · 第四頁", cls="cream punched"),
+        doc("組織", "Factions", paras(o["intro"]), ref="卷六 · 第五頁", cls="head", bureau=_bureau("第六卷 · 組織", "FACTIONS")),
+    ]
     stamps = {"The Lords of Dust": "機密", "The Dreaming Dark": "機密", "The Order of the Emerald Claw": "通緝",
               "The Aurum": "機密", "The Boromar Clan": "備查", "The Tyrants": "機密", "The King's Citadel": "機密"}
     for i, org in enumerate(o["orgs"], start=6):
-        body = (meta([("性質", esc(org["kind"])), ("對手", esc(org["rival"]))]) + paras(org["summary"])
-                + note("為什麼難纏", org["why"]) + note("冒險引子", org["hook"]))
-        sheet(org["name"], org["en"], body, ref="卷六 · 第 %d 頁" % i, stamp=stamps.get(org["en"]))
+        parts.append(card(org["name"], org["en"], [("性質", esc(org["kind"])), ("對手", esc(org["rival"]))],
+                          stamp=stamps.get(org["en"]), tilt=(-0.5, 0.4)[i % 2]))
+        parts.append(attached(paras(org["summary"]) + memos([("為什麼難纏", org["why"]), ("冒險引子", org["hook"])]),
+                              ref="卷六 · 第 %d 頁" % i))
     p = o["patrons"]
-    sheet(p["title"], p["en"], paras(p["body"]), ref="卷六 · 第十三頁")
+    parts.append(doc(p["title"], p["en"], paras(p["body"]), ref="卷六 · 第十三頁", tilt=0.3))
+    page(*parts)
 
 
 # ---------------------------------------------------------------- 第七卷 位面
 def planes():
     tabstrip("planes")
     d = ui.load("planes")
-    sheet("第七卷　存在位面", "Planes of Existence", paras(d["intro"]), ref="卷七 · 第一頁", cls="head",
-          lead="十三個環繞艾伯倫、時近時遠的位面，以及它們滲進世界的地方。")
-    rows = [{"name": term(p["name"], p["en"]), "epithet": esc(p["epithet"]), "summary": esc(p["summary"])}
-            for p in d["planes"]]
-    sheet("十三位面", "Tour of the Planes",
-          ledger([("name", "位面", False), ("epithet", "稱號", False), ("summary", "一句話", False)], rows),
-          ref="卷七 · 第二頁", cls="wide")
-    sheet("宇宙觀備註", None, paras(d["cosmology_note"]) + "<h3>月亮</h3>" + paras(d["moons"]), ref="卷七 · 第三頁")
+    cards = bizcards([{"mark": p["epithet"], "name": p["name"], "en": p["en"], "lines": [("一句話", esc(p["summary"]))]} for p in d["planes"]], index=True)
+    page(
+        doc("第七卷　存在位面", "Planes of Existence", paras(d["intro"]), ref="卷七 · 第一頁", cls="head punched",
+            lead="十三個環繞艾伯倫、時近時遠的位面，以及它們滲進世界的地方。", bureau=_bureau("第七卷", "PLANES OF EXISTENCE")),
+        doc("十三位面", "Tour of the Planes", cards, ref="卷七 · 第二頁", cls="wide cream"),
+        doc("宇宙觀備註", None, paras(d["cosmology_note"]) + "<h3>月亮</h3>" + paras(d["moons"]), ref="卷七 · 第三頁", cls="punched", tilt=-0.4),
+    )
 
 
 # ---------------------------------------------------------------- 附錄
@@ -348,32 +353,35 @@ def _zh_stamp(x):
     status = x.get("zh_status") or ("ok" if x["zh_available"] else "no")
     return ui.stamp_inline({"ok": "有譯本", "no": "無譯本", "tbd": "待查"}[status], status)
 
-
 def appendix():
     tabstrip("appendix")
     d = ui.load("appendix")
     g = ui.load("glossary")
     t = d["player_tips"]
-    sheet("附錄", "Appendix", paras(t["intro"]), ref="附錄 · 第一頁", cls="head", lead="建角提示、官方書目、術語表。")
-    tips = "".join("<h3>%s</h3>%s" % (esc(x["title"]), paras(x["body"])) for x in t["tips"])
-    sheet("給玩家的建角提示", "Character Tips", tips, ref="附錄 · 第二頁")
+    tips = [(NUMS[i], esc(x["title"]), esc(x["body"])) for i, x in enumerate(t["tips"])]
     b = d["books"]
     rows = []
     for x in b["items"]:
         zh = esc(x["zh"]) if x["zh"] else ""
         rows.append({"title": "<strong>%s</strong>%s" % (esc(x["title"]), ("<br>" + zh) if zh else ""),
-                     "year": esc(x["year"]), "edition": esc(x["edition"]),
-                     "zh": _zh_stamp(x),
-                     "note": esc(x["note"])})
+                     "year": esc(x["year"]), "edition": esc(x["edition"]), "zh": _zh_stamp(x), "note": esc(x["note"])})
     books = ledger([("title", "書名", False), ("year", "年份", True), ("edition", "版本", False), ("zh", "中文", False), ("note", "說明", False)], rows)
     links = "<ul>%s</ul>" % "".join('<li><a href="%s" target="_blank" rel="noopener">%s</a>：%s</li>'
                                     % (esc(l["url"]), esc(l["label"]), esc(l["note"])) for l in b["links"])
-    sheet("官方書目與延伸閱讀", "Bibliography", paras(b["intro"]) + books + "<h3>延伸連結</h3>" + links,
-          ref="附錄 · 第三頁", cls="wide")
+    page(
+        doc("附錄", "Appendix", paras(t["intro"]), ref="附錄 · 第一頁", cls="head punched", lead="建角提示、官方書目、術語表。",
+            bureau=_bureau("附錄", "APPENDIX")),
+        form("給玩家的建角提示", "Character Tips", log=tips, no=("建角單", "APP-01"), ref="附錄 · 第二頁"),
+        doc("官方書目與延伸閱讀", "Bibliography", paras(b["intro"]) + books + "<h3>延伸連結</h3>" + links, ref="附錄 · 第三頁", cls="wide cream", tilt=0.3),
+        part="top",
+    )
     query = st.text_input("查術語", placeholder="輸入中文或英文，例如：龍紋、Sharn", label_visibility="visible")
     q = (query or "").strip().lower()
     terms = [x for x in g["terms"] if not q or q in x["zh"].lower() or q in x["en"].lower()]
     items = "".join('<div>%s<span class="en">%s</span></div>' % (esc(x["zh"]), esc(x["en"])) for x in terms)
-    sheet("術語表", "Glossary", "<p>%s 共 %d 個詞。</p>" % (esc(g["intro"]), len(terms)) + '<div class="glossary">%s</div>' % items,
-          ref="附錄 · 第四頁", cls="wide")
-    sheet("關於本站", None, paras(d["about"]), ref="附錄 · 第五頁")
+    page(
+        doc("術語表", "Glossary", "<p>%s 共 %d 個詞。</p>" % (esc(g["intro"]), len(terms)) + '<div class="glossary">%s</div>' % items,
+            ref="附錄 · 第四頁", cls="wide"),
+        doc("關於本站", None, paras(d["about"]), ref="附錄 · 第五頁", cls="cream", tilt=0.4),
+        part="bottom",
+    )

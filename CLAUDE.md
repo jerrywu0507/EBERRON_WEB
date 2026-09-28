@@ -31,10 +31,10 @@ cd <專案資料夾>
 | `app.py` | 入口：`st.set_page_config`、依 `ui.VOLUMES` 建 `st.Page`、`st.navigation`、注入 CSS |
 | `guide/ui.py` | 共用零件：`VOLUMES`（各卷標題／網址／標籤色／篇幅權重）、`load()`（快取 JSON）、`inject_css()`（樣式＋標籤軌逐卷規則＋印泥 SVG 濾鏡 `INK_FILTERS`）、`sheet/meta/tags/ledger/timeline/note/plate/stamp_inline/term/en/paras` |
 | `guide/pages.py` | 九個頁面函式、行動版標籤列 `tabstrip(current)`、圖版一 `_khorvaire_plate()`（手繪 SVG 科瓦雷全境示意，16 地區＋王座堡） |
-| `assets/styles.css` | 整站樣式（色票 token、封面、印章、用箋、標籤軌、帳冊、年表、圖版、手機斷點 900px、減少動態） |
-| `static/fonts/`、`static/paper-grain.png` | 自帶字型子集（思源宋體 400/600/900、Courier Prime）與紙紋貼圖；`config.toml` 開了 `enableStaticServing`，網址是 `/app/static/...` |
+| `assets/styles.css` | 整站樣式（牛皮紙案卷世界：桌面、封面夾、攤開的夾子、白紙文件、記錄單、紅色檔案卡、警示紙、便條、名片、拍立得與方格紙、固定物、標籤軌、手機斷點 900px、減少動態） |
+| `static/fonts/`、`static/paper-grain.png`、`static/kraft-grain.png` | 自帶字型子集（思源宋體 400/600/900、Courier Prime、霞鶩文楷 TC 手寫）與白紙／牛皮紙紋貼圖；`config.toml` 開了 `enableStaticServing`，網址是 `/app/static/...` |
 | `static/map-khorvaire.jpg`、`static/map-khorvaire-full.jpg` | 第二卷卷首夾著的科瓦雷全圖（網頁用 1400px／點開用 2400px），原圖在專案外層 `圖片/` |
-| `tools/build_fonts.py` | 重建字型子集（需 `pip install fonttools brotli`；原始 OTF 會下載到 `~/.cache/eberron-fonts/`） |
+| `tools/build_fonts.py` | 重建四個字型子集（需 `pip install fonttools brotli`；原始 OTF／TTF 會下載到 `~/.cache/eberron-fonts/`） |
 | `assets/favicon.png` | 自製網站圖示（靛藍卷宗＋朱印） |
 | `data/*.json` | 全部文字內容：overview、history、nations、sharn、houses、races、faiths、orgs、planes、appendix、glossary |
 | `tools/build_glossary.py` | 從各卷資料的中英成對欄位＋內建補充清單重建 `data/glossary.json`（**不要手改 glossary.json**） |
@@ -48,10 +48,10 @@ cd <專案資料夾>
 - 國名與地區名依使用者提供的科瓦雷地圖（`static/map-khorvaire.jpg`，圖上為簡體，轉繁體）：布魯蘭、坎納斯、埃魯登原野、陰影濕地、拉札爾聯邦、達貢、維倫娜、塔蘭塔平原、夸巴拉（用「夸」不用「誇」）；這幾個以地圖為準，優先於下一條的譯本。
 - 專有名詞譯法依 5e 不全書的《艾伯倫：從終末戰爭中崛起》簡中譯本（https://5echm.kagangtuya.top/?page=艾伯倫：從終末戰爭中崛起/艾伯倫：從終末戰爭中崛起.htm ，內容在 `topics/` 下各章 .htm），簡轉繁用 OpenCC `s2tw`（不要用 `s2twp`，它會把「歐拉卓」轉成「尤拉卓」）。2026-09-28 全站核對過：King's Citadel＝國王堡壘、King's Dark Lanterns＝國王暗燈、Sul Khatesh＝蘇·珂帝室，其餘一致；譯本沒有的名字（Jaela Daran、Phiarlan、Riedra、Sharn Inquisitive 等）沿用本站譯法。
 - 新增專有名詞時，資料裡用成對欄位（`name`/`en`、`capital`/`capital_en`、`mark`/`mark_en`、`house`/`house_en`、`seat`/`seat_en`），再跑 `tools/build_glossary.py` 讓術語表跟上；純句子裡的名詞請加進腳本的 `EXTRA` 清單。
-- 頁面組版用 `sheet(title, title_en, body_html, ref="卷X · 第N頁", cls="head|wide", stamp=None, lead=None)`：`head` 是各卷首頁（靛藍框、下方露一張紙），`wide` 釋放 36em 行寬給帳冊／術語表／年表；`ref` 是頁碼，CSS 放在用箋**腳**，不要放回標題上方（審查禁止眉批式小標）。
+- 頁面組版：每一卷是一個攤開的夾子 `page(*docs)`，裡面放不同格式的文件（回傳 HTML 字串）：`doc()` 白紙（`cls="head punched"` 卷首、`cream` 米色、`wide`、`attached` 接在卡後）、`form()` 記錄單（欄位列 `rows`／條目列 `log`／表格 `table`）、`card()` 紅色檔案卡＋`attached()` 白紙、`slip()` 黃色警示紙、`note()`／`memos()` 便條、`bizcards()` 名片、`pinboard(polaroid(...))` 方格紙上的拍立得。同一頁相鄰兩件文件不要同格式；每件給一個小傾角 `tilt=`。Streamlit 元件要放進夾子時用 `page(..., part="top")` 與 `part="bottom"` 夾在中間（附錄的術語查詢就是這樣）。
 - 新增內容含新字後跑 `tools/build_fonts.py`（沒跑也不會壞：缺的字會落回 Google Fonts，只是那幾個字會慢一點出現）。
-- 新增一卷：`ui.VOLUMES` 加一項（`path`、`tab` 色、`weight`），`app.py` 的 `FUNCS` 對應頁面函式，頁面函式第一行呼叫 `tabstrip("<path>")`。
-- 設計底線（來自 DESIGN.md 與 Impeccable craft floor）：顏色只用 `:root` 的 token；朱紅只當印與格線；封面上的印用 `#e34b3f`；赭黃標籤選中時用墨色字（白字對比不足）；註記做成疊在紙上的紙條（`note()`），不做框中框；全站只有一個入場動作（朱印落下）；文字對比 ≥ 4.5:1；英文原名用 Courier Prime（`en()`）；封面只加工藝細節不加圖；圖像只以編號圖版出現（圖版一科瓦雷、圖版二薩恩剖面）。
+- 新增一卷：`ui.VOLUMES` 加一項（`path`、`tab` 色、`weight`），`app.py` 的 `FUNCS` 對應頁面函式，頁面函式第一行呼叫 `tabstrip("<path>")`，卷首用 `doc(..., cls="head punched", bureau=_bureau("第N卷", "ENGLISH TITLE"))`。
+- 設計底線（來自 DESIGN.md）：顏色只用 `:root` 的 token；整片紅只有檔案卡與封面橫帶，整片黃只有警示紙；手寫（`--hand`）只用在短欄位、便條、圖說、封面一句話，正文永遠宋體，表單欄名與編號永遠 Courier；紙不做圓角、不畫框做層級；入場動作只有兩個節拍（封面橫帶落下；翻卷時首件文件落下、章蓋下）；文字對比 ≥ 4.5:1；英文原名用 `en()`；圖像只有使用者提供的照片與自繪 SVG 圖版，都以拍立得貼在方格紙上。
 - 事實不確定就蓋「待查」章（`stamp="待查"` 或帳冊裡 `stamp_inline("待查", "tbd")`），不要下斷言。目前待查：《奇械鍛爐》《尋路者指南》是否有中文譯本；薩恩人口寫成「各版設定書估計約二十萬至五十萬」。
 - 不轉載譯本全文、不使用官方插圖；圖版一、二是自己畫的示意圖。使用者提供的圖片（目前是 `D:\eberron-guide\圖片\地圖.png` 的科瓦雷全圖）轉成 `static/map-khorvaire.jpg`（1400px 網頁用）與 `-full.jpg`（2400px 點開用），以 `ui.photo(src, caption, alt, full=, label=)` 夾在用箋上。
 - CSS 依賴 Streamlit 的 DOM 結構（`section[data-testid="stSidebar"]`、`[data-testid="stSidebarNav"]`、`[data-testid="stAppViewContainer"]` 用 `row-reverse` 把側欄放到右緣）；升級 Streamlit 後先檢查標籤軌。全站宋體規則會蓋掉 Streamlit 的圖示字型，所以 `[data-testid="stIconMaterial"]` 另外指回 Material Symbols Rounded；側欄的標頭、收合鈕、使用者區都隱藏，標籤軌本身就是導覽。
@@ -64,6 +64,7 @@ cd <專案資料夾>
 4. 完工審查第一輪判「fix」：印章改成 SVG 濾鏡印泥（破邊、掉墨、濃淡）、頁碼移到用箋腳、手機英文原名可折行、赭黃標籤選中改墨字、寬用箋釋放行寬；次要：註記改紙條、封面內縮與印色寫進契約 ADAPTATIONS、書目「待查」章、圖例出界、favicon、封面標籤頭改真連結。第二輪判「**ship**」，五項全部 resolved；補修灰色「無譯本」章太淡。
 5. 文件代理寫出 DESIGN.md 與 `.impeccable/design.json`。
 6. 完工後追加：圖版一擴成科瓦雷全境（16 地區＋王座堡，含圖例），「其他區域」帳冊加首府與王座堡條約承認狀態，手機上圖版可橫向拖動。
+8. 全面改版成牛皮紙案卷（2026-09-29，使用者指定參考：Bureau of Mythology 式檔案夾＋雜誌版式圖；問答後決定整套換、單欄但每張紙格式不同、不加圖、四種物件全要）：新的 `ui.py` 文件零件與 `pages.py` 組版、新 `styles.css`、霞鶩文楷手寫字型子集、牛皮紙紋；DESIGN.md 的 Design System 全部重寫。
 7. 質感升級（2026-09-28，依 frontend-design 與 taste-skill 的改版流程）：紅格線改為跟著段落走、手機段落靠左、用箋不隨滑鼠抬起；自帶字型子集、紙紋、桌面受光；封面加檔案標籤紙、暗紋圓章、書脊凸帶、磨損暗角；卷首用箋與章的入場動作；圖版二薩恩剖面；DESIGN.md 同步。
 
 說明：這台機器的 Claude Code 沒有註冊 Impeccable 內建的審查／文件代理，審查與文件是由一般代理照 `~/.claude/skills/impeccable/reference/degraded/*.md` 代跑的；Impeccable 技能本身裝在 `~/.claude/skills/impeccable`（原始碼 https://github.com/pbakaus/impeccable ，當時官方安裝器 404，是手動下載檔案安裝的），新電腦要另外裝。
