@@ -45,7 +45,18 @@ INK_FILTERS = (
     '<feComposite in="SourceGraphic" in2="holes" operator="in" result="a"/>'
     '<feTurbulence type="turbulence" baseFrequency="0.08" numOctaves="1" seed="9" result="warp"/>'
     '<feDisplacementMap in="a" in2="warp" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>'
-    '</filter></svg>'
+    '</filter>'
+    '<linearGradient id="clip-metal" x1="0" y1="0" x2="1" y2="1">'
+    '<stop offset="0" stop-color="#e9ebee"/><stop offset="0.45" stop-color="#8e96a3"/><stop offset="0.55" stop-color="#d7dbe0"/><stop offset="1" stop-color="#6c7480"/>'
+    '</linearGradient>'
+    '</svg>'
+)
+
+# 迴紋針：一條金屬絲的路徑，夾在照片頂邊
+PAPERCLIP = (
+    '<svg class="clip" viewBox="0 0 30 74" aria-hidden="true">'
+    '<path d="M9 20 V56 a6 6 0 0 0 12 0 V14 a8 8 0 0 0 -16 0 V50 a10 10 0 0 0 20 0 V22"/>'
+    '</svg>'
 )
 
 
@@ -152,6 +163,15 @@ def note(label, text):
 def plate(number, caption, svg):
     return ('<figure class="plate"><div class="art">%s</div><figcaption><b>圖版%s</b>%s</figcaption></figure>'
             % (svg, esc(number), esc(caption)))
+
+
+def photo(src, caption, alt, full=None, label="照片"):
+    """一張用迴紋針夾在用箋上的照片。src 是 static 目錄下的檔名；full 給原尺寸檔，點開另開新頁。"""
+    img = '<img src="/app/static/%s" alt="%s" loading="lazy">' % (esc(src), esc(alt))
+    if full:
+        img = '<a href="/app/static/%s" target="_blank" rel="noopener">%s</a>' % (esc(full), img)
+    return ('<figure class="photo">%s%s<figcaption><b>%s</b>%s</figcaption></figure>'
+            % (PAPERCLIP, img, esc(label), esc(caption)))
 
 
 def stamp_inline(text, kind="ok"):

@@ -277,6 +277,24 @@ header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [d
 .plate figcaption { margin: 10px 0 0; font-size: 13.5px; color: var(--ink-soft); }
 .plate figcaption b { color: var(--seal); font-weight: 600; margin-right: 8px; }
 
+/* a photograph clipped to the sheet: white print border, slight tilt, a wire paper clip over the top edge */
+.photo {
+  position: relative; display: block; width: fit-content; max-width: 100%; margin: 22px auto 26px 0;
+  padding: 10px 10px 12px; background: var(--grain) repeat, #fff; border: 1px solid rgba(22, 35, 63, 0.18);
+  box-shadow: var(--lift), 0 18px 30px -20px rgba(22, 35, 63, 0.55);
+  transform: rotate(-1.3deg);
+}
+.photo a { display: block; text-decoration: none; }
+.photo img { display: block; width: 100%; height: auto; max-height: 520px; object-fit: cover; }
+.photo figcaption { margin: 8px 2px 0; font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-soft); }
+.photo figcaption b { color: var(--seal); font-weight: 700; margin-right: 8px; }
+.photo .clip { position: absolute; top: -22px; left: 28px; width: 30px; height: 74px; transform: rotate(6deg); filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35)); }
+.photo .clip path { fill: none; stroke: url(#clip-metal); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 900px) {
+  .photo { transform: rotate(-0.8deg); margin-right: 0; }
+  .photo .clip { left: 14px; }
+}
+
 /* glossary */
 .glossary { columns: 2; column-gap: 32px; }
 .glossary div { break-inside: avoid; padding: 6px 0; border-bottom: 1px solid var(--rule-faint); font-size: 15px; }

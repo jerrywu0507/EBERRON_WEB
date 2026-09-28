@@ -32,15 +32,15 @@
     {"year": "-", "label": "達坎帝國覆滅", "body": "地精帝國毀於異怪入侵，科瓦雷陷入部族時代。"},
     {"year": "1 YK", "label": "伽利法王國建立", "body": "紀年元年。王座設於王座堡。"},
     {"year": "894 YK", "label": "終末戰爭爆發", "body": "賈羅特國王於 2 月 12 日逝世，五位子女各據一國。"},
-    {"year": "戰爭期間", "label": "新國家出現", "body": "瓦倫納（Valenar）精靈與達袞（Darguun）地精以武力奪地；埃爾丁原野（Eldeen Reaches）脫離安黛爾；吉拉哥、拉扎爾公國等取得獨立之名。"},
+    {"year": "戰爭期間", "label": "新國家出現", "body": "維倫娜（Valenar）精靈與達貢（Darguun）地精以武力奪地；埃魯登原野（Eldeen Reaches）脫離安黛爾；吉拉哥、拉札爾聯邦等取得獨立之名。"},
     {"year": "戰爭末期", "label": "戰俑量產", "body": "坎尼斯家族（House Cannith）推出有智能的戰俑士兵；黎蘭達家族完善飛艇。"},
     {"year": "994 YK", "label": "哀傷日", "body": "2 月 20 日，賽爾一日之內消失，成為哀傷故地。"},
     {"year": "996 YK", "label": "王座堡條約", "body": "終末戰爭正式結束。條約承認十二國，叫停戰俑製造並給予倖存戰俑自由，禁止各國保有亡靈軍團的製造。"},
     {"year": "998 YK", "label": "現在", "body": "預設戰役開始於 1 月 1 日。距哀傷不到四年、距停戰不到兩年。"}
   ],
   "treaty_nations": {
-    "recognized": ["安黛爾 Aundair", "布蕾蘭 Breland", "達袞 Darguun", "埃爾丁原野 Eldeen Reaches", "卡納斯 Karrnath", "拉扎爾公國 Lhazaar Principalities", "摩洛領 Mror Holds", "誇巴拉 Q'barra", "塔倫塔平原 Talenta Plains", "瑟雷恩 Thrane", "瓦倫納 Valenar", "吉拉哥 Zilargo"],
-    "note": "惡魔荒原（Demon Wastes）與陰影邊地（Shadow Marches）沒有統一政府；卓姆（Droaam）自立為國但未獲承認。這些國家有時被合稱為「王座堡國家」。"
+    "recognized": ["安黛爾 Aundair", "布魯蘭 Breland", "達貢 Darguun", "埃魯登原野 Eldeen Reaches", "坎納斯 Karrnath", "拉札爾聯邦 Lhazaar Principalities", "摩洛領 Mror Holds", "誇巴拉 Q'barra", "塔蘭塔平原 Talenta Plains", "瑟雷恩 Thrane", "維倫娜 Valenar", "吉拉哥 Zilargo"],
+    "note": "惡魔荒原（Demon Wastes）與陰影濕地（Shadow Marches）沒有統一政府；卓姆（Droaam）自立為國但未獲承認。這些國家有時被合稱為「王座堡國家」。"
   },
   "scars": [
     {"title": "龍紋家族更強大", "body": "戰時向各方出售服務，戰後各國反而更依賴它們。在伽利法時代受限的家族，如今沒有哪位君王承受得起與它們斷絕關係。"},

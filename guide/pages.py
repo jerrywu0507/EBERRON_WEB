@@ -3,7 +3,7 @@
 import streamlit as st
 
 from guide import ui
-from guide.ui import esc, en, term, paras, note, meta, tags, ledger, timeline, plate, sheet, raw
+from guide.ui import esc, en, term, paras, note, meta, tags, ledger, timeline, plate, photo, sheet, raw
 
 
 def tabstrip(current=""):
@@ -139,7 +139,7 @@ def _khorvaire_plate(d):
     parts.append('<text x="16" y="420" font-size="11.5" fill="#4b5a52">粗框：五國　實線：王座堡條約承認　虛線：未受承認　斜線：哀傷故地</text>')
     parts.append('</g></svg>')
     return plate("一", "科瓦雷全境示意，非比例。中央粗框是五國，賽爾已成哀傷故地；周圍八個實線地區是王座堡條約承認的國家，"
-                 "虛線的卓姆、陰影邊地、惡魔荒原沒有受承認的政府。", "".join(parts))
+                 "虛線的卓姆、陰影濕地、惡魔荒原沒有受承認的政府。", "".join(parts))
 
 
 def _seat_line(r):
@@ -152,7 +152,9 @@ def _seat_line(r):
 def nations():
     tabstrip("nations")
     d = ui.load("nations")
-    sheet("第二卷　科瓦雷諸國", "Nations of Khorvaire", paras(d["intro"]) + _khorvaire_plate(d),
+    khorvaire_map = photo("map-khorvaire.jpg", "科瓦雷全圖，尋路者基金會審度，王國曆 998 年。點開看大圖。",
+                          "科瓦雷大陸地圖：五國、周邊各地區、海洋與主要城市", full="map-khorvaire-full.jpg", label="附圖")
+    sheet("第二卷　科瓦雷諸國", "Nations of Khorvaire", paras(d["intro"]) + khorvaire_map + _khorvaire_plate(d),
           ref="卷二 · 第一頁", cls="head", lead="從同一個王國分裂出來的五國，加上戰爭中誕生的鄰居。")
     for i, n in enumerate(d["five_nations"], start=2):
         m = meta([
@@ -173,8 +175,8 @@ def nations():
                        "treaty": "承認" if r.get("treaty") else "未承認",
                        "line": esc(r["line"])} for r in d["regions"]])
     sheet("其他區域", "Beyond the Five Nations",
-          paras("王座堡條約承認十二個國家：五國中尚存的四國，加上這裡的達袞、埃爾丁原野、拉扎爾公國、摩洛領、誇巴拉、塔倫塔平原、瓦倫納、吉拉哥。"
-                "卓姆自立為國但未獲承認，陰影邊地與惡魔荒原沒有統一政府，哀傷故地則已無人主張。") + regions,
+          paras("王座堡條約承認十二個國家：五國中尚存的四國，加上這裡的達貢、埃魯登原野、拉札爾聯邦、摩洛領、誇巴拉、塔蘭塔平原、維倫娜、吉拉哥。"
+                "卓姆自立為國但未獲承認，陰影濕地與惡魔荒原沒有統一政府，哀傷故地則已無人主張。") + regions,
           ref="卷二 · 第八頁", cls="wide")
     far = ledger([("name", "遠方諸地", False), ("line", "一句話", False)],
                  [{"name": term(r["name"], r["en"]), "line": esc(r["line"])} for r in d["far_lands"]])

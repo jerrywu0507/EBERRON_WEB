@@ -3,7 +3,7 @@
   "sovereign_host": {
     "name": "天命諸神",
     "en": "The Sovereign Host",
-    "body": "伽利法王國與科瓦雷大部分地區的主流信仰，九位神祇各司其職，不同國家各有側重：安黛爾以奧瑞恩為核心，卡納斯重視杜·多恩。",
+    "body": "伽利法王國與科瓦雷大部分地區的主流信仰，九位神祇各司其職，不同國家各有側重：安黛爾以奧瑞恩為核心，坎納斯重視杜·多恩。",
     "gods": [
       {"name": "阿拉懷", "en": "Arawai", "portfolio": "生命、愛情", "symbol": "以綠色絲帶繫著的麥穗"},
       {"name": "奧瑞恩", "en": "Aureon", "portfolio": "知識、律法", "symbol": "打開的卷冊"},
@@ -31,11 +31,11 @@
   },
   "other_faiths": [
     {"name": "銀焰教會", "en": "The Church of the Silver Flame", "portfolio": "善良、保護", "symbol": "白銀上的火焰", "body": "以保護無辜者免受超自然邪惡為宗旨，發源於瑟雷恩並成為其國教。銀焰本身是一股力量而非人格神，據說源自封印魔君的羽蛇之魂；殉道者蒂拉·邁倫（Tira Miron）犧牲自己封印魔君貝·舍盧，火柱至今矗立在銀焰堡大教堂。狂信派與腐敗的教士同樣存在。"},
-    {"name": "沃爾之血", "en": "The Blood of Vol", "portfolio": "不滅", "symbol": "紅色淚滴形寶石", "body": "相信神性在自己的血液裡，死亡是必須抵抗的敵人。卡納斯在饑荒中採納為國教、用亡靈補充軍隊，如今已被國王疏遠。多數信徒（自稱尋者）與翡翠利爪教團劃清界線。"},
+    {"name": "沃爾之血", "en": "The Blood of Vol", "portfolio": "不滅", "symbol": "紅色淚滴形寶石", "body": "相信神性在自己的血液裡，死亡是必須抵抗的敵人。坎納斯在饑荒中採納為國教、用亡靈補充軍隊，如今已被國王疏遠。多數信徒（自稱尋者）與翡翠利爪教團劃清界線。"},
     {"name": "光明之道", "en": "The Path of Light", "portfolio": "光明、自我提升", "symbol": "璀璨水晶", "body": "離夢人的信仰：以冥想與虔信推動幻夢位面走向光明時代。"},
     {"name": "不朽議庭", "en": "The Undying Court", "portfolio": "精靈先祖", "symbol": "金面具", "body": "艾倫諾精靈崇敬以正能量維持存在的永生先祖，與依賴負能量的亡靈截然不同。"},
-    {"name": "先祖英靈", "en": "The Spirits of the Past", "portfolio": "精靈先祖", "symbol": "多種", "body": "瓦倫納精靈以戰士的方式榮耀祖先，每個戰士都以某位先祖的名義作戰。"},
+    {"name": "先祖英靈", "en": "The Spirits of the Past", "portfolio": "精靈先祖", "symbol": "多種", "body": "維倫娜精靈以戰士的方式榮耀祖先，每個戰士都以某位先祖的名義作戰。"},
     {"name": "黃泉巨龍邪教", "en": "The Cults of the Dragon Below", "portfolio": "瘋狂", "symbol": "多種", "body": "崇拜凱伯、異怪或魔君的零散邪教，是通俗冒險裡最典型的反派。"},
-    {"name": "科瓦雷的德魯伊", "en": "The Druids of Khorvaire", "portfolio": "自然", "symbol": "多種", "body": "埃爾丁原野的偉大德魯伊與陰影邊地的護門者是兩個最重要的教派，後者守著封印異怪的古老結界。"}
+    {"name": "科瓦雷的德魯伊", "en": "The Druids of Khorvaire", "portfolio": "自然", "symbol": "多種", "body": "埃魯登原野的偉大德魯伊與陰影濕地的護門者是兩個最重要的教派，後者守著封印異怪的古老結界。"}
   ]
 }

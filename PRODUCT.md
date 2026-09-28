@@ -33,7 +33,7 @@ Streamlit（Python），使用者指定。單一 Streamlit 應用、多頁式導
 - 涵蓋主題（使用者確認「都要」）：世界觀與歷史年表；科瓦雷諸國與眾塔之城薩恩；龍紋家族與四個特有種族；信仰、組織與存在位面；附錄（建角提示、書目）。
 - Streamlit 的版面限制：元件為區塊式直向流；自訂樣式靠注入 CSS；無法完全掌控 DOM，動態效果以 CSS 為主。
 - 本次沒有影像生成工具：不會有生成插圖，視覺靠排版、色彩、幾何與文字。
-- 譯名以譯本為準，例：科瓦雷 Khorvaire、薩恩 Sharn、安黛爾 Aundair、布蕾蘭 Breland、卡納斯 Karrnath、瑟雷恩 Thrane、賽爾 Cyre、哀傷故地 Mournland、王座堡 Thronehold、戰俑 Warforged、幻身靈 Changeling、化獸者 Shifter、離夢人 Kalashtar、天命諸神 Sovereign Host、黑暗六神 Dark Six、銀焰教會 Church of the Silver Flame、沃爾之血 Blood of Vol、不朽議庭 Undying Court、塵主 Lords of Dust、黑暗夢境 Dreaming Dark、翡翠利爪教團 Order of the Emerald Claw、金權會 Aurum。
+- 譯名以譯本為準，例：科瓦雷 Khorvaire、薩恩 Sharn、安黛爾 Aundair、布魯蘭 Breland、坎納斯 Karrnath、瑟雷恩 Thrane、賽爾 Cyre、哀傷故地 Mournland、王座堡 Thronehold、戰俑 Warforged、幻身靈 Changeling、化獸者 Shifter、離夢人 Kalashtar、天命諸神 Sovereign Host、黑暗六神 Dark Six、銀焰教會 Church of the Silver Flame、沃爾之血 Blood of Vol、不朽議庭 Undying Court、塵主 Lords of Dust、黑暗夢境 Dreaming Dark、翡翠利爪教團 Order of the Emerald Claw、金權會 Aurum。
 - 推斷、待確認：語言採「繁體中文，專有名詞附英文原名」（使用者回答放置位置時未指定語言，依讀者是華語社群且需查官方書而推斷）。
 
 ## Brand Commitments

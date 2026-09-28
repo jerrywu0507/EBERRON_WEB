@@ -33,6 +33,7 @@ cd <專案資料夾>
 | `guide/pages.py` | 九個頁面函式、行動版標籤列 `tabstrip(current)`、圖版一 `_khorvaire_plate()`（手繪 SVG 科瓦雷全境示意，16 地區＋王座堡） |
 | `assets/styles.css` | 整站樣式（色票 token、封面、印章、用箋、標籤軌、帳冊、年表、圖版、手機斷點 900px、減少動態） |
 | `static/fonts/`、`static/paper-grain.png` | 自帶字型子集（思源宋體 400/600/900、Courier Prime）與紙紋貼圖；`config.toml` 開了 `enableStaticServing`，網址是 `/app/static/...` |
+| `static/map-khorvaire.jpg`、`static/map-khorvaire-full.jpg` | 第二卷卷首夾著的科瓦雷全圖（網頁用 1400px／點開用 2400px），原圖在專案外層 `圖片/` |
 | `tools/build_fonts.py` | 重建字型子集（需 `pip install fonttools brotli`；原始 OTF 會下載到 `~/.cache/eberron-fonts/`） |
 | `assets/favicon.png` | 自製網站圖示（靛藍卷宗＋朱印） |
 | `data/*.json` | 全部文字內容：overview、history、nations、sharn、houses、races、faiths、orgs、planes、appendix、glossary |
@@ -44,6 +45,7 @@ cd <專案資料夾>
 ## 改東西的規則
 
 - `data/*.json` 與 `guide/*.py` 有快取／已載入模組，**改完要重啟**（`restart_streamlit.ps1`）；只改 `assets/styles.css` 立即生效（每次重跑都重讀）。
+- 國名與地區名依使用者提供的科瓦雷地圖（`static/map-khorvaire.jpg`，圖上為簡體，轉繁體）：布魯蘭、坎納斯、埃魯登原野、陰影濕地、拉札爾聯邦、達貢、維倫娜、塔蘭塔平原；這幾個以地圖為準，優先於下一條的譯本。
 - 專有名詞譯法依 5e 不全書的《艾伯倫：從終末戰爭中崛起》簡中譯本（https://5echm.kagangtuya.top/?page=艾伯倫：從終末戰爭中崛起/艾伯倫：從終末戰爭中崛起.htm ，內容在 `topics/` 下各章 .htm），簡轉繁用 OpenCC `s2tw`（不要用 `s2twp`，它會把「歐拉卓」轉成「尤拉卓」）。2026-09-28 全站核對過：King's Citadel＝國王堡壘、King's Dark Lanterns＝國王暗燈、Sul Khatesh＝蘇·珂帝室，其餘一致；譯本沒有的名字（Jaela Daran、Phiarlan、Riedra、Sharn Inquisitive 等）沿用本站譯法。
 - 新增專有名詞時，資料裡用成對欄位（`name`/`en`、`capital`/`capital_en`、`mark`/`mark_en`、`house`/`house_en`、`seat`/`seat_en`），再跑 `tools/build_glossary.py` 讓術語表跟上；純句子裡的名詞請加進腳本的 `EXTRA` 清單。
 - 頁面組版用 `sheet(title, title_en, body_html, ref="卷X · 第N頁", cls="head|wide", stamp=None, lead=None)`：`head` 是各卷首頁（靛藍框、下方露一張紙），`wide` 釋放 36em 行寬給帳冊／術語表／年表；`ref` 是頁碼，CSS 放在用箋**腳**，不要放回標題上方（審查禁止眉批式小標）。
@@ -51,7 +53,7 @@ cd <專案資料夾>
 - 新增一卷：`ui.VOLUMES` 加一項（`path`、`tab` 色、`weight`），`app.py` 的 `FUNCS` 對應頁面函式，頁面函式第一行呼叫 `tabstrip("<path>")`。
 - 設計底線（來自 DESIGN.md 與 Impeccable craft floor）：顏色只用 `:root` 的 token；朱紅只當印與格線；封面上的印用 `#e34b3f`；赭黃標籤選中時用墨色字（白字對比不足）；註記做成疊在紙上的紙條（`note()`），不做框中框；全站只有一個入場動作（朱印落下）；文字對比 ≥ 4.5:1；英文原名用 Courier Prime（`en()`）；封面只加工藝細節不加圖；圖像只以編號圖版出現（圖版一科瓦雷、圖版二薩恩剖面）。
 - 事實不確定就蓋「待查」章（`stamp="待查"` 或帳冊裡 `stamp_inline("待查", "tbd")`），不要下斷言。目前待查：《奇械鍛爐》《尋路者指南》是否有中文譯本；薩恩人口寫成「各版設定書估計約二十萬至五十萬」。
-- 不轉載譯本全文、不使用官方地圖與插圖（圖版一是自己畫的示意圖）。
+- 不轉載譯本全文、不使用官方插圖；圖版一、二是自己畫的示意圖。使用者提供的圖片（目前是 `D:\eberron-guide\圖片\地圖.png` 的科瓦雷全圖）轉成 `static/map-khorvaire.jpg`（1400px 網頁用）與 `-full.jpg`（2400px 點開用），以 `ui.photo(src, caption, alt, full=, label=)` 夾在用箋上。
 - CSS 依賴 Streamlit 的 DOM 結構（`section[data-testid="stSidebar"]`、`[data-testid="stSidebarNav"]`、`[data-testid="stAppViewContainer"]` 用 `row-reverse` 把側欄放到右緣）；升級 Streamlit 後先檢查標籤軌。
 
 ## 做過什麼（時序）
