@@ -81,13 +81,13 @@ def _css_text():
 
 
 def inject_css():
-    """注入世界樣式；索引標籤的顏色與高度依各卷篇幅比例產生。"""
+    """注入世界樣式；索引標籤的顏色與高度份額（--w）依各卷篇幅權重產生，標籤軌永遠剛好一個視窗高。"""
     rules = []
     for i, v in enumerate(VOLUMES, start=1):
-        height = 56 + v["weight"] * 8
         rules.append(
-            'section[data-testid="stSidebar"] [data-testid="stSidebarNav"] li:nth-child(%d) a{%s;min-height:%dpx}'
-            % (i, tab_vars(v["tab"]), height)
+            'section[data-testid="stSidebar"] [data-testid="stSidebarNav"] li:nth-child(%d){--w:%d}'
+            'section[data-testid="stSidebar"] [data-testid="stSidebarNav"] li:nth-child(%d) a{%s}'
+            % (i, v["weight"], i, tab_vars(v["tab"]))
         )
     st.markdown("<style>%s\n%s</style>%s" % (_css_text(), "\n".join(rules), INK_FILTERS), unsafe_allow_html=True)
 

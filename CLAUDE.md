@@ -54,7 +54,7 @@ cd <專案資料夾>
 - 設計底線（來自 DESIGN.md 與 Impeccable craft floor）：顏色只用 `:root` 的 token；朱紅只當印與格線；封面上的印用 `#e34b3f`；赭黃標籤選中時用墨色字（白字對比不足）；註記做成疊在紙上的紙條（`note()`），不做框中框；全站只有一個入場動作（朱印落下）；文字對比 ≥ 4.5:1；英文原名用 Courier Prime（`en()`）；封面只加工藝細節不加圖；圖像只以編號圖版出現（圖版一科瓦雷、圖版二薩恩剖面）。
 - 事實不確定就蓋「待查」章（`stamp="待查"` 或帳冊裡 `stamp_inline("待查", "tbd")`），不要下斷言。目前待查：《奇械鍛爐》《尋路者指南》是否有中文譯本；薩恩人口寫成「各版設定書估計約二十萬至五十萬」。
 - 不轉載譯本全文、不使用官方插圖；圖版一、二是自己畫的示意圖。使用者提供的圖片（目前是 `D:\eberron-guide\圖片\地圖.png` 的科瓦雷全圖）轉成 `static/map-khorvaire.jpg`（1400px 網頁用）與 `-full.jpg`（2400px 點開用），以 `ui.photo(src, caption, alt, full=, label=)` 夾在用箋上。
-- CSS 依賴 Streamlit 的 DOM 結構（`section[data-testid="stSidebar"]`、`[data-testid="stSidebarNav"]`、`[data-testid="stAppViewContainer"]` 用 `row-reverse` 把側欄放到右緣）；升級 Streamlit 後先檢查標籤軌。
+- CSS 依賴 Streamlit 的 DOM 結構（`section[data-testid="stSidebar"]`、`[data-testid="stSidebarNav"]`、`[data-testid="stAppViewContainer"]` 用 `row-reverse` 把側欄放到右緣）；升級 Streamlit 後先檢查標籤軌。全站宋體規則會蓋掉 Streamlit 的圖示字型，所以 `[data-testid="stIconMaterial"]` 另外指回 Material Symbols Rounded；側欄的標頭、收合鈕、使用者區都隱藏，標籤軌本身就是導覽。
 
 ## 做過什麼（時序）
 

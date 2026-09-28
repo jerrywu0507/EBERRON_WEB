@@ -35,6 +35,7 @@
 html, body { background: var(--paper); color: var(--ink); }
 .stApp { background: radial-gradient(120% 70% at 50% 0%, #f8f9f6 0%, var(--paper) 55%, #eceeeb 100%) fixed; color: var(--ink); }
 .stApp, .stApp * { font-family: var(--serif); }
+.stApp [data-testid="stIconMaterial"], .stApp .material-symbols-rounded { font-family: "Material Symbols Rounded" !important; }
 .stApp { text-spacing-trim: space-first; hanging-punctuation: allow-end; }
 .stApp code, .stApp .en, .stApp .ref, .stApp .num { font-family: var(--mono); }
 
@@ -52,36 +53,51 @@ header[data-testid="stHeader"] [data-testid="stDecoration"] { display: none; }
 .block-container { padding: 0 2.5rem 4rem; max-width: 1060px; }
 [data-testid="stAppViewBlockContainer"] { padding-top: 0.5rem; }
 
-/* ---- Sidebar as the index-tab rail, on the fore edge (right) of the dossier ---- */
+/* ---- Sidebar as the index-tab rail, on the fore edge (right) of the dossier ----
+   The rail is exactly one viewport tall and never scrolls: every tab takes a share of the height
+   proportional to its volume's length (--w, injected per tab by ui.inject_css). Each tab is a paper
+   index tab with the volume colour along its fore edge; the open volume's tab is filled and pulled out. */
 [data-testid="stAppViewContainer"] { flex-direction: row-reverse; }
 section[data-testid="stSidebar"] {
-  background: var(--paper-shade);
-  border-left: 1px solid rgba(22, 35, 63, 0.18);
+  background: linear-gradient(to right, rgba(22, 35, 63, 0.12), rgba(22, 35, 63, 0) 14px), var(--paper-shade);
+  border-left: 1px solid rgba(22, 35, 63, 0.22);
   width: 132px !important; min-width: 132px !important;
 }
-section[data-testid="stSidebar"] > div { padding: 0; }
-section[data-testid="stSidebar"] [data-testid="stSidebarNav"] { padding: 0.75rem 0 0; }
-section[data-testid="stSidebar"] [data-testid="stSidebarNav"] ul { padding: 0 12px 0 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
-section[data-testid="stSidebar"] [data-testid="stSidebarNav"] li { margin: 0; list-style: none; }
+section[data-testid="stSidebar"] > div { padding: 0; height: 100%; display: flex; flex-direction: column; }
+/* the rail is the navigation itself: no collapse button, no empty user area */
+section[data-testid="stSidebar"] [data-testid="stSidebarHeader"],
+section[data-testid="stSidebar"] [data-testid="stSidebarCollapseButton"],
+section[data-testid="stSidebar"] [data-testid="stSidebarUserContent"],
+[data-testid="stSidebarCollapsedControl"] { display: none !important; }
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] { flex: 1 1 auto; min-height: 0; padding: 14px 0; overflow-y: auto; scrollbar-width: none; }
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"]::-webkit-scrollbar { display: none; }
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] ul { height: 100%; padding: 0 10px 0 0; margin: 0; display: flex; flex-direction: column; gap: 0; }
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] li { margin: 0; list-style: none; display: flex; flex: var(--w, 6) 1 0; min-height: 0; }
 section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a {
+  flex: 1 1 auto; min-height: 58px; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
-  writing-mode: vertical-rl; text-orientation: mixed;
-  min-height: 64px; width: 100%; padding: 14px 8px;
-  border-radius: 6px 0 0 6px;
-  background: var(--grain) repeat, color-mix(in srgb, var(--tab) 26%, var(--paper));
-  border: 1px solid color-mix(in srgb, var(--tab) 70%, var(--paper));
-  box-shadow: inset -1px 0 0 rgba(255,255,255,0.35);
-  color: var(--ink); font-weight: 600; font-size: 15px; letter-spacing: 0.12em;
-  transition: transform 320ms var(--ease), box-shadow 320ms var(--ease), background 320ms var(--ease);
+  writing-mode: vertical-rl; text-orientation: mixed; word-break: keep-all;
+  padding: 8px 5px 8px 12px; margin-top: -1px; width: 100%;
+  border: 1px solid rgba(22, 35, 63, 0.30); border-right: 0; border-radius: 7px 0 0 7px;
+  background: linear-gradient(to right, var(--tab) 0 7px, transparent 7px), var(--grain) repeat, linear-gradient(to bottom, #fcfcfa, #eef0ec);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(22, 35, 63, 0.06), -1px 1px 2px rgba(22, 35, 63, 0.10);
+  color: var(--ink); font-weight: 600; font-size: clamp(12.5px, 1.6vh, 15px); letter-spacing: 0.06em; line-height: 1.2;
+  transition: transform 320ms var(--ease), box-shadow 320ms var(--ease);
 }
-section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a span { color: inherit; font-size: inherit; }
-section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a:hover { transform: translateX(-4px); box-shadow: var(--lift); }
+/* the label may wrap at its space into a second column (第一卷 | 歷史); Streamlit's nowrap + ellipsis is undone */
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a span, section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a p,
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a [data-testid="stMarkdownContainer"] {
+  color: inherit; font-size: inherit; margin: 0; white-space: normal; overflow: visible; text-overflow: clip;
+  max-width: none; max-height: none; line-height: 1.2; word-break: keep-all; text-align: center;
+}
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a:hover { transform: translateX(-4px); box-shadow: var(--lift); z-index: 1; }
 section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a[aria-current="page"] {
-  background: var(--grain) repeat, var(--tab); color: var(--tab-ink, var(--paper)); transform: translateX(-6px); box-shadow: var(--lift);
+  background: var(--grain) repeat, linear-gradient(to bottom, color-mix(in srgb, var(--tab) 86%, #fff), var(--tab) 40%, var(--tab));
+  color: var(--tab-ink, var(--paper)); border-color: color-mix(in srgb, var(--tab) 70%, var(--ink));
+  transform: translateX(-8px); box-shadow: var(--lift), inset 0 1px 0 rgba(255, 255, 255, 0.28); z-index: 2;
 }
 section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a[aria-current="page"] span { color: inherit; }
 section[data-testid="stSidebar"] [data-testid="stSidebarNavSeparator"] { display: none; }
-section[data-testid="stSidebar"] [data-testid="stSidebarCollapseButton"] button { color: var(--indigo); }
 
 /* Streamlit toolbar (Deploy, status) stays out of the dossier; the sidebar toggle stays */
 header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [data-testid="stStatusWidget"] { display: none; }
