@@ -175,7 +175,7 @@ def nations():
                        "treaty": "承認" if r.get("treaty") else "未承認",
                        "line": esc(r["line"])} for r in d["regions"]])
     sheet("其他區域", "Beyond the Five Nations",
-          paras("王座堡條約承認十二個國家：五國中尚存的四國，加上這裡的達貢、埃魯登原野、拉札爾聯邦、摩洛領、誇巴拉、塔蘭塔平原、維倫娜、吉拉哥。"
+          paras("王座堡條約承認十二個國家：五國中尚存的四國，加上這裡的達貢、埃魯登原野、拉札爾聯邦、摩洛領、夸巴拉、塔蘭塔平原、維倫娜、吉拉哥。"
                 "卓姆自立為國但未獲承認，陰影濕地與惡魔荒原沒有統一政府，哀傷故地則已無人主張。") + regions,
           ref="卷二 · 第八頁", cls="wide")
     far = ledger([("name", "遠方諸地", False), ("line", "一句話", False)],

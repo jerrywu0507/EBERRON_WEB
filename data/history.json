@@ -39,7 +39,7 @@
     {"year": "998 YK", "label": "現在", "body": "預設戰役開始於 1 月 1 日。距哀傷不到四年、距停戰不到兩年。"}
   ],
   "treaty_nations": {
-    "recognized": ["安黛爾 Aundair", "布魯蘭 Breland", "達貢 Darguun", "埃魯登原野 Eldeen Reaches", "坎納斯 Karrnath", "拉札爾聯邦 Lhazaar Principalities", "摩洛領 Mror Holds", "誇巴拉 Q'barra", "塔蘭塔平原 Talenta Plains", "瑟雷恩 Thrane", "維倫娜 Valenar", "吉拉哥 Zilargo"],
+    "recognized": ["安黛爾 Aundair", "布魯蘭 Breland", "達貢 Darguun", "埃魯登原野 Eldeen Reaches", "坎納斯 Karrnath", "拉札爾聯邦 Lhazaar Principalities", "摩洛領 Mror Holds", "夸巴拉 Q'barra", "塔蘭塔平原 Talenta Plains", "瑟雷恩 Thrane", "維倫娜 Valenar", "吉拉哥 Zilargo"],
     "note": "惡魔荒原（Demon Wastes）與陰影濕地（Shadow Marches）沒有統一政府；卓姆（Droaam）自立為國但未獲承認。這些國家有時被合稱為「王座堡國家」。"
   },
   "scars": [
