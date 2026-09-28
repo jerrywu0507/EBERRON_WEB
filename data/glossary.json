@@ -127,7 +127,7 @@
    "src": "nations"
   },
   {
-   "zh": "黑暗燈籠",
+   "zh": "國王暗燈",
    "en": "Dark Lanterns",
    "src": "extra"
   },
@@ -367,7 +367,7 @@
    "src": "nations"
   },
   {
-   "zh": "國王暗燈",
+   "zh": "國王堡壘",
    "en": "King's Citadel",
    "src": "extra"
   },
@@ -617,7 +617,7 @@
    "src": "houses"
   },
   {
-   "zh": "蘇·佉帝室",
+   "zh": "蘇·珂帝室",
    "en": "Sul Khatesh",
    "src": "extra"
   },
@@ -707,7 +707,7 @@
    "src": "faiths"
   },
   {
-   "zh": "國王暗燈",
+   "zh": "國王堡壘",
    "en": "The King's Citadel",
    "src": "orgs"
   },

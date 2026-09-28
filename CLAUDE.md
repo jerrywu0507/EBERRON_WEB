@@ -44,6 +44,7 @@ cd <專案資料夾>
 ## 改東西的規則
 
 - `data/*.json` 與 `guide/*.py` 有快取／已載入模組，**改完要重啟**（`restart_streamlit.ps1`）；只改 `assets/styles.css` 立即生效（每次重跑都重讀）。
+- 專有名詞譯法依 5e 不全書的《艾伯倫：從終末戰爭中崛起》簡中譯本（https://5echm.kagangtuya.top/?page=艾伯倫：從終末戰爭中崛起/艾伯倫：從終末戰爭中崛起.htm ，內容在 `topics/` 下各章 .htm），簡轉繁用 OpenCC `s2tw`（不要用 `s2twp`，它會把「歐拉卓」轉成「尤拉卓」）。2026-09-28 全站核對過：King's Citadel＝國王堡壘、King's Dark Lanterns＝國王暗燈、Sul Khatesh＝蘇·珂帝室，其餘一致；譯本沒有的名字（Jaela Daran、Phiarlan、Riedra、Sharn Inquisitive 等）沿用本站譯法。
 - 新增專有名詞時，資料裡用成對欄位（`name`/`en`、`capital`/`capital_en`、`mark`/`mark_en`、`house`/`house_en`、`seat`/`seat_en`），再跑 `tools/build_glossary.py` 讓術語表跟上；純句子裡的名詞請加進腳本的 `EXTRA` 清單。
 - 頁面組版用 `sheet(title, title_en, body_html, ref="卷X · 第N頁", cls="head|wide", stamp=None, lead=None)`：`head` 是各卷首頁（靛藍框、下方露一張紙），`wide` 釋放 36em 行寬給帳冊／術語表／年表；`ref` 是頁碼，CSS 放在用箋**腳**，不要放回標題上方（審查禁止眉批式小標）。
 - 新增內容含新字後跑 `tools/build_fonts.py`（沒跑也不會壞：缺的字會落回 Google Fonts，只是那幾個字會慢一點出現）。
