@@ -34,8 +34,8 @@ Community Cloud 的坑：推新提交後，雲端會把檔案拉進**執行中�
 | `guide/pages.py` | 九個頁面函式、行動版標籤列 `tabstrip(current)`、圖版一 `_khorvaire_plate()`（手繪 SVG 科瓦雷全境示意，16 地區＋王座堡） |
 | `assets/styles.css` | 整站樣式（牛皮紙案卷世界：桌面、封面夾、攤開的夾子、白紙文件、記錄單、紅色檔案卡、警示紙、便條、名片、拍立得與方格紙、固定物、標籤軌、手機斷點 900px、減少動態） |
 | `static/fonts/`、`static/paper-grain.png`、`static/kraft-grain.png` | 自帶字型子集（思源宋體 400/600/900、Courier Prime、霞鶩文楷 TC 手寫）與白紙／牛皮紙紋貼圖；`config.toml` 開了 `enableStaticServing`，網址是 `/app/static/...` |
-| `圖片/` | 使用者提供的原圖（進版控，含 `五國國國旗/`、`薩恩地圖/` 子資料夾；檔名常是一句描述，先看圖再決定位置與圖說） |
-| `static/*.jpg` | 從 `圖片/` 轉成的網頁用圖，以 `ui.photo()` 放進拍立得：科瓦雷全圖 `map-khorvaire`（第二卷卷首，另有 `-full` 點開版）、世界全圖 `map-world`（第二卷遠方諸地前）、薩恩剖面 `sharn-cross-section`（第三卷，`-full`）、薩恩上中下層區圖 `sharn-upper/middle/lower`（第三卷五個大區後）、莫格雷夫大學 `morgrave`（第三卷卷首，浮在正文右側）、空中追逐 `sharn-sky-battle`（第三卷怎麼移動）、四個種族畫像 `race-warforged/shifter/changeling/kalashtar`（第五卷各自的白紙）、諸位面地圖 `planes-map`（第七卷卷首後，`-full`）、元素飛艇 `airship`（封面三大基調，浮在正文右側）、薩恩罪犯列隊 `sharn-criminals`（第三卷薩恩的面孔後）、龍紋家族代理人 `house-agents-1/2`（第四卷十二家族名片後，兩張並排）、翡翠利爪 `emerald-claw`（第六卷翡翠利爪教團的白紙）、五國國旗 `flag-aundair/breland/karrnath/thrane/cyre`（第二卷各國檔案卡右上角的證件照位置，`card(emblem=photo(...))`，轉檔時裁掉白邊）、家族聯手查案 `houses-murder`（第四卷卷首，浮在正文右側）、塔卡南交戰 `tarkanan`（第三卷，與罪犯列隊並排）。新圖：放進 `圖片/`，轉成 ≤1100px 的 JPEG（大圖另存 ≤2000px 的 `-full`），用 `polaroid(photo(...), 手寫圖說, typed=打字機小字, tall=直幅, small=並排)` 夾到對應的文件。`photo()` 在執行中的程序沒有 `/app/static` 路由時（雲端拉檔不重啟）會自動改成 data URI 內嵌，`load()` 的快取鍵含資料檔的修改時間 |
+| `PNG/` | 使用者提供的原圖（進版控，含 `五國國國旗/`、`薩恩地圖/` 子資料夾；檔名常是一句描述，先看圖再決定位置與圖說） |
+| `static/*.jpg` | 從 `PNG/` 轉成的網頁用圖，以 `ui.photo()` 放進拍立得：科瓦雷全圖 `map-khorvaire`（第二卷卷首，另有 `-full` 點開版）、世界全圖 `map-world`（第二卷遠方諸地前）、薩恩剖面 `sharn-cross-section`（第三卷，`-full`）、薩恩上中下層區圖 `sharn-upper/middle/lower`（第三卷五個大區後）、莫格雷夫大學 `morgrave`（第三卷卷首，浮在正文右側）、空中追逐 `sharn-sky-battle`（第三卷怎麼移動）、四個種族畫像 `race-warforged/shifter/changeling/kalashtar`（第五卷各自的白紙）、諸位面地圖 `planes-map`（第七卷卷首後，`-full`）、元素飛艇 `airship`（封面三大基調，浮在正文右側）、薩恩罪犯列隊 `sharn-criminals`（第三卷薩恩的面孔後）、龍紋家族代理人 `house-agents-1/2`（第四卷十二家族名片後，兩張並排）、翡翠利爪 `emerald-claw`（第六卷翡翠利爪教團的白紙）、五國國旗 `flag-aundair/breland/karrnath/thrane/cyre`（第二卷各國檔案卡右上角的證件照位置，`card(emblem=photo(...))`，轉檔時裁掉白邊）、家族聯手查案 `houses-murder`（第四卷卷首，浮在正文右側）、塔卡南交戰 `tarkanan`（第三卷，與罪犯列隊並排）。新圖：放進 `PNG/`，轉成 ≤1100px 的 JPEG（大圖另存 ≤2000px 的 `-full`），用 `polaroid(photo(...), 手寫圖說, typed=打字機小字, tall=直幅, small=並排)` 夾到對應的文件。`photo()` 在執行中的程序沒有 `/app/static` 路由時（雲端拉檔不重啟）會自動改成 data URI 內嵌，`load()` 的快取鍵含資料檔的修改時間 |
 | `tools/build_fonts.py` | 重建四個字型子集（需 `pip install fonttools brotli`；原始 OTF／TTF 會下載到 `~/.cache/eberron-fonts/`） |
 | `assets/favicon.png` | 自製網站圖示（靛藍卷宗＋朱印） |
 | `data/*.json` | 全部文字內容：overview、history、nations、sharn、houses、races、faiths、orgs、planes、appendix、glossary |
@@ -55,7 +55,7 @@ Community Cloud 的坑：推新提交後，雲端會把檔案拉進**執行中�
 - 新增一卷：`ui.VOLUMES` 加一項（`path`、`tab` 色、`weight`），`app.py` 的 `FUNCS` 對應頁面函式，頁面函式第一行呼叫 `tabstrip("<path>")`，卷首用 `doc(..., cls="head punched", bureau=_bureau("第N卷", "ENGLISH TITLE"))`。
 - 設計底線（來自 DESIGN.md）：顏色只用 `:root` 的 token；整片紅只有檔案卡與封面橫帶，整片黃只有警示紙；手寫（`--hand`）只用在短欄位、便條、圖說、封面一句話，正文永遠宋體，表單欄名與編號永遠 Courier；紙不做圓角、不畫框做層級；入場動作只有兩個節拍（封面橫帶落下；翻卷時首件文件落下、章蓋下）；文字對比 ≥ 4.5:1；英文原名用 `en()`；圖像只有使用者提供的照片與自繪 SVG 圖版，都以拍立得貼在方格紙上。
 - 事實不確定就蓋「待查」章（`stamp="待查"` 或帳冊裡 `stamp_inline("待查", "tbd")`），不要下斷言。目前待查：《奇械鍛爐》《尋路者指南》是否有中文譯本；薩恩人口寫成「各版設定書估計約二十萬至五十萬」。
-- 不轉載譯本全文、不使用官方插圖；圖版一、二是自己畫的示意圖。使用者提供的圖片放在專案內的 `圖片/`，轉成 `static/*.jpg` 後以拍立得夾進文件（見上表）。
+- 不轉載譯本全文、不使用官方插圖；圖版一、二是自己畫的示意圖。使用者提供的圖片放在專案內的 `PNG/`，轉成 `static/*.jpg` 後以拍立得夾進文件（見上表）。
 - CSS 依賴 Streamlit 的 DOM 結構（`section[data-testid="stSidebar"]`、`[data-testid="stSidebarNav"]`、`[data-testid="stAppViewContainer"]` 用 `row-reverse` 把側欄放到右緣）；升級 Streamlit 後先檢查標籤軌。全站宋體規則會蓋掉 Streamlit 的圖示字型，所以 `[data-testid="stIconMaterial"]` 另外指回 Material Symbols Rounded；側欄的標頭、收合鈕、使用者區都隱藏，標籤軌本身就是導覽。
 
 ## 做過什麼（時序）
