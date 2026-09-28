@@ -32,6 +32,7 @@ def cover():
         '<p class="lede">%s</p>'
         '<a class="open" href="#seven">翻開卷宗</a>'
         '</div>'
+        '<div class="emboss" aria-hidden="true">王座堡</div>'
         '<div class="stamp big" aria-hidden="true">機密</div>'
         '</div>'
         '<nav class="tabheads" aria-label="各卷索引">%s</nav>'
@@ -181,12 +182,73 @@ def nations():
 
 
 # ---------------------------------------------------------------- 第三卷 薩恩
+def _sharn_plate():
+    """圖版二：薩恩剖面示意。天城區浮在雲上，塔身分上／中／下三個層區，齒輪區在地底，邊沿崖區沿匕首河的崖壁。"""
+    ink, indigo, soft = "#1d2b24", "#16233f", "#4b5a52"
+    parts = [
+        '<svg viewBox="0 0 640 400" role="img" aria-label="薩恩城的垂直剖面示意圖：上中下三個層區、天城區、齒輪區與邊沿崖區">',
+        '<defs><pattern id="cogs" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">',
+        '<line x1="0" y1="0" x2="0" y2="8" stroke="#16233f" stroke-width="1.4" opacity="0.35"/></pattern></defs>',
+        '<rect x="0" y="0" width="640" height="400" fill="#f4f5f2"/>',
+        '<g %s>' % _PLATE_FONT,
+        # 地底：齒輪區
+        '<rect x="0" y="312" width="500" height="62" fill="url(#cogs)"/>',
+        '<line x1="0" y1="310" x2="500" y2="310" stroke="%s" stroke-width="2"/>' % indigo,
+        '<text x="250" y="343" font-size="13.5" font-weight="700" fill="%s" text-anchor="middle">齒輪區</text>' % ink,
+        '<text x="250" y="357" font-size="10" fill="%s" text-anchor="middle" %s>The Cogs</text>' % (soft, _PLATE_MONO),
+        # 崖壁與匕首河
+        '<line x1="500" y1="310" x2="500" y2="352" stroke="%s" stroke-width="2"/>' % indigo,
+        '<path d="M504 354 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" fill="none" stroke="%s" stroke-width="1.4"/>' % indigo,
+        '<path d="M504 366 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" fill="none" stroke="%s" stroke-width="1.2" opacity="0.6"/>' % indigo,
+        '<text x="572" y="388" font-size="12" font-weight="700" fill="%s" text-anchor="middle">匕首河</text>' % ink,
+        '<text x="572" y="399" font-size="9.5" fill="%s" text-anchor="middle" %s>Dagger River</text>' % (soft, _PLATE_MONO),
+        # 邊沿崖區：崖壁上的平台與升降索
+        '<line x1="494" y1="240" x2="494" y2="346" stroke="%s" stroke-width="1" stroke-dasharray="2 3"/>' % indigo,
+        '<rect x="482" y="262" width="20" height="6" fill="#fff" stroke="%s" stroke-width="1.2"/>' % indigo,
+        '<rect x="482" y="296" width="20" height="6" fill="#fff" stroke="%s" stroke-width="1.2"/>' % indigo,
+        '<rect x="482" y="330" width="20" height="6" fill="#fff" stroke="%s" stroke-width="1.2"/>' % indigo,
+        '<text x="510" y="292" font-size="12" font-weight="700" fill="%s">邊沿崖區</text>' % ink,
+        '<text x="510" y="305" font-size="9.5" fill="%s" %s>Cliffside</text>' % (soft, _PLATE_MONO),
+        # 層區分界（虛線）與左側標籤
+        '<line x1="60" y1="140" x2="500" y2="140" stroke="%s" stroke-width="1" stroke-dasharray="5 4"/>' % indigo,
+        '<line x1="60" y1="225" x2="500" y2="225" stroke="%s" stroke-width="1" stroke-dasharray="5 4"/>' % indigo,
+    ]
+    for label, en_label, y in (("上層區", "Upper", 96), ("中層區", "Middle", 182), ("下層區", "Lower", 266)):
+        parts.append('<text x="8" y="%d" font-size="13.5" font-weight="700" fill="%s">%s</text>' % (y, ink, label))
+        parts.append('<text x="8" y="%d" font-size="9.5" fill="%s" %s>%s</text>' % (y + 13, soft, _PLATE_MONO, en_label))
+    # 塔：底寬、頂窄的梯形，內有樓層線
+    towers = [(80, 64, 150), (170, 92, 60), (290, 70, 110), (390, 84, 180)]
+    for x, w, top in towers:
+        parts.append('<polygon points="%d,310 %d,310 %d,%d %d,%d" fill="#fff" stroke="%s" stroke-width="1.6"/>'
+                     % (x, x + w, x + w - 5, top, x + 5, top, indigo))
+        y = top + 34
+        while y < 300:
+            parts.append('<line x1="%d" y1="%d" x2="%d" y2="%d" stroke="%s" stroke-width="0.8" opacity="0.35"/>'
+                         % (x + 5, y, x + w - 5, y, indigo))
+            y += 34
+    # 塔間橋樑
+    for x1, x2, y in ((144, 170, 200), (262, 290, 120), (262, 290, 250), (360, 390, 205), (474, 494, 262)):
+        parts.append('<line x1="%d" y1="%d" x2="%d" y2="%d" stroke="%s" stroke-width="2.4"/>' % (x1, y, x2, y, indigo))
+    # 天城區：固化雲朵上的浮島
+    parts.append('<ellipse cx="216" cy="34" rx="48" ry="11" fill="#fff" stroke="%s" stroke-width="1.2"/>' % indigo)
+    parts.append('<rect x="200" y="18" width="14" height="10" fill="#fff" stroke="%s" stroke-width="1"/>' % indigo)
+    parts.append('<rect x="220" y="14" width="10" height="14" fill="#fff" stroke="%s" stroke-width="1"/>' % indigo)
+    parts.append('<ellipse cx="334" cy="52" rx="34" ry="9" fill="#fff" stroke="%s" stroke-width="1.2"/>' % indigo)
+    parts.append('<rect x="326" y="38" width="12" height="9" fill="#fff" stroke="%s" stroke-width="1"/>' % indigo)
+    parts.append('<text x="384" y="38" font-size="12" font-weight="700" fill="%s">天城區</text>' % ink)
+    parts.append('<text x="384" y="51" font-size="9.5" fill="%s" %s>Skyway</text>' % (soft, _PLATE_MONO))
+    parts.append('<text x="8" y="392" font-size="11.5" fill="%s">虛線：層區分界　斜線：地底的齒輪區　橫槓：塔間的橋樑</text>' % soft)
+    parts.append('</g></svg>')
+    return plate("二", "薩恩剖面示意，非比例。海拔就是階級：天城區浮在固化的雲上，每座塔分成上、中、下三個層區，"
+                 "齒輪區在地底，邊沿崖區沿著匕首河的崖壁而建。", "".join(parts))
+
+
 def sharn():
     tabstrip("sharn")
     d = ui.load("sharn")
     sheet("第三卷　眾塔之城薩恩", "Sharn, the City of Towers", paras(d["body"]), ref="卷三 · 第一頁", cls="head",
           lead=d["one_line"])
-    sheet("垂直的城市", "Wards of Sharn", paras(d["vertical"]), ref="卷三 · 第二頁")
+    sheet("垂直的城市", "Wards of Sharn", paras(d["vertical"]) + _sharn_plate(), ref="卷三 · 第二頁")
     quarters = ledger([("name", "大區", False), ("character", "性格", False)],
                       [{"name": term(q["name"], q["en"]), "character": esc(q["character"])} for q in d["quarters"]])
     above = ledger([("name", "區域", False), ("line", "說明", False)],

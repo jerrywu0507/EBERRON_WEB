@@ -20,10 +20,22 @@
   --mono: "Courier Prime", "Courier New", monospace;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --lift: 0 10px 24px -14px rgba(22, 35, 63, 0.45), 0 1px 0 rgba(22, 35, 63, 0.06);
+  --grain: url(/app/static/paper-grain.png);
 }
 
-html, body, .stApp { background: var(--paper); color: var(--ink); }
+/* self-hosted subsets built by tools/build_fonts.py; declared after the Google import so they win,
+   and any glyph outside the subset still falls through to the Google faces */
+@font-face { font-family: "Noto Serif TC"; font-weight: 400; font-style: normal; font-display: swap; src: url(/app/static/fonts/NotoSerifTC-400.woff2) format("woff2"); }
+@font-face { font-family: "Noto Serif TC"; font-weight: 600; font-style: normal; font-display: swap; src: url(/app/static/fonts/NotoSerifTC-600.woff2) format("woff2"); }
+@font-face { font-family: "Noto Serif TC"; font-weight: 900; font-style: normal; font-display: swap; src: url(/app/static/fonts/NotoSerifTC-900.woff2) format("woff2"); }
+@font-face { font-family: "Courier Prime"; font-weight: 400; font-style: normal; font-display: swap; src: url(/app/static/fonts/CourierPrime-Regular.woff2) format("woff2"); }
+@font-face { font-family: "Courier Prime"; font-weight: 700; font-style: normal; font-display: swap; src: url(/app/static/fonts/CourierPrime-Bold.woff2) format("woff2"); }
+@font-face { font-family: "Courier Prime"; font-weight: 400; font-style: italic; font-display: swap; src: url(/app/static/fonts/CourierPrime-Italic.woff2) format("woff2"); }
+
+html, body { background: var(--paper); color: var(--ink); }
+.stApp { background: radial-gradient(120% 70% at 50% 0%, #f8f9f6 0%, var(--paper) 55%, #eceeeb 100%) fixed; color: var(--ink); }
 .stApp, .stApp * { font-family: var(--serif); }
+.stApp { text-spacing-trim: space-first; hanging-punctuation: allow-end; }
 .stApp code, .stApp .en, .stApp .ref, .stApp .num { font-family: var(--mono); }
 
 ::selection { background: var(--seal); color: var(--paper); }
@@ -56,15 +68,16 @@ section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a {
   writing-mode: vertical-rl; text-orientation: mixed;
   min-height: 64px; width: 100%; padding: 14px 8px;
   border-radius: 6px 0 0 6px;
-  background: color-mix(in srgb, var(--tab) 26%, var(--paper));
+  background: var(--grain) repeat, color-mix(in srgb, var(--tab) 26%, var(--paper));
   border: 1px solid color-mix(in srgb, var(--tab) 70%, var(--paper));
+  box-shadow: inset -1px 0 0 rgba(255,255,255,0.35);
   color: var(--ink); font-weight: 600; font-size: 15px; letter-spacing: 0.12em;
   transition: transform 320ms var(--ease), box-shadow 320ms var(--ease), background 320ms var(--ease);
 }
 section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a span { color: inherit; font-size: inherit; }
 section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a:hover { transform: translateX(-4px); box-shadow: var(--lift); }
 section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a[aria-current="page"] {
-  background: var(--tab); color: var(--tab-ink, var(--paper)); transform: translateX(-6px); box-shadow: var(--lift);
+  background: var(--grain) repeat, var(--tab); color: var(--tab-ink, var(--paper)); transform: translateX(-6px); box-shadow: var(--lift);
 }
 section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a[aria-current="page"] span { color: inherit; }
 section[data-testid="stSidebar"] [data-testid="stSidebarNavSeparator"] { display: none; }
@@ -81,9 +94,9 @@ header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [d
   .tabstrip a {
     flex: none; white-space: nowrap; text-decoration: none;
     border: 1px solid color-mix(in srgb, var(--tab) 55%, var(--paper)); border-top: 4px solid var(--tab);
-    background: color-mix(in srgb, var(--tab) 12%, #fff); padding: 5px 12px; color: var(--ink); font-size: 14px; font-weight: 600;
+    background: var(--grain) repeat, color-mix(in srgb, var(--tab) 12%, #fff); padding: 5px 12px; color: var(--ink); font-size: 14px; font-weight: 600;
   }
-  .tabstrip a[aria-current="page"] { background: var(--tab); color: var(--tab-ink, var(--paper)); border-color: var(--tab); }
+  .tabstrip a[aria-current="page"] { background: var(--grain) repeat, var(--tab); color: var(--tab-ink, var(--paper)); border-color: var(--tab); }
   .block-container { padding: 0 16px 3rem; }
   /* on a phone the rail becomes the strip above; the drawer would only cover the sheet */
   section[data-testid="stSidebar"], [data-testid="stSidebarCollapsedControl"], [data-testid="stSidebarCollapseButton"] { display: none !important; }
@@ -95,7 +108,8 @@ header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [d
   min-height: min(88vh, 760px);
   background-color: var(--indigo);
   color: var(--paper);
-  box-shadow: 0 24px 48px -28px rgba(15, 24, 44, 0.7), inset 0 0 0 1px rgba(255,255,255,0.06);
+  box-shadow: 0 24px 48px -28px rgba(15, 24, 44, 0.7), inset 0 0 0 1px rgba(255,255,255,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.10), inset 0 0 70px rgba(0, 0, 0, 0.30);
   padding: 48px 56px 0 84px;
   display: flex; flex-direction: column;
 }
@@ -103,30 +117,52 @@ header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [d
 .cover > * { position: relative; }
 .cover p, .cover dd, .cover h1 { color: var(--paper); }
 .cover dt, .cover .sub { color: var(--indigo-ink); }
-.cover .spine { position: absolute; left: 0; top: 0; bottom: 0; width: 34px; background: var(--indigo-deep); border-right: 1px solid rgba(255,255,255,0.08); }
+.cover .spine { position: absolute; left: 0; top: 0; bottom: 0; width: 34px; border-right: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(to bottom, transparent 22px, rgba(255,255,255,0.07) 22px, rgba(255,255,255,0.07) 30px, transparent 30px,
+    transparent calc(100% - 30px), rgba(255,255,255,0.07) calc(100% - 30px), rgba(255,255,255,0.07) calc(100% - 22px), transparent calc(100% - 22px)), var(--indigo-deep);
+  box-shadow: inset -3px 0 6px -3px rgba(0,0,0,0.6); }
 .cover .spine::after { content: ""; position: absolute; left: 12px; right: 12px; top: 40px; bottom: 40px; border-left: 1px dashed rgba(255,255,255,0.18); }
 .cover-grid { display: grid; grid-template-columns: auto 1fr; gap: 0 56px; flex: 1; align-items: start; }
 .cover .vtitle {
   writing-mode: vertical-rl; text-orientation: upright;
   font-weight: 900; font-size: clamp(64px, 9vw, 124px); line-height: 1; letter-spacing: 0.08em;
   color: var(--paper); margin: 0; padding: 8px 0 0;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.35), 0 -1px 0 rgba(255, 255, 255, 0.06);
 }
 .cover-meta { padding-top: 18px; max-width: 560px; }
-.cover .dossier { font-weight: 900; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.2; margin: 0; }
+.cover .dossier { font-weight: 900; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.2; margin: 0; letter-spacing: 0.04em; text-wrap: balance; }
 .cover .sub { font-size: 20px; margin: 6px 0 26px; color: var(--indigo-ink); }
-.cover dl.filenum { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 0 0 28px; font-size: 15px; }
-.cover dl.filenum dt { color: var(--indigo-ink); font-weight: 600; }
-.cover dl.filenum dd { margin: 0; font-family: var(--mono); font-size: 16px; letter-spacing: 0.02em; }
+/* the file data is typed on a paper label pasted to the board, with a red header stripe like an archive label */
+.cover dl.filenum {
+  position: relative; display: grid; grid-template-columns: max-content 1fr; gap: 5px 16px; margin: 0 0 28px;
+  width: max-content; max-width: 100%; padding: 14px 18px 12px; font-size: 14px;
+  background: var(--grain) repeat, #fbfbf8; border: 1px solid rgba(22, 35, 63, 0.25);
+  box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.75), 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform: rotate(-0.6deg);
+}
+.cover dl.filenum::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--seal); }
+.cover dl.filenum dt { color: var(--seal); font-weight: 600; }
+.cover dl.filenum dd { margin: 0; font-family: var(--mono); font-size: 15px; letter-spacing: 0.02em; color: var(--ink); }
+/* a blind-embossed roundel pressed into the board: the cover's own colour, read only by its shadow */
+.cover .emboss {
+  position: absolute; left: 244px; bottom: 34px; width: 156px; height: 156px; border-radius: 50%;
+  display: grid; place-items: center; color: rgba(255, 255, 255, 0.11);
+  font-weight: 900; font-size: 34px; letter-spacing: 0.12em; text-indent: 0.12em; line-height: 1;
+  background: radial-gradient(circle at 50% 42%, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.24) 72%, rgba(0, 0, 0, 0.10) 100%);
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.55), inset 0 -2px 3px rgba(255, 255, 255, 0.08), 0 1px 0 rgba(255, 255, 255, 0.08), 0 -1px 0 rgba(0, 0, 0, 0.35);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+.cover .emboss::before { content: ""; position: absolute; inset: 9px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.09); box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.45); }
 .cover .lede { font-size: 22px; line-height: 1.7; margin: 0 0 22px; font-weight: 600; }
 .cover .open {
-  display: inline-block; background: var(--paper); color: var(--indigo); font-weight: 600; font-size: 17px;
+  display: inline-block; background: var(--grain) repeat, var(--paper); color: var(--indigo); font-weight: 600; font-size: 17px;
   padding: 12px 22px; border: 1px solid var(--paper); text-decoration: none;
   box-shadow: 0 8px 18px -10px rgba(0,0,0,0.6);
   transition: transform 320ms var(--ease), box-shadow 320ms var(--ease);
 }
 .cover .open:hover { transform: translateY(-2px); box-shadow: 0 14px 24px -12px rgba(0,0,0,0.7); }
 .cover .tabheads { display: flex; gap: 8px; margin: 36px 0 0 -20px; align-items: flex-end; }
-.cover .tabheads a { display: block; height: 22px; padding: 0 12px; background: var(--paper); color: var(--ink); font-size: 12px; line-height: 22px; border-top: 4px solid var(--tab); letter-spacing: 0.08em; text-decoration: none; transition: transform 320ms var(--ease); }
+.cover .tabheads a { display: block; height: 22px; padding: 0 12px; background: var(--grain) repeat, var(--paper); color: var(--ink); font-size: 12px; line-height: 22px; border-top: 4px solid var(--tab); letter-spacing: 0.08em; text-decoration: none; transition: transform 320ms var(--ease); }
 .cover .tabheads a:hover { transform: translateY(-3px); }
 
 /* ---- The seal ---- */
@@ -152,7 +188,7 @@ header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [d
 
 /* ---- The sheet: red-ruled official paper ---- */
 .sheet {
-  position: relative; background: #fff;
+  position: relative; background: var(--grain) repeat, #fff;
   border: 1px solid var(--rule); box-shadow: inset 0 0 0 4px #fff, inset 0 0 0 5px var(--rule-faint), var(--lift);
   padding: 34px 40px 36px; margin: 0 0 22px; max-width: 820px;
 }
@@ -164,10 +200,10 @@ header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [d
   background-size: 100% 1lh; background-repeat: repeat-y; background-origin: content-box; background-clip: content-box;
 }
 .sheet.head .body > p, .sheet.head .body ul > li { background-image: none; }
-.sheet > h2, .sheet > .body, .sheet > .ref, .sheet > .stamp { position: relative; }
+.sheet > h2, .sheet > .body { position: relative; }
 /* folio: at the sheet's foot, in mono, never in the heading stack */
 .sheet .ref { position: absolute; right: 40px; bottom: 11px; font-size: 12px; color: var(--seal); letter-spacing: 0.12em; background: #fff; padding: 0 4px; }
-.sheet h2, .sheet h3 { font-weight: 900; color: var(--ink); margin: 0 0 14px; line-height: 1.3; }
+.sheet h2, .sheet h3 { font-weight: 900; color: var(--ink); margin: 0 0 14px; line-height: 1.3; letter-spacing: 0.02em; text-wrap: balance; }
 .sheet h2 { font-size: 28px; padding-bottom: 10px; border-bottom: 2px solid var(--rule); }
 .sheet h3 { font-size: 20px; margin-top: 26px; }
 .sheet .body { font-size: 17px; line-height: 1.85; max-width: 36em; }
@@ -186,10 +222,15 @@ header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [d
 .sheet.head { border-color: var(--indigo); box-shadow: inset 0 0 0 4px #fff, inset 0 0 0 5px rgba(22,35,63,0.14), var(--lift); background-image: none; }
 .sheet.head h2 { border-bottom-color: var(--indigo); font-size: 34px; }
 /* a slip of paper laid on the sheet, not a box inside it */
-.sheet .note { position: relative; margin: 20px 0 6px; padding: 12px 16px; background: var(--paper); border: 1px solid rgba(22,35,63,0.12); box-shadow: var(--lift); transform: rotate(-0.5deg); font-size: 15.5px; line-height: 1.8; max-width: 36em; }
+.sheet .note { position: relative; margin: 20px 0 6px; padding: 12px 16px; background: var(--grain) repeat, var(--paper); border: 1px solid rgba(22,35,63,0.12); box-shadow: var(--lift); transform: rotate(-0.5deg); font-size: 15.5px; line-height: 1.8; max-width: 36em; }
 .sheet .note + .note { transform: rotate(0.4deg); margin-top: 16px; }
 .sheet .note strong { color: var(--seal); font-weight: 600; margin-right: 0.35em; }
 .sheet .note strong::after { content: "："; }
+
+/* opening a volume: the head sheet settles onto the desk once, then its stamp lands */
+@keyframes sheet-lay { from { transform: translateY(16px) rotate(-0.35deg); opacity: 0; } to { transform: none; opacity: 1; } }
+.sheet.head { animation: sheet-lay 520ms var(--ease) both; }
+.sheet.head > .stamp { animation: seal-land 520ms var(--ease) 460ms both; }
 
 /* the head sheet of each volume sits on the stack: a second sheet peeks out beneath it */
 .sheet.head::before {
@@ -202,7 +243,7 @@ header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [d
 .meta dt { color: var(--seal); font-weight: 600; white-space: nowrap; }
 .meta dd { margin: 0; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.tags span { border: 1px solid rgba(22,35,63,0.35); padding: 1px 8px; font-size: 13px; background: var(--paper); }
+.tags span { border: 1px solid rgba(22,35,63,0.35); padding: 1px 8px; font-size: 13px; background: var(--grain) repeat, var(--paper); }
 
 /* ledger table */
 .ledger { width: 100%; border-collapse: collapse; font-size: 15.5px; line-height: 1.6; margin: 6px 0 0; }
@@ -231,7 +272,7 @@ header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [d
 .rule p { margin: 0; font-size: 16px; }
 
 /* plate */
-.plate { margin: 22px 0 0; border: 1px solid var(--rule); padding: 16px; background: #fff; }
+.plate { margin: 22px 0 0; border: 1px solid var(--rule); padding: 16px; background: var(--grain) repeat, #fff; }
 .plate .art svg { width: 100%; height: auto; display: block; }
 .plate figcaption { margin: 10px 0 0; font-size: 13.5px; color: var(--ink-soft); }
 .plate figcaption b { color: var(--seal); font-weight: 600; margin-right: 8px; }
@@ -250,7 +291,8 @@ header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [d
   .cover-grid { grid-template-columns: 1fr; gap: 12px; }
   .cover .vtitle { writing-mode: horizontal-tb; text-orientation: initial; font-size: 64px; letter-spacing: 0.04em; }
   .cover .stamp.big { position: static; margin: 24px 0 26px 12px; font-size: 30px; align-self: flex-start; }
-  .cover .tabheads { display: none; }
+  .cover .tabheads, .cover .emboss { display: none; }
+  .cover dl.filenum { width: auto; }
   .sheet { padding: 26px 18px 26px; }
   .sheet .ref { right: 18px; bottom: 7px; }
   .sheet .stamp { right: 12px; top: 10px; font-size: 13px; }
@@ -269,6 +311,6 @@ header[data-testid="stHeader"] [data-testid="stToolbar"], .stAppDeployButton, [d
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cover .stamp.big { animation: none; }
+  .cover .stamp.big, .sheet.head, .sheet.head > .stamp { animation: none; }
   .cover .open, section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a { transition: none; transform: none; }
 }
