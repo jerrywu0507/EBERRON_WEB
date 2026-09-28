@@ -104,7 +104,7 @@ def raw(html_text):
 
 def sheet(title, title_en=None, body="", ref=None, stamp=None, cls="", lead=None):
     """一張紅格公文用箋。body 是已組好的 HTML。"""
-    parts = ['<section class="sheet %s"><div class="rules" aria-hidden="true"></div>' % cls]
+    parts = ['<section class="sheet %s">' % cls]
     if ref:
         parts.append('<div class="ref">%s</div>' % esc(ref))
     if stamp:
