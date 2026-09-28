@@ -370,7 +370,8 @@ section[data-testid="stSidebar"] [data-testid="stSidebarNavSeparator"] { display
 .polaroid .print { display: block; max-height: 520px; max-width: 640px; overflow: hidden; background: #fff; }
 .polaroid .print img, .polaroid .print svg { display: block; width: 100%; height: auto; }
 .polaroid .print a { display: block; text-decoration: none; }
-.polaroid figcaption { margin: 10px 2px 0; font-family: var(--hand); color: var(--pen); font-size: 18px; line-height: 1.3; max-width: 100%; }
+/* the caption takes the print's width and wraps under it, never widening the paper */
+.polaroid figcaption { margin: 10px 2px 0; font-family: var(--hand); color: var(--pen); font-size: 18px; line-height: 1.3; width: 0; min-width: calc(100% - 4px); }
 .polaroid figcaption .typed { display: block; font-size: 11px; color: var(--ink-soft); letter-spacing: 0.08em; margin-top: 2px; font-family: var(--mono); }
 .polaroid .plate { margin: 0; border: 0; padding: 0; background: #fff; box-shadow: none; transform: none; }
 .polaroid .plate figcaption { display: none; }

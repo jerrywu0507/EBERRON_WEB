@@ -49,7 +49,9 @@ def cover():
     page(
         form("致新任探員：該瞭解的七件事", "Seven Things to Know", lead=d["one_line"], log=things,
              no=("摘要單", "BRIEF-01"), ref="卷宗封面 · 第一頁"),
-        doc("三大基調", "Three Themes", themes, ref="卷宗封面 · 第二頁", cls="cream punched", tilt=0.4),
+        doc("三大基調", "Three Themes",
+            polaroid(photo("airship.jpg", "元素飛艇停靠在高塔碼頭，乘客與貨物在棧橋上"), "停靠高塔碼頭的元素飛艇", typed="Lyrandar airship")
+            + themes, ref="卷宗封面 · 第二頁", cls="cream punched", tilt=0.4),
         form("速記：時間與錢", "Time and Money", rows=[(f["k"], esc(f["v"])) for f in d["quick_facts"]],
              prose="<h3>曆法</h3>" + paras(d["calendar"]["note"]), table=months,
              foot="<p>一週七天依序為 %s。</p>" % esc("、".join(d["calendar"]["days"])) + coins,
@@ -275,6 +277,8 @@ def sharn():
             polaroid(photo("sharn-sky-battle.jpg", "空中飛艇上的追逐戰，滑翔者在塔間穿梭"), "塔與塔之間的空中追逐", typed="skycoach · 每層兩枚銀君幣")
             + moves, ref="卷三 · 第五頁", tilt=0.3),
         doc("薩恩的面孔", "Faces of Sharn", faces + note("戰爭的痕跡", d["war_marks"]), ref="卷三 · 第六頁", cls="wide punched"),
+        pinboard(polaroid(photo("sharn-criminals.jpg", "薩恩警衛的列隊照：半身人、幻身靈、化獸者與離夢人並肩站在量身牆前"),
+                          "薩恩的罪犯：各種體型，甚至來自別的位面", typed="Sharn Watch lineup", tilt=-1.1)),
     )
 
 
@@ -289,6 +293,10 @@ def houses():
         doc("第四卷　龍紋家族", "Dragonmarked Houses", paras(d["intro"]), ref="卷四 · 第一頁", cls="head punched",
             lead="十二個靠皮膚上的印記壟斷大陸經濟的家族。", bureau=_bureau("第四卷", "DRAGONMARKED HOUSES")),
         doc("十二龍紋與其家族", "Dragonmarks and Their Houses", marks, ref="卷四 · 第二頁", cls="wide cream"),
+        pinboard(polaroid(photo("house-agents-1.jpg", "六個龍紋家族的代理人合照", full="house-agents-1.jpg"),
+                          "各家族的代理人，左起：鄧奈斯、伽蘭達、黎蘭達、坎尼斯、喬拉斯科、昆達拉克", typed="House agents · 點開看大圖", tilt=-1.2, small=True),
+                 polaroid(photo("house-agents-2.jpg", "另外六個龍紋家族的代理人合照", full="house-agents-2.jpg"),
+                          "左起：梅丹尼、歐瑞恩、撒剌釋克、費亞蘭、瓦達利斯、西維斯", typed="House agents · 點開看大圖", tilt=0.9, small=True)),
         slip(a["name"], a["en"], paras(a["body"]), stamp="警戒"),
         form("家族常識", "All about the Houses", rows=[(f["k"], esc(f["v"])) for f in d["facts"]],
              no=("備忘單", "HSE-01"), ref="卷四 · 第四頁", tilt=0.4),
@@ -304,6 +312,7 @@ def races():
     parts = [doc("第五卷　種族", "Races of Eberron", paras(d["intro"]), ref="卷五 · 第一頁", cls="head punched",
                  lead="四個只有艾伯倫才有的種族，以及熟悉種族的新位置。", bureau=_bureau("第五卷", "RACES OF EBERRON"))]
     portraits = {
+        "Warforged": ("race-warforged.jpg", "坎尼斯旗幟下的三具戰俑", "Warforged"),
         "Shifter": ("race-shifter.jpg", "甲板上的化獸者水手", "Shifter"),
         "Changeling": ("race-changeling.jpg", "鏡前的幻身靈：一張臉換過一張", "Changeling"),
         "Kalashtar": ("race-kalashtar.jpg", "離夢人，與身後的夢靈", "Kalashtar"),
@@ -344,10 +353,15 @@ def faiths():
     ]
     stamps = {"The Lords of Dust": "機密", "The Dreaming Dark": "機密", "The Order of the Emerald Claw": "通緝",
               "The Aurum": "機密", "The Boromar Clan": "備查", "The Tyrants": "機密", "The King's Citadel": "機密"}
+    org_pics = {"The Order of the Emerald Claw": ("emerald-claw.jpg", "兩名翡翠利爪騎士跟著指揮官，在洞窟裡搜尋強大的魔法", "Emerald Claw")}
     for i, org in enumerate(o["orgs"], start=6):
         parts.append(card(org["name"], org["en"], [("性質", esc(org["kind"])), ("對手", esc(org["rival"]))],
                           stamp=stamps.get(org["en"]), tilt=(-0.5, 0.4)[i % 2]))
-        parts.append(attached(paras(org["summary"]) + memos([("為什麼難纏", org["why"]), ("冒險引子", org["hook"])]),
+        pic = ""
+        if org["en"] in org_pics:
+            src, cap, typed = org_pics[org["en"]]
+            pic = polaroid(photo(src, org["name"] + "的插畫"), cap, typed=typed)
+        parts.append(attached(pic + paras(org["summary"]) + memos([("為什麼難纏", org["why"]), ("冒險引子", org["hook"])]),
                               ref="卷六 · 第 %d 頁" % i))
     p = o["patrons"]
     parts.append(doc(p["title"], p["en"], paras(p["body"]), ref="卷六 · 第十三頁", tilt=0.3))
