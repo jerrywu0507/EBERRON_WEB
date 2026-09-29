@@ -31,7 +31,7 @@ Community Cloud 的坑：推新提交後，雲端會把檔案拉進**執行中�
 |---|---|
 | `app.py` | 入口：`st.set_page_config`、依 `ui.VOLUMES` 建 `st.Page`、`st.navigation`、注入 CSS |
 | `guide/ui.py` | 共用零件：`VOLUMES`（各卷標題／網址／標籤色／篇幅權重）、`load()`（快取 JSON）、`inject_css()`（樣式＋標籤軌逐卷規則＋印泥 SVG 濾鏡 `INK_FILTERS`）、`sheet/meta/tags/ledger/timeline/note/plate/stamp_inline/term/en/paras` |
-| `guide/pages.py` | 九個頁面函式、行動版標籤列 `tabstrip(current)`、圖版一 `_khorvaire_plate()`（手繪 SVG 科瓦雷全境示意，16 地區＋王座堡） |
+| `guide/pages.py` | 九個頁面函式、行動版標籤列 `tabstrip(current)`（`st.container(horizontal=True, key="tabstrip")` 裡放 `st.page_link`，走 Streamlit 站內換頁；**不能**用 st.markdown 的 `<a>`：那會被強制 `target=_blank`，在雲端 iframe 裡點了沒反應）、圖版一 `_khorvaire_plate()`（手繪 SVG 科瓦雷全境示意，16 地區＋王座堡） |
 | `assets/styles.css` | 整站樣式（牛皮紙案卷世界：桌面、封面夾、攤開的夾子、白紙文件、記錄單、紅色檔案卡、警示紙、便條、名片、拍立得與方格紙、固定物、標籤軌、手機斷點 900px、減少動態） |
 | `static/fonts/`、`static/paper-grain.png`、`static/kraft-grain.png` | 自帶字型子集（思源宋體 400/600/900、Courier Prime、霞鶩文楷 TC 手寫）與白紙／牛皮紙紋貼圖；`config.toml` 開了 `enableStaticServing`，網址一律用**相對路徑** `app/static/...`（不能有開頭斜線：Community Cloud 把 app 放在 `/~/+/` 基底路徑下，絕對路徑會打到代理層拿回外殼 HTML，圖片就破） |
 | `PNG/` | 使用者提供的原圖（進版控，含 `五國國國旗/`、`薩恩地圖/` 子資料夾；檔名常是一句描述，先看圖再決定位置與圖說） |

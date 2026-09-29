@@ -138,7 +138,8 @@ def inject_css():
         rules.append(
             'section[data-testid="stSidebar"] [data-testid="stSidebarNav"] li:nth-child(%d){--w:%d}'
             'section[data-testid="stSidebar"] [data-testid="stSidebarNav"] li:nth-child(%d) a{%s}'
-            % (i, v["weight"], i, tab_vars(v["tab"]))
+            '.st-key-tabstrip [data-testid="stElementContainer"]:nth-child(%d){%s}'
+            % (i, v["weight"], i, tab_vars(v["tab"]), i, tab_vars(v["tab"]))
         )
     st.markdown("<style>%s\n%s</style>%s" % (_css_for_runtime(), "\n".join(rules), INK_FILTERS), unsafe_allow_html=True)
 

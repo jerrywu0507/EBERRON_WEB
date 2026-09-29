@@ -10,10 +10,14 @@ NUMS = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "�
 
 
 def tabstrip(current=""):
-    links = "".join('<a href="./%s" style="%s"%s>%s</a>'
-                    % (v["path"], ui.tab_vars(v["tab"]), ' aria-current="page"' if v["path"] == current else "", esc(v["title"]))
-                    for v in ui.VOLUMES)
-    raw('<nav class="tabstrip" aria-label="各卷">%s</nav>' % links)
+    """行動版標籤列（桌面版由 CSS 藏起來）。用 st.page_link 走 Streamlit 自己的換頁：st.markdown 裡的 <a> 一律被加上
+    target=_blank，在 Community Cloud 的 iframe 裡點了根本沒反應。標籤顏色由 inject_css() 依序注入；選中的那一張這裡標記。"""
+    with st.container(horizontal=True, wrap=False, gap="small", key="tabstrip"):
+        for v, p in zip(ui.VOLUMES, ui.PAGE_OBJS):
+            st.page_link(p, label=v["title"])
+    idx = [v["path"] for v in ui.VOLUMES].index(current) + 1
+    raw('<style>.st-key-tabstrip [data-testid="stElementContainer"]:nth-child(%d) a{'
+        'background:var(--fibre) repeat,var(--tab);color:var(--tab-ink,var(--bond));border-color:rgba(0,0,0,0.45)}</style>' % idx)
 
 
 def _bureau(vol, en_title):
