@@ -28,7 +28,9 @@ EXTRA = [
     ("哈拉斯·塔卡南", "Halas Tarkanan"), ("瘟疫女士", "Lady of the Plague"), ("索剌卡特剌", "Sora Katra"), ("龍血（毒品）", "Dragon's Blood"),
     ("夢百合", "Dreamlily"), ("赫拉賈克", "Hrazhak"), ("刃紋傭兵", "Blademarks"), ("亞貢斯", "Argonth"), ("薩利奧斯特", "Thaliost"),
     ("沙杜卡", "Shadukar"), ("蘿恩女王", "Queen Wroann"), ("伊爾泰恩家族", "ir'Tain family"),
-    ("蒂拉·邁倫", "Tira Miron"), ("貝·舍盧", "Bel Shalor"), ("羅·睹契室", "Rak Tulkhesh"), ("蘇·珂帝室", "Sul Khatesh"),
+    ("相接", "Coterminous"), ("相離", "Remote"), ("魔冢", "Modron"), ("吉斯澤萊", "Githzerai"), ("史拉蟾", "Slaad"),
+    ("至高妖精", "Archfey"), ("雅靈", "Eladrin"), ("無量市場", "Immeasurable Market"), ("巨惡雪怪", "Remorhaz"), ("魔蝠", "Mephit"),
+    ("火巨靈", "Efreeti"), ("黑暗夢境", "The Dreaming Dark"), ("蒂拉·邁倫", "Tira Miron"), ("貝·舍盧", "Bel Shalor"), ("羅·睹契室", "Rak Tulkhesh"), ("蘇·珂帝室", "Sul Khatesh"),
 ]
 
 

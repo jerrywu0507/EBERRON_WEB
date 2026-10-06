@@ -27,6 +27,11 @@
    "src": "extra"
   },
   {
+   "zh": "至高妖精",
+   "en": "Archfey",
+   "src": "extra"
+  },
+  {
    "zh": "阿貢尼森",
    "en": "Argonnessen",
    "src": "nations"
@@ -117,9 +122,14 @@
    "src": "sharn"
   },
   {
+   "zh": "相接",
+   "en": "Coterminous",
+   "src": "extra"
+  },
+  {
    "zh": "羽蛇",
    "en": "Couatl",
-   "src": "extra"
+   "src": "planes"
   },
   {
    "zh": "議會廳與市檔案館",
@@ -242,6 +252,16 @@
    "src": "sharn"
   },
   {
+   "zh": "火巨靈",
+   "en": "Efreeti",
+   "src": "extra"
+  },
+  {
+   "zh": "雅靈",
+   "en": "Eladrin",
+   "src": "extra"
+  },
+  {
    "zh": "埃魯登原野",
    "en": "Eldeen Reaches",
    "src": "nations"
@@ -314,6 +334,11 @@
   {
    "zh": "護門者",
    "en": "Gatekeepers",
+   "src": "extra"
+  },
+  {
+   "zh": "吉斯澤萊",
+   "en": "Githzerai",
    "src": "extra"
   },
   {
@@ -419,6 +444,11 @@
   {
    "zh": "赫拉賈克",
    "en": "Hrazhak",
+   "src": "extra"
+  },
+  {
+   "zh": "無量市場",
+   "en": "Immeasurable Market",
    "src": "extra"
   },
   {
@@ -562,6 +592,11 @@
    "src": "sharn"
   },
   {
+   "zh": "魔蝠",
+   "en": "Mephit",
+   "src": "extra"
+  },
+  {
    "zh": "梅綽",
    "en": "Metrol",
    "src": "extra"
@@ -570,6 +605,11 @@
    "zh": "梅綽（已毀）",
    "en": "Metrol (destroyed)",
    "src": "nations"
+  },
+  {
+   "zh": "魔冢",
+   "en": "Modron",
+   "src": "extra"
   },
   {
    "zh": "莫格雷夫大學",
@@ -597,6 +637,11 @@
    "src": "extra"
   },
   {
+   "zh": "夜鬼婆",
+   "en": "Night hag",
+   "src": "planes"
+  },
+  {
    "zh": "北緣",
    "en": "Northedge",
    "src": "sharn"
@@ -619,7 +664,7 @@
   {
    "zh": "魔君",
    "en": "Overlord",
-   "src": "extra"
+   "src": "planes"
   },
   {
    "zh": "通行",
@@ -664,11 +709,21 @@
   {
    "zh": "羅剎",
    "en": "Rakshasa",
-   "src": "extra"
+   "src": "planes"
   },
   {
    "zh": "雷肯馬克學院",
    "en": "Rekkenmark Academy",
+   "src": "extra"
+  },
+  {
+   "zh": "巨惡雪怪",
+   "en": "Remorhaz",
+   "src": "extra"
+  },
+  {
+   "zh": "相離",
+   "en": "Remote",
    "src": "extra"
   },
   {
@@ -755,6 +810,11 @@
    "zh": "天城區",
    "en": "Skyway",
    "src": "sharn"
+  },
+  {
+   "zh": "史拉蟾",
+   "en": "Slaad",
+   "src": "extra"
   },
   {
    "zh": "索剌卡特剌",

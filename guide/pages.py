@@ -434,14 +434,31 @@ def planes():
     tabstrip("planes")
     d = ui.load("planes")
     cards = bizcards([{"mark": p["epithet"], "name": p["name"], "en": p["en"], "lines": [("一句話", esc(p["summary"]))]} for p in d["planes"]], index=True)
-    page(
+    phases = d["phases"]
+    parts = [
         doc("第七卷　存在位面", "Planes of Existence", paras(d["intro"]), ref="卷七 · 第一頁", cls="head punched",
             lead="十三個環繞艾伯倫、時近時遠的位面，以及它們滲進世界的地方。", bureau=_bureau("第七卷", "PLANES OF EXISTENCE")),
         pinboard(polaroid(photo("planes-map.jpg", "諸位面地圖：十三個位面環繞著物質位面艾伯倫", full="planes-map-full.jpg"),
                           "諸位面地圖：十三個位面環著物質位面", typed="Exploring Eberron · 社群譯製 · 點開看大圖", tilt=-0.8, tall=True)),
-        doc("十三位面", "Tour of the Planes", cards, ref="卷七 · 第二頁", cls="wide cream"),
-        doc("宇宙觀備註", None, paras(d["cosmology_note"]) + "<h3>月亮</h3>" + paras(d["moons"]), ref="卷七 · 第三頁", cls="punched", tilt=-0.4),
-    )
+        form("相接與相離", "Coterminous and Remote", rows=[(k, esc(v)) for k, v in phases["rows"]], no=("位面狀態單", "PLN-01"),
+             lead=phases["intro"], ref="卷七 · 第二頁", tilt=-0.3),
+        slip("位面週期表？", "Planar Cycles", "<p>%s</p>" % esc(phases["slip"]), stamp="待查"),
+        doc("十三位面速覽", "Tour of the Planes", cards, ref="卷七 · 第三頁", cls="wide cream"),
+    ]
+    # 每個位面一張檔案卡＋一張白紙：性質、顯能區特性、在艾伯倫的痕跡、冒險引子
+    for i, p in enumerate(d["planes"]):
+        parts.append(card(p["name"], p["en"], [("別名", esc(p["epithet"])), ("居民與勢力", esc(p["folk"]))], line=p["summary"],
+                          stamp="永遠相離" if p["name"] == "達庫爾" else None, tilt=(-0.5, 0.4)[i % 2]))
+        zone = "<h3>顯能區特性%s</h3><ul>%s</ul>" % (en("Manifest Zone"), "".join("<li>%s</li>" % esc(z) for z in p["zone"]))
+        trace = "<h3>在艾伯倫的痕跡</h3>" + paras(p["trace"])
+        parts.append(attached(paras(p["nature"]) + zone + trace + note("冒險引子", p["hook"], hand_written=True), ref="卷七 · 第 %d 頁" % (4 + i)))
+    natives = "".join("<h3>%s%s</h3>%s" % (esc(x["name"]), en(x["en"]), paras(x["body"])) for x in d["natives"]["items"])
+    parts += [
+        doc("本土的天族與邪魔", "Celestials and Fiends of Eberron", natives, ref="卷七 · 第十七頁", cls="wide", lead=d["natives"]["intro"], tilt=0.3),
+        doc("宇宙觀備註", None, paras(d["cosmology_note"]) + "<h3>凱伯的半位面</h3>" + paras(d["khyber"]) + "<h3>月亮</h3>" + paras(d["moons"]),
+            ref="卷七 · 第十八頁", cls="punched", tilt=-0.4),
+    ]
+    page(*parts)
 
 
 # ---------------------------------------------------------------- 附錄

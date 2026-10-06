@@ -25,7 +25,7 @@ VOLUMES = [
     {"title": "第四卷 龍紋家族", "path": "houses", "tab": "green", "weight": 5},
     {"title": "第五卷 種族", "path": "races", "tab": "green", "weight": 6},
     {"title": "第六卷 信仰與組織", "path": "faiths", "tab": "ochre", "weight": 11},
-    {"title": "第七卷 位面", "path": "planes", "tab": "ochre", "weight": 5},
+    {"title": "第七卷 位面", "path": "planes", "tab": "ochre", "weight": 10},
     {"title": "附錄", "path": "appendix", "tab": "violet", "weight": 7},
 ]
 TAB_COLORS = {"indigo": "#2f3f6e", "seal": "#c2321f", "green": "#5f8f6c", "ochre": "#d9a23a", "violet": "#6c5a91"}
