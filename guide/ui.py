@@ -19,9 +19,9 @@ STATIC = os.path.join(ROOT, "static")
 # 各卷：標題、網址、標籤色、篇幅權重（決定索引標籤高度份額）。app.py 依此建立頁面。
 VOLUMES = [
     {"title": "卷宗封面", "path": "", "tab": "indigo", "weight": 6},
-    {"title": "第一卷 歷史", "path": "history", "tab": "indigo", "weight": 6},
+    {"title": "第一卷 歷史", "path": "history", "tab": "indigo", "weight": 8},
     {"title": "第二卷 諸國", "path": "nations", "tab": "seal", "weight": 11},
-    {"title": "第三卷 薩恩", "path": "sharn", "tab": "seal", "weight": 5},
+    {"title": "第三卷 薩恩", "path": "sharn", "tab": "seal", "weight": 11},
     {"title": "第四卷 龍紋家族", "path": "houses", "tab": "green", "weight": 5},
     {"title": "第五卷 種族", "path": "races", "tab": "green", "weight": 6},
     {"title": "第六卷 信仰與組織", "path": "faiths", "tab": "ochre", "weight": 11},

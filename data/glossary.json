@@ -32,6 +32,11 @@
    "src": "nations"
   },
   {
+   "zh": "亞貢斯",
+   "en": "Argonth",
+   "src": "extra"
+  },
+  {
    "zh": "奇械師",
    "en": "Artificer",
    "src": "races"
@@ -39,12 +44,17 @@
   {
    "zh": "安黛爾",
    "en": "Aundair",
-   "src": "nations"
+   "src": "history"
   },
   {
    "zh": "奧瑞恩",
    "en": "Aureon",
    "src": "faiths"
+  },
+  {
+   "zh": "極光畫廊",
+   "en": "Aurora Gallery",
+   "src": "sharn"
   },
   {
    "zh": "巴利諾",
@@ -54,6 +64,11 @@
   {
    "zh": "貝·舍盧",
    "en": "Bel Shalor",
+   "src": "extra"
+  },
+  {
+   "zh": "刃紋傭兵",
+   "en": "Blademarks",
    "src": "extra"
   },
   {
@@ -69,11 +84,16 @@
   {
    "zh": "布魯蘭",
    "en": "Breland",
-   "src": "nations"
+   "src": "history"
   },
   {
    "zh": "中央高地",
    "en": "Central Plateau",
+   "src": "sharn"
+  },
+  {
+   "zh": "機緣與絲絨",
+   "en": "Chance; Velvet's",
    "src": "sharn"
   },
   {
@@ -87,14 +107,34 @@
    "src": "sharn"
   },
   {
+   "zh": "巔峰崖冒險者公會與醉龍",
+   "en": "Clifftop Adventurers' Guild; the Drunken Dragon",
+   "src": "sharn"
+  },
+  {
+   "zh": "冷焰堡與達卡崗",
+   "en": "Coldflame Keep; Daca's Watch",
+   "src": "sharn"
+  },
+  {
    "zh": "羽蛇",
    "en": "Couatl",
    "src": "extra"
   },
   {
+   "zh": "議會廳與市檔案館",
+   "en": "Council Hall; City Archive",
+   "src": "sharn"
+  },
+  {
    "zh": "創生鍛爐",
    "en": "Creation forge",
    "src": "extra"
+  },
+  {
+   "zh": "賽爾",
+   "en": "Cyre",
+   "src": "history"
   },
   {
    "zh": "賽爾（哀傷故地）",
@@ -177,8 +217,18 @@
    "src": "extra"
   },
   {
+   "zh": "龍血（毒品）",
+   "en": "Dragon's Blood",
+   "src": "extra"
+  },
+  {
    "zh": "龍晶",
    "en": "Dragonshard",
+   "src": "extra"
+  },
+  {
+   "zh": "夢百合",
+   "en": "Dreamlily",
    "src": "extra"
   },
   {
@@ -202,6 +252,11 @@
    "src": "extra"
   },
   {
+   "zh": "永明區",
+   "en": "Everbright",
+   "src": "sharn"
+  },
+  {
    "zh": "永明提燈",
    "en": "Everbright lantern",
    "src": "extra"
@@ -215,6 +270,16 @@
    "zh": "安恬城",
    "en": "Fairhaven",
    "src": "nations"
+  },
+  {
+   "zh": "墮落區",
+   "en": "Fallen",
+   "src": "sharn"
+  },
+  {
+   "zh": "法森聖所",
+   "en": "Fathen's Shrine",
+   "src": "sharn"
   },
   {
    "zh": "費尼亞",
@@ -242,6 +307,11 @@
    "src": "extra"
   },
   {
+   "zh": "通行之門",
+   "en": "Gate of Passage",
+   "src": "sharn"
+  },
+  {
    "zh": "護門者",
    "en": "Gatekeepers",
    "src": "extra"
@@ -252,9 +322,19 @@
    "src": "extra"
   },
   {
+   "zh": "宏偉舞臺、藝術殿堂與薩恩歌劇院",
+   "en": "Grand Stage; Art Temple; Sharn Opera House",
+   "src": "sharn"
+  },
+  {
    "zh": "團隊贊助者",
    "en": "Group Patrons",
    "src": "orgs"
+  },
+  {
+   "zh": "哈拉斯·塔卡南",
+   "en": "Halas Tarkanan",
+   "src": "extra"
   },
   {
    "zh": "畜牧",
@@ -337,8 +417,18 @@
    "src": "houses"
   },
   {
+   "zh": "赫拉賈克",
+   "en": "Hrazhak",
+   "src": "extra"
+  },
+  {
    "zh": "蒙啟者",
    "en": "Inspired",
+   "src": "extra"
+  },
+  {
+   "zh": "伊爾泰恩家族",
+   "en": "ir'Tain family",
    "src": "extra"
   },
   {
@@ -354,7 +444,7 @@
   {
    "zh": "坎納斯",
    "en": "Karrnath",
-   "src": "nations"
+   "src": "history"
   },
   {
    "zh": "科瓦雷",
@@ -365,6 +455,11 @@
    "zh": "凱伯",
    "en": "Khyber",
    "src": "nations"
+  },
+  {
+   "zh": "凱伯之門",
+   "en": "Khyber's Gate",
+   "src": "sharn"
   },
   {
    "zh": "國王堡壘",
@@ -397,6 +492,11 @@
    "src": "extra"
   },
   {
+   "zh": "昆達拉克薩恩銀行與寶庫",
+   "en": "Kundarak Bank of Sharn; the Vaults",
+   "src": "sharn"
+  },
+  {
    "zh": "奇斯瑞",
    "en": "Kythri, the Churning Chaos",
    "src": "planes"
@@ -404,6 +504,11 @@
   {
    "zh": "罪髓女士",
    "en": "Lady Illmarrow",
+   "src": "extra"
+  },
+  {
+   "zh": "瘟疫女士",
+   "en": "Lady of the Plague",
    "src": "extra"
   },
   {
@@ -420,6 +525,11 @@
    "zh": "閃電列車",
    "en": "Lightning rail",
    "src": "extra"
+  },
+  {
+   "zh": "小希恩德瑞克",
+   "en": "Little Xen'drik",
+   "src": "sharn"
   },
   {
    "zh": "刀鋒領主",
@@ -467,9 +577,19 @@
    "src": "extra"
   },
   {
+   "zh": "莫格雷夫大學與德齊納古董博物館",
+   "en": "Morgrave University; Dezina Museum of Antiquities",
+   "src": "sharn"
+  },
+  {
    "zh": "摩洛領",
    "en": "Mror Holds",
    "src": "nations"
+  },
+  {
+   "zh": "穆特幫",
+   "en": "Muut",
+   "src": "sharn"
   },
   {
    "zh": "新賽爾",
@@ -479,6 +599,11 @@
   {
    "zh": "北緣",
    "en": "Northedge",
+   "src": "sharn"
+  },
+  {
+   "zh": "舊薩恩",
+   "en": "Old Sharn",
    "src": "sharn"
   },
   {
@@ -507,9 +632,24 @@
    "src": "extra"
   },
   {
+   "zh": "諸神閣與潔淨之焰大教堂",
+   "en": "Pavilion of the Host; Cathedral of the Cleansing Flame",
+   "src": "sharn"
+  },
+  {
+   "zh": "飄搖區天空碼頭",
+   "en": "Precarious",
+   "src": "sharn"
+  },
+  {
    "zh": "夸巴拉",
    "en": "Q'barra",
    "src": "nations"
+  },
+  {
+   "zh": "蘿恩女王",
+   "en": "Queen Wroann",
+   "src": "extra"
   },
   {
    "zh": "夢靈",
@@ -577,7 +717,12 @@
    "src": "nations"
   },
   {
-   "zh": "薩恩探究報",
+   "zh": "沙杜卡",
+   "en": "Shadukar",
+   "src": "extra"
+  },
+  {
+   "zh": "薩恩探事報",
    "en": "Sharn Inquisitive",
    "src": "extra"
   },
@@ -612,6 +757,11 @@
    "src": "sharn"
   },
   {
+   "zh": "索剌卡特剌",
+   "en": "Sora Katra",
+   "src": "extra"
+  },
+  {
    "zh": "暴風",
    "en": "Storm",
    "src": "houses"
@@ -637,14 +787,34 @@
    "src": "sharn"
   },
   {
+   "zh": "終點站與蘿恩之門",
+   "en": "Terminus Station; Wroann's Gate",
+   "src": "sharn"
+  },
+  {
    "zh": "西伯瑞斯測驗",
    "en": "Test of Siberys",
    "src": "extra"
   },
   {
+   "zh": "薩利奧斯特",
+   "en": "Thaliost",
+   "src": "extra"
+  },
+  {
+   "zh": "鐵砧、碎鏡與銀霧劇院",
+   "en": "The Anvil; the Broken Mirror; the Silvermist Theater",
+   "src": "sharn"
+  },
+  {
    "zh": "金權會",
    "en": "The Aurum",
    "src": "orgs"
+  },
+  {
+   "zh": "巴扎",
+   "en": "The Bazaar",
+   "src": "sharn"
   },
   {
    "zh": "沃爾之血",
@@ -657,6 +827,21 @@
    "src": "orgs"
   },
   {
+   "zh": "碎鏡幫",
+   "en": "The Broken Mirror",
+   "src": "sharn"
+  },
+  {
+   "zh": "斷橋幫",
+   "en": "The Brokenbridge Brawlers",
+   "src": "sharn"
+  },
+  {
+   "zh": "燃燒擂臺",
+   "en": "The Burning Ring",
+   "src": "sharn"
+  },
+  {
    "zh": "密閣",
    "en": "The Chamber",
    "src": "extra"
@@ -667,8 +852,23 @@
    "src": "faiths"
   },
   {
+   "zh": "堡壘",
+   "en": "The Citadel",
+   "src": "sharn"
+  },
+  {
+   "zh": "亡者之城",
+   "en": "The City of the Dead",
+   "src": "sharn"
+  },
+  {
    "zh": "齒輪區",
    "en": "The Cogs",
+   "src": "sharn"
+  },
+  {
+   "zh": "基石競技場",
+   "en": "The Cornerstone",
    "src": "sharn"
   },
   {
@@ -680,6 +880,11 @@
    "zh": "黑暗六神",
    "en": "The Dark Six",
    "src": "faiths"
+  },
+  {
+   "zh": "死門公會",
+   "en": "The Deathsgate Guild",
+   "src": "sharn"
   },
   {
    "zh": "吞噬",
@@ -697,9 +902,29 @@
    "src": "faiths"
   },
   {
+   "zh": "眼球幫",
+   "en": "The Eyes",
+   "src": "sharn"
+  },
+  {
+   "zh": "五面幫",
+   "en": "The Five Faces",
+   "src": "sharn"
+  },
+  {
    "zh": "狂怒",
    "en": "The Fury",
    "src": "faiths"
+  },
+  {
+   "zh": "矮子幫",
+   "en": "The Gremlins",
+   "src": "sharn"
+  },
+  {
+   "zh": "空心塔與炎王",
+   "en": "The Hollow Tower; the King of Fire",
+   "src": "sharn"
   },
   {
    "zh": "監守",
@@ -717,6 +942,11 @@
    "src": "extra"
   },
   {
+   "zh": "小指幫",
+   "en": "The Little Fingers",
+   "src": "sharn"
+  },
+  {
    "zh": "塵主",
    "en": "The Lords of Dust",
    "src": "orgs"
@@ -727,9 +957,19 @@
    "src": "faiths"
   },
   {
+   "zh": "哀傷幫",
+   "en": "The Mourners",
+   "src": "sharn"
+  },
+  {
    "zh": "哀傷故地",
    "en": "The Mournland",
    "src": "extra"
+  },
+  {
+   "zh": "橡木與龍葵",
+   "en": "The Oak; Nightshade",
+   "src": "sharn"
   },
   {
    "zh": "翡翠利爪教團",
@@ -742,9 +982,29 @@
    "src": "faiths"
   },
   {
+   "zh": "靜語幫",
+   "en": "The Quiet Folk",
+   "src": "sharn"
+  },
+  {
+   "zh": "紅豺幫",
+   "en": "The Red Jackals",
+   "src": "sharn"
+  },
+  {
+   "zh": "下水道",
+   "en": "The Sewers",
+   "src": "sharn"
+  },
+  {
    "zh": "陰影",
    "en": "The Shadow",
    "src": "faiths"
+  },
+  {
+   "zh": "薩恩警衛",
+   "en": "The Sharn Watch",
+   "src": "sharn"
   },
   {
    "zh": "六十豪門",
@@ -760,6 +1020,11 @@
    "zh": "先祖英靈",
    "en": "The Spirits of the Past",
    "src": "faiths"
+  },
+  {
+   "zh": "三塔",
+   "en": "The Three Towers",
+   "src": "sharn"
   },
   {
    "zh": "旅者",
@@ -789,7 +1054,7 @@
   {
    "zh": "瑟雷恩",
    "en": "Thrane",
-   "src": "nations"
+   "src": "history"
   },
   {
    "zh": "王座堡",

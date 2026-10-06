@@ -20,11 +20,14 @@ EXTRA = [
     ("巨龍預言", "Draconic Prophecy"), ("密閣", "The Chamber"), ("影閣", "Shadow Cabinet"), ("蒙啟者", "Inspired"), ("夢靈", "Quori"),
     ("國王堡壘", "King's Citadel"), ("國王暗燈", "Dark Lanterns"), ("十二學會", "The Twelve"), ("寇斯敕令", "Korth Edicts"), ("西伯瑞斯測驗", "Test of Siberys"),
     ("剝皮者", "Excoriate"), ("棄兒", "Foundling"), ("六十豪門", "The Sixty"), ("薩恩警衛", "Sharn Watch"), ("空中客車", "Skycoach"),
-    ("齒輪區", "The Cogs"), ("天城區", "Skyway"), ("莫格雷夫大學", "Morgrave University"), ("薩恩探究報", "Sharn Inquisitive"), ("柯蘭堡紀事報", "Korranberg Chronicle"),
+    ("齒輪區", "The Cogs"), ("天城區", "Skyway"), ("莫格雷夫大學", "Morgrave University"), ("薩恩探事報", "Sharn Inquisitive"), ("柯蘭堡紀事報", "Korranberg Chronicle"),
     ("魔君", "Overlord"), ("羽蛇", "Couatl"), ("羅剎", "Rakshasa"), ("刀鋒領主", "Lord of Blades"), ("罪髓女士", "Lady Illmarrow"),
     ("護門者", "Gatekeepers"), ("達坎帝國", "Dhakaani Empire"), ("創生鍛爐", "Creation forge"), ("戰俑泰坦", "Warforged titan"), ("王國曆", "Year of the Kingdom (YK)"),
     ("阿卡尼克斯", "Arcanix"), ("雷肯馬克學院", "Rekkenmark Academy"), ("新賽爾", "New Cyre"), ("梅綽", "Metrol"), ("銀焰堡", "Flamekeep"),
     ("尋者", "Seeker (Blood of Vol)"), ("光明之道", "Path of Light"), ("異變魔", "Daelkyr"), ("異種龍紋", "Aberrant dragonmark"), ("龍紋戰爭", "War of the Mark"),
+    ("哈拉斯·塔卡南", "Halas Tarkanan"), ("瘟疫女士", "Lady of the Plague"), ("索剌卡特剌", "Sora Katra"), ("龍血（毒品）", "Dragon's Blood"),
+    ("夢百合", "Dreamlily"), ("赫拉賈克", "Hrazhak"), ("刃紋傭兵", "Blademarks"), ("亞貢斯", "Argonth"), ("薩利奧斯特", "Thaliost"),
+    ("沙杜卡", "Shadukar"), ("蘿恩女王", "Queen Wroann"), ("伊爾泰恩家族", "ir'Tain family"),
     ("蒂拉·邁倫", "Tira Miron"), ("貝·舍盧", "Bel Shalor"), ("羅·睹契室", "Rak Tulkhesh"), ("蘇·珂帝室", "Sul Khatesh"),
 ]
 

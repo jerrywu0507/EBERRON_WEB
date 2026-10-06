@@ -39,7 +39,7 @@ Community Cloud 的坑：推新提交後，雲端會把檔案拉進**執行中�
 | `tools/build_fonts.py` | 重建四個字型子集（需 `pip install fonttools brotli`；原始 OTF／TTF 會下載到 `~/.cache/eberron-fonts/`）。正文 400 收全站字元；600／900／手寫體只收 `tools/fontsets.json` 裡「頁面上真的以那個字重顯示過的字」，首次載入字型約 1.4 MB（原本 3.9 MB） |
 | `tools/collect_chars.py` | 從跑著的本機站台（桌面與手機各一遍）收集每個字型／字重實際用到的字，寫 `tools/fontsets.json`；改內容後先跑它再跑 `build_fonts.py` |
 | `assets/favicon.png` | 自製網站圖示（靛藍卷宗＋朱印） |
-| `data/*.json` | 全部文字內容：overview、history、nations、sharn、houses、races、faiths、orgs、planes、appendix、glossary |
+| `data/*.json` | 全部文字內容：overview、history、nations、sharn、houses、races、faiths、orgs、planes、appendix、glossary。2026-10-06 擴充：`history` 多了 `timeline` 的八個節點（`tbd: true` 的會蓋待查章）、`timeline_note`、`nations_war`（五國各自的戰爭）、`mournland`、`prophecy`；`sharn` 多了 `landmarks`（五大區各 4～5 個地標＋能幹的事）、`dungeons`、`ladys_day`、`crime_orgs`（四大犯罪組織的檔案卡＋白紙）、`street_gangs`、`law`（警衛與國王堡壘、各部門、`people` 用 `en_tbd` 存未經譯本證實的英文拼法、`punishment`）。來源是 5echm 譯本的對應章節，改寫不轉載 |
 | `tools/build_glossary.py` | 從各卷資料的中英成對欄位＋內建補充清單重建 `data/glossary.json`（**不要手改 glossary.json**） |
 | `tools/snap.py` | 用 Chrome DevTools 協定截整頁／查 DOM：`snap.py shot <url> <out.png> <width> [mobile]`、`snap.py dom <url> "<js>"`。檔頭的 `CHROME` 路徑依機器調整 |
 | `.impeccable/` | 設計流程證據：`surfaces/app-py.md`（方向契約＋ADAPTATIONS）、`brief-app.md`、`decision/direction-3cbdd602.json`、`review/*.png` 與 `detect.json`、`design.json` |
@@ -71,6 +71,7 @@ Community Cloud 的坑：推新提交後，雲端會把檔案拉進**執行中�
 5. 文件代理寫出 DESIGN.md 與 `.impeccable/design.json`。
 6. 完工後追加：圖版一擴成科瓦雷全境（16 地區＋王座堡，含圖例），「其他區域」帳冊加首府與王座堡條約承認狀態，手機上圖版可橫向拖動。
 8. 全面改版成牛皮紙案卷（2026-09-29，使用者指定參考：Bureau of Mythology 式檔案夾＋雜誌版式圖；問答後決定整套換、單欄但每張紙格式不同、不加圖、四種物件全要）：新的 `ui.py` 文件零件與 `pages.py` 組版、新 `styles.css`、霞鶩文楷手寫字型子集、牛皮紙紋；DESIGN.md 的 Design System 全部重寫。
+10. 內容擴充（2026-10-06，使用者選第一卷與第三卷；譯本沒有的名詞自行譯並蓋待查章）：第三卷從 6 件文件變 15 件（地標與去處、薩恩地城、四張犯罪組織檔案卡、街頭幫派清冊、執法力量、警衛要人），第一卷從 6 件變 9 件（年表加節點、五國各自的戰爭、哀傷故地、巨龍預言）；標籤軌權重 history 6→8、sharn 5→11。
 9. 體檢後優化（2026-10-06，使用者選了四個方向）：字型瘦身（`collect_chars.py` + `fontsets.json`，3.9 MB → 1.4 MB，無 Google 後備請求）、薩恩三張分區圖減半、手機三欄以上表格改堆疊、卷內目錄索引卡與回頂端、術語表搜尋強化；內容擴充另案進行。
 7. 質感升級（2026-09-28，依 frontend-design 與 taste-skill 的改版流程）：紅格線改為跟著段落走、手機段落靠左、用箋不隨滑鼠抬起；自帶字型子集、紙紋、桌面受光；封面加檔案標籤紙、暗紋圓章、書脊凸帶、磨損暗角；卷首用箋與章的入場動作；圖版二薩恩剖面；DESIGN.md 同步。
 

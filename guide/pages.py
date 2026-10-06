@@ -76,20 +76,28 @@ def history():
     tabstrip("history")
     d = ui.load("history")
     eras = "".join("<h3>%s%s</h3>%s" % (esc(e["era"]), en(e["en"]), paras(e["body"])) for e in d["eras"])
-    timeline = [(it["year"], esc(it["label"]), esc(it["body"])) for it in d["timeline"]]
+    timeline = [(it["year"], esc(it["label"]) + (" " + ui.stamp_inline("待查", "tbd") if it.get("tbd") else ""), esc(it["body"]))
+                for it in d["timeline"]]
+    war = "".join("<h3>%s%s</h3>%s" % (esc(n["name"]), en(n["en"]), paras(n["body"])) for n in d["nations_war"]["nations"])
     scars = "".join("<h3>%s</h3>%s" % (esc(s["title"]), paras(s["body"])) for s in d["scars"])
     theories = "<ul>%s</ul>" % "".join("<li>%s</li>" % esc(t) for t in d["mourning_theories"])
     page(
         doc("第一卷　歷史", "History of Eberron", paras(d["creation_myth"]), ref="卷一 · 第一頁", cls="head punched",
             lead="一個由三條祖龍創造、被一場百年戰爭與一日浩劫定義的世界。", bureau=_bureau("第一卷", "HISTORY OF EBERRON")),
         doc("五個時代", "Five Ages", eras, ref="卷一 · 第二頁", cls="cream", tilt=0.5),
-        form("年表", "Timeline", log=timeline, no=("事件記錄單", "LOG-01"), ref="卷一 · 第三頁", tilt=-0.4),
+        form("年表", "Timeline", log=timeline, no=("事件記錄單", "LOG-01"), ref="卷一 · 第三頁", tilt=-0.4,
+             foot="<p>※ %s</p>" % esc(d["timeline_note"])),
+        doc("終末戰爭：五國各自的戰爭", "The Last War, Nation by Nation", war, ref="卷一 · 第四頁", cls="wide cream",
+            lead=d["nations_war"]["intro"], tilt=0.4),
         doc("王座堡條約承認的十二國", "The Treaty of Thronehold",
             tags(d["treaty_nations"]["recognized"]) + "<p></p>" + paras(d["treaty_nations"]["note"]),
-            ref="卷一 · 第四頁", tilt=0.3),
+            ref="卷一 · 第五頁", tilt=0.3),
         doc("戰爭的傷痕", "The Scars of War", scars + note("備註", "設定書把哀傷的真相留給 DM 決定。只要它仍是謎，對它的恐懼就壓著下一場戰爭。", hand_written=True),
-            ref="卷一 · 第五頁", cls="punched"),
+            ref="卷一 · 第六頁", cls="punched"),
+        doc("哀傷故地", "The Mournland", paras(d["mournland"]["body"]), ref="卷一 · 第七頁", lead=d["mournland"]["intro"], tilt=-0.3),
         slip("哀傷的成因：三種猜測", "Theories of the Mourning", theories, stamp="待查"),
+        doc("巨龍預言", "The Draconic Prophecy", paras(d["prophecy"]["body"]), ref="卷一 · 第八頁", cls="cream punched",
+            lead=d["prophecy"]["intro"], tilt=0.5),
     )
 
 
@@ -275,6 +283,29 @@ def sharn():
     above = bizcards([{"mark": None, "name": a["name"], "en": a["en"], "lines": [("說明", esc(a["line"]))]} for a in d["above_below"]], index=True)
     moves = memos(['<div class="memo tape hand">%s</div>' % esc(g) for g in d["getting_around"]])
     faces = bizcards([{"mark": None, "name": f["name"], "en": f["en"], "lines": [("一句話", esc(f["line"]))]} for f in d["faces"]])
+    landmarks = "".join(
+        "<h3>%s%s</h3><ul>%s</ul>%s" % (
+            esc(q["quarter"]), en(q["en"]),
+            "".join('<li><b>%s</b>%s<span class="where">%s</span><br>%s</li>' % (esc(p["name"]), en(p["en"]), esc(p["where"]), esc(p["line"]))
+                    for p in q["spots"]),
+            note("能幹的事", q["todo"], hand_written=True))
+        for q in d["landmarks"])
+    dungeons = "".join("<h3>%s%s</h3>%s" % (esc(x["name"]), en(x["en"]), paras(x["body"])) for x in d["dungeons"])
+    gangs = ledger([("name", "幫派", False), ("who", "成員", False), ("line", "一句話", False)],
+                   [{"name": term(g["name"], g["en"]), "who": esc(g["who"]), "line": esc(g["line"])} for g in d["street_gangs"]])
+    law = d["law"]
+    forces = "".join(
+        "<h3>%s%s</h3>%s<ul>%s</ul>" % (esc(f["name"]), en(f["en"]), paras(f["body"]),
+                                      "".join("<li><b>%s</b>%s　%s</li>" % (esc(a), en(b), esc(c)) for a, b, c in f["divisions"]))
+        for f in law["forces"])
+    people = ledger([("name", "姓名", False), ("post", "職務", False), ("line", "立場", False)],
+                    [{"name": term(p["name"], p["en_tbd"]), "post": esc(p["post"]), "line": esc(p["line"])} for p in law["people"]])
+    crime_parts = []
+    for i, org in enumerate(d["crime_orgs"]):
+        crime_parts.append(card(org["name"], org["en"], [("性質", esc(org["kind"])), ("地盤", esc(org["turf"])), ("首領", esc(org["boss"]))],
+                               line=org["line"], tilt=(-0.5, 0.4)[i % 2]))
+        crime_parts.append(attached(paras(org["summary"]) + memos([("他們要什麼", org["want"]), ("怎麼找上玩家", org["hook"])]),
+                                    ref="卷三 · 第 %d 頁" % (9 + i)))
     page(
         doc("第三卷　眾塔之城薩恩", "Sharn, the City of Towers",
             polaroid(photo("morgrave.jpg", "莫格雷夫大學的塔群，塔與塔之間以橋相連"), "莫格雷夫大學，孟西斯高地", typed="Morgrave University")
@@ -288,15 +319,24 @@ def sharn():
         pinboard(polaroid(photo("sharn-upper.jpg", "薩恩上層區地圖", full="sharn-upper.jpg"), "上層區：富人與掌權者", typed="Upper Wards · 點開看大圖", tilt=-1.4, small=True),
                  polaroid(photo("sharn-middle.jpg", "薩恩中層區地圖", full="sharn-middle.jpg"), "中層區：市場與酒館", typed="Middle Wards · 點開看大圖", tilt=0.8, small=True),
                  polaroid(photo("sharn-lower.jpg", "薩恩下層區地圖", full="sharn-lower.jpg"), "下層區：勞工、赤貧者與難民", typed="Lower Wards · 點開看大圖", tilt=-0.6, small=True), tilt=-0.4),
-        doc("城市上空與地底", "Above and Below", above, ref="卷三 · 第四頁", cls="cream wide", tilt=-0.5),
+        doc("地標與去處", "Landmarks and Things to Do", landmarks, ref="卷三 · 第四頁", cls="wide", tilt=0.3),
+        doc("城市上空與地底", "Above and Below", above, ref="卷三 · 第五頁", cls="cream wide", tilt=-0.5),
         doc("怎麼在薩恩移動", "Getting Around",
             polaroid(photo("sharn-sky-battle.jpg", "空中飛艇上的追逐戰，滑翔者在塔間穿梭"), "塔與塔之間的空中追逐", typed="skycoach · 每層兩枚銀君幣")
-            + moves, ref="卷三 · 第五頁", tilt=0.3),
-        doc("薩恩的面孔", "Faces of Sharn", faces + note("戰爭的痕跡", d["war_marks"]), ref="卷三 · 第六頁", cls="wide punched"),
+            + moves, ref="卷三 · 第六頁", tilt=0.3),
+        doc("薩恩地城", "Dungeons of Sharn", dungeons + note("女士日", d["ladys_day"], hand_written=True), ref="卷三 · 第七頁", cls="punched", tilt=-0.4),
+        doc("薩恩的面孔", "Faces of Sharn", faces + note("戰爭的痕跡", d["war_marks"]), ref="卷三 · 第八頁", cls="wide punched"),
         pinboard(polaroid(photo("sharn-criminals.jpg", "薩恩警衛的列隊照：半身人、幻身靈、化獸者與離夢人並肩站在量身牆前"),
                           "薩恩的罪犯：各種體型，甚至來自別的位面", typed="Sharn Watch lineup", tilt=-1.1, small=True),
                  polaroid(photo("tarkanan.jpg", "兩名塔卡南家族的成員在薩恩高塔之間交戰，異種龍紋迸出電光"),
                           "塔卡南的掠襲者與打手，在城市高處交手", typed="House Tarkanan", tilt=0.9, small=True)),
+        *crime_parts,
+        form("街頭幫派", "Street Gangs", table=gangs, no=("幫派清冊", "SHN-02"), ref="卷三 · 第十三頁", tilt=0.4,
+             lead="職業罪犯多半隸屬四大組織，但街上還有這些小幫派。"),
+        doc("執法力量", "Forces of the Law", forces + note("罪與罰", law["punishment"]), ref="卷三 · 第十四頁", cls="wide cream",
+            lead=law["intro"], tilt=-0.3),
+        form("薩恩警衛要人", "Who's Who in the Watch", table=people, no=("人事卡", "SHN-03"), ref="卷三 · 第十五頁", stamp="待查",
+             foot="<p>※ 人名的中文依譯本；英文拼法為本站依原著設定補上，待查。</p>"),
     )
 
 
