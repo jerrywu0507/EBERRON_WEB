@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 """各卷的內容頁。每一頁是一個攤開的檔案夾，裡面夾著幾件不同格式的文件：先一句話說清是什麼，再展開。"""
+import difflib
+import re
+
 import streamlit as st
 
 from guide import ui
@@ -7,6 +10,10 @@ from guide.ui import (esc, en, term, paras, note, memos, meta, tags, ledger, pla
                       doc, form, card, attached, slip, bizcards, page, raw)
 
 NUMS = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "十三"]
+
+# 術語表每個詞的出處（glossary.json 的 src 欄）→ 印在詞條右側的小字
+SRC_LABEL = {"history": "卷一", "nations": "卷二", "sharn": "卷三", "houses": "卷四", "races": "卷五",
+             "faiths": "卷六", "orgs": "卷六", "planes": "卷七", "appendix": "附錄", "extra": "補充"}
 
 
 def tabstrip(current=""):
@@ -60,6 +67,7 @@ def cover():
              prose="<h3>曆法</h3>" + paras(d["calendar"]["note"]), table=months,
              foot="<p>一週七天依序為 %s。</p>" % esc("、".join(d["calendar"]["days"])) + coins,
              no=("速記單", "REF-02"), ref="卷宗封面 · 第三頁", tilt=-0.3),
+        toc=False,
     )
 
 
@@ -424,12 +432,41 @@ def appendix():
         doc("官方書目與延伸閱讀", "Bibliography", paras(b["intro"]) + books + "<h3>延伸連結</h3>" + links, ref="附錄 · 第三頁", cls="wide cream", tilt=0.3),
         part="top",
     )
-    query = st.text_input("查術語", placeholder="輸入中文或英文，例如：龍紋、Sharn", label_visibility="visible")
-    q = (query or "").strip().lower()
-    terms = [x for x in g["terms"] if not q or q in x["zh"].lower() or q in x["en"].lower()]
-    items = "".join('<div>%s<span class="en">%s</span></div>' % (esc(x["zh"]), esc(x["en"])) for x in terms)
+    query = st.text_input("查術語", placeholder="輸入中文或英文，可以只打一部分，例如：龍紋、sharn、q barra", label_visibility="visible")
+    tokens = [t for t in (query or "").strip().lower().split() if t]
+
+    def _norm(s):
+        return re.sub(r"[^0-9a-z\u4e00-\u9fff]+", "", s.lower())
+
+    def _hit(x):
+        zh, en_ = x["zh"].lower(), x["en"].lower()
+        return all(t in zh or t in en_ or (_norm(t) and (_norm(t) in _norm(zh) or _norm(t) in _norm(en_))) for t in tokens)
+
+    def _mark(text):
+        out = esc(text)
+        for t in tokens:
+            out = re.sub("(%s)" % re.escape(t), r"<mark>\1</mark>", out, flags=re.I)
+        return out
+
+    terms = [x for x in g["terms"] if _hit(x)] if tokens else g["terms"]
+    items = "".join('<div>%s<span class="en">%s</span><span class="src">%s</span></div>'
+                    % (_mark(x["zh"]), _mark(x["en"]), SRC_LABEL.get(x.get("src"), "")) for x in terms)
+    if tokens and not terms:
+        pool = {}
+        for x in g["terms"]:
+            pool[x["en"].lower()] = x
+            pool[x["zh"]] = x
+        close = difflib.get_close_matches(" ".join(tokens), list(pool), n=5, cutoff=0.45)
+        seen, hints = set(), []
+        for c in close:
+            x = pool[c]
+            if x["en"] not in seen:
+                seen.add(x["en"])
+                hints.append("%s（%s）" % (esc(x["zh"]), esc(x["en"])))
+        items = '<p class="nohit">找不到「%s」。%s</p>' % (esc(query.strip()), ("你是不是要找：" + "、".join(hints) + "。") if hints else "試試只輸入一部分，或改用英文原名。")
+    count = ("符合 %d 個詞。" % len(terms)) if tokens else ("共 %d 個詞。" % len(terms))
     page(
-        doc("術語表", "Glossary", "<p>%s 共 %d 個詞。</p>" % (esc(g["intro"]), len(terms)) + '<div class="glossary">%s</div>' % items,
+        doc("術語表", "Glossary", "<p>%s %s</p>" % (esc(g["intro"]), count) + '<div class="glossary">%s</div>' % items,
             ref="附錄 · 第四頁", cls="wide"),
         doc("關於本站", None, paras(d["about"]), ref="附錄 · 第五頁", cls="cream", tilt=0.4),
         part="bottom",

@@ -421,6 +421,23 @@ section[data-testid="stSidebar"] [data-testid="stSidebarNavSeparator"] { display
 .glossary { columns: 2; column-gap: 32px; }
 .glossary div { break-inside: avoid; padding: 6px 0; border-bottom: 1px solid var(--rule-faint); font-size: 15px; }
 .glossary .en { margin-left: 0.6em; }
+.glossary .src { float: right; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: var(--ink-soft); margin-top: 3px; }
+.glossary mark, .doc mark { background: rgba(242, 196, 55, 0.55); color: inherit; padding: 0 1px; }
+.doc .nohit { color: var(--seal); }
+
+/* ---- the index card at the top of a volume (in-page anchors) and the small back-to-top tag ---- */
+.toc { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin: 0 0 20px; padding: 10px 16px 11px;
+  background: var(--fibre) repeat, var(--kraft-light); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35), var(--lift); font-size: 13.5px; }
+.toc .head { font-family: var(--mono); font-weight: 700; font-size: 11.5px; letter-spacing: 0.16em; color: var(--kraft-ink); margin-right: 4px; }
+.toc a { color: var(--kraft-ink); text-decoration: none; border-bottom: 1px dotted rgba(58, 44, 21, 0.6); padding: 1px 0; white-space: nowrap; }
+.toc a i { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--seal); margin-right: 5px; letter-spacing: 0.06em; }
+.toc a:hover, .toc a:focus-visible { border-bottom-style: solid; outline: none; }
+.totop { position: fixed; right: 152px; bottom: 22px; z-index: 40; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  background: var(--fibre) repeat, var(--kraft-light); color: var(--kraft-ink); text-decoration: none; font-family: var(--mono); font-size: 13px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), var(--lift); transition: transform 180ms var(--ease); }
+.totop:hover { transform: translateY(-2px); }
+[data-testid="stMain"], html { scroll-behavior: smooth; }
+.folder > [id^="sec-"] { scroll-margin-top: 16px; }
 .stTextInput input { background: var(--bond); border: 1px solid var(--rule); border-radius: 0; font-family: var(--serif); }
 .stTextInput input:focus { box-shadow: 0 0 0 2px rgba(194,50,31,0.25); border-color: var(--seal); }
 
@@ -466,6 +483,19 @@ section[data-testid="stSidebar"] [data-testid="stSidebarNavSeparator"] { display
   .polaroid { padding: 8px 8px 42px; }
   .ledger { font-size: 14px; }
   .ledger th, .ledger td { padding: 7px 6px; }
+  /* three-or-more-column tables become one card per row: label printed before each value, short values side by side */
+  .ledger.stack thead { display: none; }
+  .ledger.stack, .ledger.stack tbody, .ledger.stack tr { display: block; }
+  .ledger.stack tr { padding: 10px 0 12px; border-bottom: 1px solid var(--rule); }
+  .ledger.stack td { display: block; padding: 2px 0; border: 0; }
+  .ledger.stack td:first-child { font-weight: 600; font-size: 15.5px; padding-bottom: 4px; }
+  .ledger.stack td:first-child .en { font-weight: 400; }
+  .ledger.stack td:not(:first-child)::before { content: attr(data-label); display: inline-block; margin-right: 8px; font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: 0.12em; color: var(--seal); }
+  .ledger.stack td.num, .ledger.stack td.short { display: inline-block; margin-right: 16px; vertical-align: top; }
+  .ledger.stack td .stamp-inline { vertical-align: middle; }
+  .toc { gap: 4px 12px; padding: 9px 12px 10px; font-size: 13px; }
+  .totop { right: 14px; bottom: 14px; }
+  .glossary .src { float: none; display: block; margin: 0; }
   .plate .art { overflow-x: auto; scrollbar-width: thin; }
   .plate .art svg { min-width: 560px; }
   .glossary { columns: 1; }
@@ -474,7 +504,8 @@ section[data-testid="stSidebar"] [data-testid="stSidebarNavSeparator"] { display
 
 @media (prefers-reduced-motion: reduce) {
   .cover .band, .folder > .doc:first-child, .folder > .form:first-child, .folder > .card:first-child, .folder > :first-child > .stamp { animation: none; }
-  .cover .open, section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a { transition: none; transform: none; }
+  .cover .open, section[data-testid="stSidebar"] [data-testid="stSidebarNav"] a, .totop { transition: none; transform: none; }
+  [data-testid="stMain"], html { scroll-behavior: auto; }
 }
 
 /* ---- a folder split in two halves so a Streamlit widget (the glossary search) can sit inside it ---- */

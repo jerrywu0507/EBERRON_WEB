@@ -3,12 +3,15 @@
 
 用法：  .venv\Scripts\python.exe tools\build_fonts.py
 - 原始 OTF 太大（每個 24 MB）不進版控；第一次執行會下載到 ~/.cache/eberron-fonts/。
-- 字元集 = data/*.json + guide/*.py + app.py 的所有字元 + 常用標點與數字區段。
-- 新增內容含新字後重跑一次；沒跑也不會壞：CSS 仍保留 Google Fonts 作後備。
+- 正文字重 400 的字元集 = data/*.json + guide/*.py + app.py 的所有字元 + 常用標點與數字區段。
+- 標題字重 600 / 900 與手寫體只收「頁面上真的以那個字重／字型顯示過的字」（tools/fontsets.json，
+  由 tools/collect_chars.py 從跑著的站台收集；缺這個檔就退回全字集）。這讓首次載入的字型從約 3.9 MB 降到一半以下。
+- 新增內容含新字後：先 collect_chars.py 再重跑本腳本；沒跑也不會壞：CSS 仍保留 Google Fonts 作後備，缺的字落回線上字型。
 需要：pip install fonttools brotli
 """
 import glob
 import io
+import json
 import os
 import sys
 import urllib.request
@@ -36,6 +39,22 @@ def site_chars():
         with io.open(f, encoding="utf-8") as fh:
             chars |= set(fh.read())
     return "".join(sorted(c for c in chars if ord(c) > 0x7F and not c.isspace()))
+
+
+def display_sets():
+    """tools/fontsets.json 裡各字重實際用到的字；沒有檔案時回傳 None（全部退回全字集）。"""
+    path = os.path.join(ROOT, "tools", "fontsets.json")
+    if not os.path.exists(path):
+        print("tools/fontsets.json 不存在，600/900/手寫體使用全字集（先跑 tools/collect_chars.py 可瘦身）")
+        return None
+    with io.open(path, encoding="utf-8") as fh:
+        data = json.load(fh)
+    # 700 / 800 沒有自己的字型檔，瀏覽器會拿 900 來用，所以併進 900
+    return {
+        600: data.get("serif600", ""),
+        900: "".join(sorted(set(data.get("serif900", "")) | set(data.get("serif700", "")) | set(data.get("serif800", "")))),
+        "hand": data.get("hand", ""),
+    }
 
 
 def fetch(name, url=None):
@@ -67,10 +86,15 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     text = site_chars()
     print("site characters:", len(text))
+    shown = display_sets()
     for face, weight in FACES:
-        subset_to(fetch("NotoSerifCJKtc-%s.otf" % face), os.path.join(OUT, "NotoSerifTC-%d.woff2" % weight), text)
+        chars = text if (shown is None or weight == 400) else shown[weight]
+        print("weight %d: %d characters" % (weight, len(chars)))
+        subset_to(fetch("NotoSerifCJKtc-%s.otf" % face), os.path.join(OUT, "NotoSerifTC-%d.woff2" % weight), chars)
     url, name, out = HAND
-    subset_to(fetch(name, url), os.path.join(OUT, out), text)
+    chars = text if shown is None else shown["hand"]
+    print("hand: %d characters" % len(chars))
+    subset_to(fetch(name, url), os.path.join(OUT, out), chars)
 
 if __name__ == "__main__":
     sys.exit(main())

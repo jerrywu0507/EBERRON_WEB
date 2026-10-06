@@ -175,10 +175,18 @@ def _tilt(t):
     return ' style="--tilt:%sdeg"' % t if t is not None else ""
 
 
+def _toc(title):
+    """文件的目錄標題屬性；folder() 讀它來排卷內目錄並配 id。"""
+    return ' data-toc="%s"' % html.escape(str(title), quote=True) if title else ""
+
+
+_TOC_RE = re.compile(r'^<section class="(?:doc|form|card|slip)[^"]*"[^>]*?data-toc="([^"]*)"')
+
+
 # ---------------------------------------------------------------- 文件
 def doc(title, title_en=None, body="", ref=None, stamp=None, cls="", lead=None, bureau=None, tilt=None):
     """一張白色公文紙。title 為 None 時是接在檔案卡後面的續頁（cls 加 attached）。"""
-    parts = ['<section class="doc %s"%s>' % (cls, _tilt(tilt))]
+    parts = ['<section class="doc %s"%s%s>' % (cls, _tilt(tilt), _toc(title))]
     if bureau:
         parts.append('<div class="bureau"><span>%s</span><span>%s</span></div>' % (esc(bureau[0]), esc(bureau[1])))
     if stamp:
@@ -205,7 +213,7 @@ def form(title, title_en=None, rows=None, ref=None, no=None, lead=None, log=None
          prose=None, stamp=None, tilt=None, plain_log=False, extra=""):
     """一張印好格式的記錄單。rows 是 (欄名, 值HTML) 的欄位列，短的值用手寫；log 是 (鍵, 事項HTML, 內文HTML) 的條目；
     table 是 ledger HTML；prose 是段落 HTML；foot 是腳註 HTML。"""
-    parts = ['<section class="form"%s>' % _tilt(tilt)]
+    parts = ['<section class="form"%s%s>' % (_tilt(tilt), _toc(title))]
     if stamp:
         parts.append('<div class="stamp">%s</div>' % esc(stamp))
     no_html = ""
@@ -246,7 +254,7 @@ def form(title, title_en=None, rows=None, ref=None, no=None, lead=None, log=None
 def card(name, name_en, fields, line=None, stamp=None, tilt=None, emblem=None):
     """紅色檔案卡：名稱、原名、一句話、欄位。左緣一枚鐵夾。長文放在後面 attached 的白紙上。
     emblem 是貼在卡片右上角的一張小相片（國旗、徽章），像檔案卡上的證件照。"""
-    parts = ['<section class="card%s"%s>%s' % (" has-emblem" if emblem else "", _tilt(tilt), BINDER)]
+    parts = ['<section class="card%s"%s%s>%s' % (" has-emblem" if emblem else "", _tilt(tilt), _toc(name), BINDER)]
     if emblem:
         parts.append('<div class="emblem tape">%s</div>' % emblem)
     if stamp:
@@ -267,7 +275,7 @@ def attached(body, ref=None, cls="", tilt=None):
 
 def slip(title, title_en, body, stamp=None, tilt=None):
     """黃色警示紙。"""
-    parts = ['<section class="slip"%s>' % _tilt(tilt)]
+    parts = ['<section class="slip"%s%s>' % (_tilt(tilt), _toc(title))]
     if stamp:
         parts.append('<div class="stamp">%s</div>' % esc(stamp))
     parts.append("<h2>%s%s</h2>" % (esc(title), en(title_en)))
@@ -297,13 +305,22 @@ def tags(items):
 
 
 def ledger(cols, rows):
-    """打字機表格。cols: [(key, 標題, 是否數字欄)]；rows: dict 列表，值可為 HTML。"""
+    """打字機表格。cols: [(key, 標題, 是否數字欄)]；rows: dict 列表，值可為 HTML。
+    三欄以上的表在手機上改成一列一張（.stack）：欄名寫進 data-label 由 CSS 印在值前面，短值（.short）並排成一行。"""
     head = "".join('<th class="%s">%s</th>' % ("num" if num else "", esc(label)) for key, label, num in cols)
     body = []
     for r in rows:
-        body.append("<tr>%s</tr>" % "".join(
-            '<td class="%s">%s</td>' % ("num" if num else "", r.get(key, "")) for key, label, num in cols))
-    return '<table class="ledger"><thead><tr>%s</tr></thead><tbody>%s</tbody></table>' % (head, "".join(body))
+        cells = []
+        for key, label, num in cols:
+            v = r.get(key, "")
+            cls = ["num"] if num else []
+            if not num and len(re.sub(r"<[^>]+>", "", str(v))) <= 14:
+                cls.append("short")
+            cells.append('<td class="%s" data-label="%s">%s</td>' % (" ".join(cls), esc(label), v))
+        body.append("<tr>%s</tr>" % "".join(cells))
+    stack = " stack" if len(cols) >= 3 else ""
+    return '<table class="ledger%s" data-cols="%d"><thead><tr>%s</tr></thead><tbody>%s</tbody></table>' % (
+        stack, len(cols), head, "".join(body))
 
 
 def bizcards(items, index=False):
@@ -346,11 +363,26 @@ def stamp_inline(text, kind="ok"):
     return '<span class="stamp %s">%s</span>' % (kind, esc(text))
 
 
-def folder(*parts, part=None):
-    """攤開的檔案夾；part 是 top / bottom 時，兩半之間可以放 Streamlit 元件。"""
+def folder(*parts, part=None, toc=True):
+    """攤開的檔案夾；part 是 top / bottom 時，兩半之間可以放 Streamlit 元件。
+    toc=True 且有三件以上有標題的文件時，夾子最上面放一張「卷內目錄」索引卡（頁內錨點），右下角給一枚回頂端的小籤。"""
     cls = "folder" + (" " + part if part else "")
-    return '<div class="%s">%s</div>' % (cls, "".join(parts))
+    parts = list(parts)
+    entries = []
+    if toc and part != "bottom":
+        for i, p in enumerate(parts):
+            m = _TOC_RE.match(p)
+            if m:
+                n = len(entries) + 1
+                parts[i] = p.replace("<section ", '<section id="sec-%d" ' % n, 1)
+                entries.append((n, m.group(1)))
+    head = tail = ""
+    if len(entries) >= 3:
+        head = ('<div id="top"></div><nav class="toc" aria-label="卷內目錄"><span class="head">卷內目錄</span>'
+                + "".join('<a href="#sec-%d"><i>%02d</i>%s</a>' % (n, n, t) for n, t in entries) + "</nav>")
+        tail = '<a class="totop" href="#top" aria-label="回到頂端" title="回到頂端">▲</a>'
+    return '<div class="%s">%s%s%s</div>' % (cls, head, "".join(parts), tail)
 
 
-def page(*parts, part=None):
-    raw(folder(*parts, part=part))
+def page(*parts, part=None, toc=True):
+    raw(folder(*parts, part=part, toc=toc))

@@ -36,7 +36,8 @@ Community Cloud 的坑：推新提交後，雲端會把檔案拉進**執行中�
 | `static/fonts/`、`static/paper-grain.png`、`static/kraft-grain.png` | 自帶字型子集（思源宋體 400/600/900、Courier Prime、霞鶩文楷 TC 手寫）與白紙／牛皮紙紋貼圖；`config.toml` 開了 `enableStaticServing`，網址一律用**相對路徑** `app/static/...`（不能有開頭斜線：Community Cloud 把 app 放在 `/~/+/` 基底路徑下，絕對路徑會打到代理層拿回外殼 HTML，圖片就破） |
 | `PNG/` | 使用者提供的原圖（進版控，含 `五國國國旗/`、`薩恩地圖/` 子資料夾；檔名常是一句描述，先看圖再決定位置與圖說） |
 | `static/*.jpg` | 從 `PNG/` 轉成的網頁用圖，以 `ui.photo()` 放進拍立得：科瓦雷全圖 `map-khorvaire`（第二卷卷首，另有 `-full` 點開版）、世界全圖 `map-world`（第二卷遠方諸地前）、薩恩剖面 `sharn-cross-section`（第三卷，`-full`）、薩恩上中下層區圖 `sharn-upper/middle/lower`（第三卷五個大區後）、莫格雷夫大學 `morgrave`（第三卷卷首，浮在正文右側）、空中追逐 `sharn-sky-battle`（第三卷怎麼移動）、四個種族畫像 `race-warforged/shifter/changeling/kalashtar`（第五卷各自的白紙）、諸位面地圖 `planes-map`（第七卷卷首後，`-full`）、元素飛艇 `airship`（封面三大基調，浮在正文右側）、薩恩罪犯列隊 `sharn-criminals`（第三卷薩恩的面孔後）、龍紋家族代理人 `house-agents-1/2`（第四卷十二家族名片後，兩張並排）、翡翠利爪 `emerald-claw`（第六卷翡翠利爪教團的白紙）、五國國旗 `flag-aundair/breland/karrnath/thrane/cyre`（第二卷各國檔案卡右上角的證件照位置，`card(emblem=photo(...))`，轉檔時裁掉白邊）、家族聯手查案 `houses-murder`（第四卷卷首，浮在正文右側）、塔卡南交戰 `tarkanan`（第三卷，與罪犯列隊並排）。新圖：放進 `PNG/`，轉成 ≤1100px 的 JPEG（大圖另存 ≤2000px 的 `-full`），用 `polaroid(photo(...), 手寫圖說, typed=打字機小字, tall=直幅, small=並排)` 夾到對應的文件。`photo()` 在執行中的程序沒有 `/app/static` 路由時（雲端拉檔不重啟）會自動改成 data URI 內嵌，`load()` 的快取鍵含資料檔的修改時間 |
-| `tools/build_fonts.py` | 重建四個字型子集（需 `pip install fonttools brotli`；原始 OTF／TTF 會下載到 `~/.cache/eberron-fonts/`） |
+| `tools/build_fonts.py` | 重建四個字型子集（需 `pip install fonttools brotli`；原始 OTF／TTF 會下載到 `~/.cache/eberron-fonts/`）。正文 400 收全站字元；600／900／手寫體只收 `tools/fontsets.json` 裡「頁面上真的以那個字重顯示過的字」，首次載入字型約 1.4 MB（原本 3.9 MB） |
+| `tools/collect_chars.py` | 從跑著的本機站台（桌面與手機各一遍）收集每個字型／字重實際用到的字，寫 `tools/fontsets.json`；改內容後先跑它再跑 `build_fonts.py` |
 | `assets/favicon.png` | 自製網站圖示（靛藍卷宗＋朱印） |
 | `data/*.json` | 全部文字內容：overview、history、nations、sharn、houses、races、faiths、orgs、planes、appendix、glossary |
 | `tools/build_glossary.py` | 從各卷資料的中英成對欄位＋內建補充清單重建 `data/glossary.json`（**不要手改 glossary.json**） |
@@ -51,7 +52,10 @@ Community Cloud 的坑：推新提交後，雲端會把檔案拉進**執行中�
 - 專有名詞譯法依 5e 不全書的《艾伯倫：從終末戰爭中崛起》簡中譯本（https://5echm.kagangtuya.top/?page=艾伯倫：從終末戰爭中崛起/艾伯倫：從終末戰爭中崛起.htm ，內容在 `topics/` 下各章 .htm），簡轉繁用 OpenCC `s2tw`（不要用 `s2twp`，它會把「歐拉卓」轉成「尤拉卓」）。2026-09-28 全站核對過：King's Citadel＝國王堡壘、King's Dark Lanterns＝國王暗燈、Sul Khatesh＝蘇·珂帝室，其餘一致；譯本沒有的名字（Jaela Daran、Phiarlan、Riedra、Sharn Inquisitive 等）沿用本站譯法。
 - 新增專有名詞時，資料裡用成對欄位（`name`/`en`、`capital`/`capital_en`、`mark`/`mark_en`、`house`/`house_en`、`seat`/`seat_en`），再跑 `tools/build_glossary.py` 讓術語表跟上；純句子裡的名詞請加進腳本的 `EXTRA` 清單。
 - 頁面組版：每一卷是一個攤開的夾子 `page(*docs)`，裡面放不同格式的文件（回傳 HTML 字串）：`doc()` 白紙（`cls="head punched"` 卷首、`cream` 米色、`wide`、`attached` 接在卡後）、`form()` 記錄單（欄位列 `rows`／條目列 `log`／表格 `table`）、`card()` 紅色檔案卡＋`attached()` 白紙、`slip()` 黃色警示紙、`note()`／`memos()` 便條、`bizcards()` 名片、`pinboard(polaroid(...))` 方格紙上的拍立得。同一頁相鄰兩件文件不要同格式；每件給一個小傾角 `tilt=`。Streamlit 元件要放進夾子時用 `page(..., part="top")` 與 `part="bottom"` 夾在中間（附錄的術語查詢就是這樣）。
-- 新增內容含新字後跑 `tools/build_fonts.py`（沒跑也不會壞：缺的字會落回 Google Fonts，只是那幾個字會慢一點出現）。
+- 新增內容含新字後：站台跑著時先 `tools/collect_chars.py`，再 `tools/build_fonts.py`（沒跑也不會壞：缺的字會落回 Google Fonts，只是那幾個字會慢一點出現）。
+- 卷內目錄與回頂端：`folder()` 看到三件以上帶標題的文件（doc／form／card／slip 的 `data-toc`）就自動在夾子最上面放「卷內目錄」索引卡（頁內錨點 `#sec-N`）並在右下角給回頂端小籤；封面用 `page(..., toc=False)` 關掉。
+- 三欄以上的 `ledger()` 在手機上自動改成一列一張（`.ledger.stack`，欄名由 `data-label` 印在值前，短值並排）；兩欄表維持表格。
+- 術語表搜尋：空白分詞、中英都比、忽略標點（`q barra` 找得到 Q'barra）、命中處用 `<mark>` 標黃、每個詞條右側印出處卷（`SRC_LABEL`），找不到時用 difflib 提示相近詞。
 - 新增一卷：`ui.VOLUMES` 加一項（`path`、`tab` 色、`weight`），`app.py` 的 `FUNCS` 對應頁面函式，頁面函式第一行呼叫 `tabstrip("<path>")`，卷首用 `doc(..., cls="head punched", bureau=_bureau("第N卷", "ENGLISH TITLE"))`。
 - 設計底線（來自 DESIGN.md）：顏色只用 `:root` 的 token；整片紅只有檔案卡與封面橫帶，整片黃只有警示紙；手寫（`--hand`）只用在短欄位、便條、圖說、封面一句話，正文永遠宋體，表單欄名與編號永遠 Courier；紙不做圓角、不畫框做層級；入場動作只有兩個節拍（封面橫帶落下；翻卷時首件文件落下、章蓋下）；文字對比 ≥ 4.5:1；英文原名用 `en()`；圖像只有使用者提供的照片與自繪 SVG 圖版，都以拍立得貼在方格紙上。
 - 事實不確定就蓋「待查」章（`stamp="待查"` 或帳冊裡 `stamp_inline("待查", "tbd")`），不要下斷言。目前待查：《奇械鍛爐》《尋路者指南》是否有中文譯本；薩恩人口寫成「各版設定書估計約二十萬至五十萬」。
@@ -67,6 +71,7 @@ Community Cloud 的坑：推新提交後，雲端會把檔案拉進**執行中�
 5. 文件代理寫出 DESIGN.md 與 `.impeccable/design.json`。
 6. 完工後追加：圖版一擴成科瓦雷全境（16 地區＋王座堡，含圖例），「其他區域」帳冊加首府與王座堡條約承認狀態，手機上圖版可橫向拖動。
 8. 全面改版成牛皮紙案卷（2026-09-29，使用者指定參考：Bureau of Mythology 式檔案夾＋雜誌版式圖；問答後決定整套換、單欄但每張紙格式不同、不加圖、四種物件全要）：新的 `ui.py` 文件零件與 `pages.py` 組版、新 `styles.css`、霞鶩文楷手寫字型子集、牛皮紙紋；DESIGN.md 的 Design System 全部重寫。
+9. 體檢後優化（2026-10-06，使用者選了四個方向）：字型瘦身（`collect_chars.py` + `fontsets.json`，3.9 MB → 1.4 MB，無 Google 後備請求）、薩恩三張分區圖減半、手機三欄以上表格改堆疊、卷內目錄索引卡與回頂端、術語表搜尋強化；內容擴充另案進行。
 7. 質感升級（2026-09-28，依 frontend-design 與 taste-skill 的改版流程）：紅格線改為跟著段落走、手機段落靠左、用箋不隨滑鼠抬起；自帶字型子集、紙紋、桌面受光；封面加檔案標籤紙、暗紋圓章、書脊凸帶、磨損暗角；卷首用箋與章的入場動作；圖版二薩恩剖面；DESIGN.md 同步。
 
 說明：這台機器的 Claude Code 沒有註冊 Impeccable 內建的審查／文件代理，審查與文件是由一般代理照 `~/.claude/skills/impeccable/reference/degraded/*.md` 代跑的；Impeccable 技能本身裝在 `~/.claude/skills/impeccable`（原始碼 https://github.com/pbakaus/impeccable ，當時官方安裝器 404，是手動下載檔案安裝的），新電腦要另外裝。
